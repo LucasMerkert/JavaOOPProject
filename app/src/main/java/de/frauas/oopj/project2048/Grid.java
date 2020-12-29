@@ -20,6 +20,9 @@ public class Grid {
         matrix = new Tile[width][height];
     }
 
+    /**
+     * 
+     */
     void swipeUp() {
         for(int column=0; column<width; column++) {
             for(int row=0; row<height; row++) {
