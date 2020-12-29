@@ -27,4 +27,12 @@ public class Tile {
         }
     }
 
+    @Override
+    /**
+     * Outputs tile as String; Overrides 'toString()' from java.lang.Object
+     */
+    public String toString(){
+        return "("+ Integer.toString(value) + ")";
+    }
+
 }
