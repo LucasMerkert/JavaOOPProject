@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
-
+        Intent grid4x4open = new Intent(this, Grid4x4.class);
+        startActivity(grid4x4open);
     }
 
 }

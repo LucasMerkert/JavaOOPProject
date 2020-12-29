@@ -3,6 +3,7 @@ package de.frauas.oopj.project2048;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class Grid4x4 extends AppCompatActivity {
 
@@ -10,5 +11,8 @@ public class Grid4x4 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid4x4);
+
+        TextView textView = findViewById(R.id.textView20);
+        textView.setText("Hello this is test");
     }
 }
