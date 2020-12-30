@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">JavaOOPProject</string>
+    <string name="game_title">2048</string>
+    <string name="start4x4button">Start 4x4 game</string>
+    <string name="start5x5button">Start 5x5 game</string>
+    <string name="start6x6button">Start 6x6 game</string>
 </resources>

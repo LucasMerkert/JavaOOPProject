@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -18,9 +19,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*
+          Sets up an on-click-listener for each button, executing the respective code block assigned to the button-listener
+         */
+        final Button _button4x4 = findViewById(R.id.button4x4);
+        _button4x4.setOnClickListener(v -> {
+            //Button 4x4 is clicked; Start 4x4 View
+            open4x4activity();
+        });
+/*
+        final Button _button5x5 = findViewById(R.id.button5x5);
+        _button5x5.setOnClickListener(v -> {
+            @Override
+            public void onClick(View v) {
+                //Button 5x5 is clicked; Start 4x4 View
+                open5x5activity();
+            }
+        });
+
+        final Button _button6x6 = findViewById(R.id.button6x6);
+        _button6x6.setOnClickListener(v -> {
+            @Override
+            public void onClick(View v) {
+                //Button 6x6 is clicked; Start 4x4 View
+                open5x5activity();
+            }
+        });*/
     }
 
-    public void sendMessage(View view) {
+    public void open4x4activity(){
         Intent grid4x4open = new Intent(this, Grid4x4.class);
         startActivity(grid4x4open);
     }
