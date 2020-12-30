@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         _button5x5.setOnClickListener(v -> {
             @Override
             public void onClick(View v) {
-                //Button 5x5 is clicked; Start 4x4 View
+                //Button 5x5 is clicked; Start 5x5 View
                 open5x5activity();
             }
         });
@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         _button6x6.setOnClickListener(v -> {
             @Override
             public void onClick(View v) {
-                //Button 6x6 is clicked; Start 4x4 View
-                open5x5activity();
+                //Button 6x6 is clicked; Start 6x6 View
+                open6x6activity();
             }
         });*/
     }
