@@ -23,7 +23,7 @@ public class Grid4x4 extends AppCompatActivity {
         matrix[0][2] = findViewById(R.id.textView0_2);
 
 
-        matrix[0][0].setText("This is text");
+        matrix[0][0].setText("This is text"); 
     }
 
 
