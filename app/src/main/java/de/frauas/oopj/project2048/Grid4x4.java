@@ -1,12 +1,12 @@
 package de.frauas.oopj.project2048;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class Grid4x4 extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class Grid4x4 extends AppCompatActivity {
         HEIGHT = getIntent().getIntExtra("EXTRA_GRID_HEIGHT", 0);
         WIDTH = getIntent().getIntExtra("EXTRA_GRID_WIDTH", 0);
         TextView titleText = findViewById(R.id.InGameTitleString);
-        titleText.setText("This is a " + Integer.toString(HEIGHT) + "x" + Integer.toString(WIDTH) + " game.");
+        titleText.setText(String.format("This is a %dx%d game.", HEIGHT, WIDTH));
 
 
         // Create a ConstraintLayout in which to add the ImageView
