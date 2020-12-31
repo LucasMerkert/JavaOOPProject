@@ -21,7 +21,6 @@
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="387dp"
-        android:layout_height="387dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginEnd="10dp"
@@ -31,7 +30,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="387dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView0_0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="1dp"
@@ -50,11 +50,10 @@
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="#FBF5F5"
-                android:gravity="center"
-                android:text="@string/gridTile" />
+                android:gravity="center" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView0_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="1dp"
@@ -65,11 +64,10 @@
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="#FBF5F5"
-                android:gravity="center"
-                android:text="@string/gridTile" />
+                android:gravity="center" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView0_2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="1dp"
@@ -80,8 +78,7 @@
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="#FBF5F5"
-                android:gravity="center"
-                android:text="@string/gridTile" />
+                android:gravity="center" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -96,7 +93,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
         </TableRow>
 
@@ -118,7 +115,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -133,7 +130,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -148,7 +145,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -163,7 +160,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
         </TableRow>
 
         <TableRow
@@ -184,7 +181,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -199,7 +196,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -214,7 +211,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -229,7 +226,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
         </TableRow>
 
@@ -251,7 +248,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -266,7 +263,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -281,7 +278,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -296,7 +293,7 @@
                 android:layout_weight="1"
                 android:background="#FBF5F5"
                 android:gravity="center"
-                android:text="@string/gridTile" />
+                android:text="X" />
 
         </TableRow>
 
