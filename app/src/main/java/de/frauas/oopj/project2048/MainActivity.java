@@ -46,12 +46,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void open4x4activity(){
         Intent grid4x4open = new Intent(this, Grid4x4.class);
-        grid4x4open.putExtra("EXTRA_GRID_HEIGHT", 5);
+        grid4x4open.putExtra("EXTRA_GRID_HEIGHT", 4);
+        grid4x4open.putExtra("EXTRA_GRID_WIDTH", 4);
         startActivity(grid4x4open);
     }
 
     private void open5x5activity() {
-        Intent grid5x5open = new Intent(this, Grid5x5.class);
+        Intent grid5x5open = new Intent(this, Grid4x4.class);
+        grid5x5open.putExtra("EXTRA_GRID_HEIGHT", 5);
+        grid5x5open.putExtra("EXTRA_GRID_WIDTH", 5);
         startActivity(grid5x5open);
     }
 
