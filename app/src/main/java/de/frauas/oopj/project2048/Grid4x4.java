@@ -11,5 +11,9 @@ public class Grid4x4 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid4x4);
+
+        int gridHeight = getIntent().getIntExtra("EXTRA_GRID_HEIGHT", 0);
+        TextView textView = findViewById(R.id.textView20);
+        textView.setText(gridHeight + "");
     }
 }

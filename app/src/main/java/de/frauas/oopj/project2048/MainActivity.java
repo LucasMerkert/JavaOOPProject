@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void open4x4activity(){
         Intent grid4x4open = new Intent(this, Grid4x4.class);
+        grid4x4open.putExtra("EXTRA_GRID_HEIGHT", 5);
         startActivity(grid4x4open);
     }
 
