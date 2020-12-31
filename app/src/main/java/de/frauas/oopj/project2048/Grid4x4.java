@@ -1,9 +1,12 @@
 package de.frauas.oopj.project2048;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Grid4x4 extends AppCompatActivity {
@@ -22,13 +25,23 @@ public class Grid4x4 extends AppCompatActivity {
         textView.setText(gridHeight + "");
 
 
-        TextView[][] matrix = new TextView[WIDTH][HEIGHT];
-        matrix[0][0] = findViewById(R.id.textView0_0);
-        matrix[0][1] = findViewById(R.id.textView0_1);
-        matrix[0][2] = findViewById(R.id.textView0_2);
+        // Create a ConstraintLayout in which to add the ImageView
+        ConstraintLayout constraintLayout = new ConstraintLayout(this);
 
+        // Instantiate an ImageView and define its properties
+        ImageView i = new ImageView(this);
+        i.setImageResource(R.drawable.background4x4);
+        //i.setContentDescription(getResources().getString(R.string.));
 
-        matrix[0][0].setText("This is text");
+        // set the ImageView bounds to match the Drawable's dimensions
+        i.setAdjustViewBounds(true);
+        i.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        // Add the ImageView to the layout and set the layout as the content view.
+        constraintLayout.addView(i);
+        setContentView(constraintLayout);
     }
 
 
