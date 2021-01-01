@@ -9,13 +9,25 @@
 
     <TextView
         android:id="@+id/InGameTitleString"
-        android:layout_width="133dp"
-        android:layout_height="73dp"
+        android:layout_width="227dp"
+        android:layout_height="40dp"
         android:text="@string/inGameTitleString"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.193" />
+        app:layout_constraintVertical_bias="0.200" />
+
+    <ImageView
+        android:id="@+id/gameGrid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/gameGridDescription"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@color/purple_500" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,7 @@ public class Grid4x4 extends AppCompatActivity {
         ConstraintLayout constraintLayout = new ConstraintLayout(this);
 
         // Instantiate an ImageView and define its properties
-        ImageView background_image = new ImageView(this);
+        ImageView background_image = findViewById(R.id.gameGrid);
         background_image.setImageResource(R.drawable.background4x4);
         //background_image.setContentDescription(getResources().getString(R.string.));
 
