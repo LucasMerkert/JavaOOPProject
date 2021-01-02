@@ -35,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
             open5x5activity();
         });
 
-        /*
         final Button _button6x6 = findViewById(R.id.button6x6);
         _button6x6.setOnClickListener(v -> {
             //Button 6x6 is clicked; Start 6x6 View
             open6x6activity();
-            }
-        });*/
+        });
     }
 
-    public void open4x4activity(){
+
+
+    private void open4x4activity(){
         Intent grid4x4open = new Intent(this, Grid4x4.class);
         grid4x4open.putExtra("EXTRA_GRID_HEIGHT", 4);
         grid4x4open.putExtra("EXTRA_GRID_WIDTH", 4);
@@ -56,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         grid5x5open.putExtra("EXTRA_GRID_HEIGHT", 5);
         grid5x5open.putExtra("EXTRA_GRID_WIDTH", 5);
         startActivity(grid5x5open);
+    }
+
+    private void open6x6activity() {
+        Intent grid6x6open = new Intent(this, Grid4x4.class);
+        grid6x6open.putExtra("EXTRA_GRID_HEIGHT", 6);
+        grid6x6open.putExtra("EXTRA_GRID_WIDTH", 6);
+        startActivity(grid6x6open);
     }
 
 }
