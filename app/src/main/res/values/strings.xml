@@ -4,7 +4,6 @@
     <string name="start4x4button">Start 4x4 game</string>
     <string name="start5x5button">Start 5x5 game</string>
     <string name="start6x6button">Start 6x6 game</string>
-    <string name="gridTile"></string>
     <string name="inGameTitleString">Hallo und einen guten Tag</string>
     <string name="gameGridDescription">background game grid</string>
 </resources>

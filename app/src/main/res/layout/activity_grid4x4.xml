@@ -9,7 +9,7 @@
     tools:context=".Grid4x4">
 
     <TextView
-        android:id="@+id/InGameTitleString"
+        android:id="@+id/inGameTitleString"
         android:layout_width="227dp"
         android:layout_height="40dp"
         android:text="@string/inGameTitleString"

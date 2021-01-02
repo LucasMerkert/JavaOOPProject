@@ -1,12 +1,12 @@
 package de.frauas.oopj.project2048;
 
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+
+import java.util.Locale;
 
 public class Grid4x4 extends AppCompatActivity {
 
@@ -21,8 +21,8 @@ public class Grid4x4 extends AppCompatActivity {
         HEIGHT = getIntent().getIntExtra("EXTRA_GRID_HEIGHT", 0);
         WIDTH = getIntent().getIntExtra("EXTRA_GRID_WIDTH", 0);
 
-        TextView titleText = findViewById(R.id.InGameTitleString);
-        titleText.setText(String.format("This is a %dx%d game.", HEIGHT, WIDTH));
+        TextView titleText = findViewById(R.id.inGameTitleString);
+        titleText.setText(String.format(Locale.ENGLISH,"This is a %dx%d game.", HEIGHT, WIDTH));
 
         // Instantiate an ImageView and define its properties
         ImageView background_image = findViewById(R.id.gameGrid);
