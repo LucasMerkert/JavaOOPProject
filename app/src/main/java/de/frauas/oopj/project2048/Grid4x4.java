@@ -23,9 +23,9 @@ public class Grid4x4 extends AppCompatActivity {
         TextView titleText = findViewById(R.id.InGameTitleString);
         titleText.setText(String.format("This is a %dx%d game.", HEIGHT, WIDTH));
 
-
+    /*
         // Create a ConstraintLayout in which to add the ImageView
-        ConstraintLayout constraintLayout = new ConstraintLayout(this);
+        ConstraintLayout constraintLayout = findViewById(R.id.activity_grid_layout);
 
         // Instantiate an ImageView and define its properties
         ImageView background_image = findViewById(R.id.gameGrid);
@@ -39,8 +39,9 @@ public class Grid4x4 extends AppCompatActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
         // Add the ImageView to the layout and set the layout as the content view.
+
         constraintLayout.addView(background_image);
-        setContentView(constraintLayout);
+        setContentView(constraintLayout);*/
     }
 
 
