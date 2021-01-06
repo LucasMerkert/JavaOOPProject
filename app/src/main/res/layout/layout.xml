@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/layout_scene"
+    app:motionDebug="SHOW_PROGRESS">
 
     <View
         android:id="@+id/view"
@@ -12,4 +16,28 @@
         tools:layout_editor_absoluteX="130dp"
         tools:layout_editor_absoluteY="221dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <MotionScene
+        xmlns:android="http://schemas.android.com/apk/android"
+        xmlns:motion="http://schemas.android.com/apk/res-auto">
+        // android:defaultDuration="500"
+
+        <Transition
+            android:constraintSetEnd="@+id/end"
+            android:constraintSetStart="@id/start"
+            android:duration="1000">
+        </Transition>
+
+        <ConstraintSet android:id="@+id/start">
+        </ConstraintSet>
+
+        <ConstraintSet android:id="@+id/end">
+            <Layout/>
+            <Transform/>
+            <PropertySet/>
+            <Motion/>
+            <CustomAtribut/>
+        </ConstraintSet>
+</MotionScene>
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
