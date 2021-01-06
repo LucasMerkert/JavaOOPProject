@@ -19,7 +19,7 @@
     <MotionScene
         xmlns:android="http://schemas.android.com/apk/android"
         xmlns:motion="http://schemas.android.com/apk/res-auto">
-        // android:defaultDuration="500"
+
 
         <Transition
             android:constraintSetEnd="@+id/end"
