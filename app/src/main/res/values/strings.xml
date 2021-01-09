@@ -6,4 +6,7 @@
     <string name="start6x6button">Start 6x6 game</string>
     <string name="inGameTitleString">Hallo und einen guten Tag</string>
     <string name="gameGridDescription">background game grid</string>
+    <string name="keep_tapping">Keep tapping.</string>
+    <string name="done">Done!</string>
+
 </resources>

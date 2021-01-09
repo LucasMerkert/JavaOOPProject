@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JavaOOPProject">
         <activity android:name=".CanvasTest"></activity>
+        <activity android:name=".TestCanvas"></activity>
         <activity android:name=".Grid4x4" />
         <activity android:name=".MainActivity">
             <intent-filter>

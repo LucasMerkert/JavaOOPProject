@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             open4x4activity();
         });
 
+        //Optimierbar
         final Button _button5x5 = findViewById(R.id.button5x5);
         _button5x5.setOnClickListener(v -> {
             //Button 5x5 is clicked; Start 5x5 View
@@ -44,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         final Button _test = findViewById(R.id.startCanvasTest);
         _button6x6.setOnClickListener(v -> {
             startCanvasTest();
+        });
+
+        final Button _buttonCanavas = findViewById(R.id.buttonCanvas);
+        _buttonCanavas.setOnClickListener(v -> {
+            //Button 6x6 is clicked; Start 6x6 View
+            openCanvas();
         });
     }
 
@@ -72,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
         grid6x6open.putExtra("EXTRA_GRID_HEIGHT", 6);
         grid6x6open.putExtra("EXTRA_GRID_WIDTH", 6);
         startActivity(grid6x6open);
+    }
+    private void openCanvas(){
+        Intent canvasOpen = new Intent(this, TestCanvas.class);
+
+        startActivity(canvasOpen);
     }
 
 }
