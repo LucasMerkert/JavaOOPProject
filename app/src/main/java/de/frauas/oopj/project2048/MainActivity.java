@@ -40,8 +40,17 @@ public class MainActivity extends AppCompatActivity {
             //Button 6x6 is clicked; Start 6x6 View
             open6x6activity();
         });
+
+        final Button _test = findViewById(R.id.startCanvasTest);
+        _button6x6.setOnClickListener(v -> {
+            startCanvasTest();
+        });
     }
 
+    private void startCanvasTest() {
+        Intent startCanvasTest = new Intent(this, CanvasTest.class);
+        startActivity(startCanvasTest);
+    }
 
 
     private void open4x4activity(){
