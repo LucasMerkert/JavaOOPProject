@@ -31,6 +31,7 @@ public class TestCanvas extends AppCompatActivity {
     private int mColorRectangle;
     private int mColorAccent;
     private TextView mTextView;
+    private int counter;
 
 
 
@@ -58,6 +59,7 @@ public class TestCanvas extends AppCompatActivity {
 
         mImageView = (ImageView) findViewById(R.id.imageView6);
         mTextView = (TextView) findViewById(R.id.textView);
+        counter = 0;
 
     }
 
@@ -78,11 +80,28 @@ public class TestCanvas extends AppCompatActivity {
             mCanvas.drawText(getString(R.string.keep_tapping), 100, 100, mPaintText);
             mOffset += OFFSET; // 1: moff = 30 2: moff = 60
 
-        } else {
-            if (mOffset < halfWidth && mOffset < halfHeight) {
-            } else {
-            }
+        } else if (mOffset < halfWidth && mOffset < halfHeight) {
+            //Change color of rectangle
+            mPaint.setColor(mColorRectangle + 10*counter);
+            mRect.set(mOffset, mOffset, vWidth - mOffset, vHeight - mOffset);
+            mCanvas.drawRect(mRect, mPaint);
+            mCanvas.drawText(getString(R.string.keep_tapping), 100, 100, mPaintText);
+            mTextView.setText("" + counter);
+            counter++;
+            //Increase offset
+            //mOffset += OFFSET;
+        }else {
+
+            mPaint.setColor(mColorAccent);
+            mCanvas.drawCircle(halfWidth, halfHeight, halfWidth / 3, mPaint);
+            String text = getString(R.string.done);
+            //Get bounding box for text to calculate where to draw it
+            mPaintText.getTextBounds(text, 0,text.length(), mBounds);
+            int x = halfWidth - mBounds.centerX();
+            int y = halfHeight - mBounds.centerY();
+            mCanvas.drawText(text, x, y, mPaintText);
         }
+
 
         //draw changes
         view.invalidate();

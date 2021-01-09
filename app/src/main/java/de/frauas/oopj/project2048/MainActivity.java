@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final Button _test = findViewById(R.id.startCanvasTest);
-        _button6x6.setOnClickListener(v -> {
+        _test.setOnClickListener(v -> {
             startCanvasTest();
         });
 
