@@ -40,24 +40,22 @@ public class TestCanvas extends AppCompatActivity {
         setContentView(R.layout.activity_test_canvas);
 
 
-        mColorBackground = ResourcesCompat.getColor(getResources(),
-                R.color.colorBackground, null);
-        mColorRectangle = ResourcesCompat.getColor(getResources(),
-                R.color.colorRectangle, null);
-        mColorAccent = ResourcesCompat.getColor(getResources(),
-                R.color.colorAccent, null);
+        mColorBackground = ResourcesCompat.getColor(getResources(), R.color.colorBackground, null);
+        mColorRectangle = ResourcesCompat.getColor(getResources(), R.color.colorRectangle, null);
+        mColorAccent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
 
 
         mPaint.setColor(mColorBackground);
 
         mPaintText.setColor(
-                ResourcesCompat.getColor(getResources(),
-                        R.color.colorPrimaryDark, null)
+                ResourcesCompat.getColor(
+                        getResources(), R.color.colorPrimaryDark, null
+                )
         );
         mPaintText.setTextSize(30);
 
-        mImageView = (ImageView) findViewById(R.id.imageView6);
-        mTextView = (TextView) findViewById(R.id.textView);
+        mImageView = (ImageView)findViewById(R.id.imageView6);
+        mTextView = (TextView)findViewById(R.id.textView);
 
     }
 
@@ -81,6 +79,7 @@ public class TestCanvas extends AppCompatActivity {
         } else {
             if (mOffset < halfWidth && mOffset < halfHeight) {
             } else {
+                mCanvas.drawRect(10,10,20, 20, mPaintText);
             }
         }
 
