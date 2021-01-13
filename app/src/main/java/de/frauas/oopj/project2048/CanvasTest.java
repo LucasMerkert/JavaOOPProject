@@ -1,6 +1,8 @@
 package de.frauas.oopj.project2048;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -8,15 +10,15 @@ import android.widget.RelativeLayout;
 
 public class CanvasTest extends AppCompatActivity {
 
-    LinearLayout linearLayout;
+    ConstraintLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_canvas_test);
+        setContentView(R.layout.activity_test_canvas);
 
 
-        linearLayout = findViewById(R.id.canvasSocket);
+        layout = findViewById(R.id.gameLayout);
         GameCanvas myView = new GameCanvas(this);
-        linearLayout.addView(myView);
+        layout.addView(myView);
     }
 }
