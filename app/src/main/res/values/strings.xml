@@ -8,5 +8,6 @@
     <string name="gameGridDescription">background game grid</string>
     <string name="keep_tapping">Keep tapping.</string>
     <string name="done">Done!</string>
+    <string name="textPlaceholder">Lorem Ipsum</string>
 
 </resources>

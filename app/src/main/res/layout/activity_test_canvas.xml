@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TestCanvas">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imageCanvas"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
@@ -15,6 +16,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="24dp"
+        android:contentDescription="@string/gameGridDescription"
         android:onClick="drawSomething"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
@@ -26,8 +28,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        android:text="@string/textPlaceholder"
+        app:layout_constraintBottom_toTopOf="@+id/imageCanvas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
