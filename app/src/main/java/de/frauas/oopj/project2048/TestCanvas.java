@@ -31,7 +31,7 @@ public class TestCanvas extends AppCompatActivity {
     private int mColorRectangle;
     private int mColorAccent;
     private TextView mTextView;
-
+    private int counter;
 
 
     @Override
@@ -81,14 +81,14 @@ public class TestCanvas extends AppCompatActivity {
 
         } else if (mOffset < halfWidth && mOffset < halfHeight) {
             //Change color of rectangle
-            mPaint.setColor(mColorRectangle + 10*counter);
+            mPaint.setColor(mColorRectangle + mOffset*MULTIPLIER);
             mRect.set(mOffset, mOffset, vWidth - mOffset, vHeight - mOffset);
             mCanvas.drawRect(mRect, mPaint);
             mCanvas.drawText(getString(R.string.keep_tapping), 100, 100, mPaintText);
             mTextView.setText("" + counter);
             counter++;
             //Increase offset
-            //mOffset += OFFSET;
+            mOffset += OFFSET;
         }else {
 
             mPaint.setColor(mColorAccent);
