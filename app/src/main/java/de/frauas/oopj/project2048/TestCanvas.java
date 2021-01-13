@@ -31,7 +31,6 @@ public class TestCanvas extends AppCompatActivity {
     private int mColorRectangle;
     private int mColorAccent;
     private TextView mTextView;
-    private int counter;
 
 
 
@@ -101,7 +100,6 @@ public class TestCanvas extends AppCompatActivity {
             int y = halfHeight - mBounds.centerY();
             mCanvas.drawText(text, x, y, mPaintText);
         }
-
 
         //draw changes
         view.invalidate();
