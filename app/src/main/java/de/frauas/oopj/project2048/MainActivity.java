@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startCanvasTest() {
-        Intent startCanvasTest = new Intent(this, CanvasTest.class);
+        Intent startCanvasTest = new Intent(this, CanvasTest2.class);
         startActivity(startCanvasTest);
     }
 
