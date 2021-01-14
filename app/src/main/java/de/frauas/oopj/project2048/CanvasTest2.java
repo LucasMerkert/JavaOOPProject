@@ -69,34 +69,35 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
             case MotionEvent.ACTION_UP:
                 x2 = event.getX();
                 y2 = event.getY();
-                break;
+                //evaluating the swipe
+                float xDifference = x1 - x2;
+                float yDifference = y1 - y2;
+
+                if(Math.abs(xDifference) > MIN_SWIPE_DISTANCE){
+                    //Horizontal swipe detected
+                    if(x2>x1){
+                        Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
+                        Log.d(LOGTAG, "Swipe to the right");
+                    } else {
+                        Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
+                        Log.d(LOGTAG, "Swipe to the left");
+                    }
+                }
+                else if(Math.abs(yDifference) > MIN_SWIPE_DISTANCE){
+                    if(y2>y1){
+                        Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
+                        Log.d(LOGTAG, "Swipe down");
+                    } else {
+                        Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
+                        Log.d(LOGTAG, "Swipe up");
+                    }
+                }
+                else{
+                    Toast.makeText(this, "Not enough distance", Toast.LENGTH_SHORT).show();
+                }
         }
 
-        float xDifference = x1 - x2;
-        float yDifference = y1 - y2;
 
-        if(Math.abs(xDifference) > MIN_SWIPE_DISTANCE){
-            //Horizontal swipe detected
-            if(x2>x1){
-                Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
-                Log.d(LOGTAG, "Swipe to the right");
-            } else {
-                Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
-                Log.d(LOGTAG, "Swipe to the left");
-            }
-        }
-        else if(Math.abs(yDifference) > MIN_SWIPE_DISTANCE){
-            if(y2>y1){
-                Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
-                Log.d(LOGTAG, "Swipe down");
-            } else {
-                Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
-                Log.d(LOGTAG, "Swipe up");
-            }
-        }
-        else{
-            Toast.makeText(this, "Not enough distance", Toast.LENGTH_SHORT).show();
-        }
         return super.onTouchEvent(event);
     }
 
