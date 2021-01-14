@@ -1,10 +1,10 @@
 package de.frauas.oopj.project2048;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ImageView;
@@ -14,13 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CanvasTest2 extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
+    private static final String LOGTAG = "Touch Event";
     private static final int MIN_SWIPE_DISTANCE = 150;
     private float x1, x2, y1, y2;
     private GestureDetector gestureDetector;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_canvas);
+        setContentView(R.layout.activity_canvas_test);
 
         Canvas gameGrid;
         ImageView canvasBackgroundImage = (ImageView)findViewById(R.id.imageCanvas);
@@ -78,15 +79,19 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
             //Horizontal swipe detected
             if(x2>x1){
                 Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
+                Log.d(LOGTAG, "Swipe to the right");
             } else {
                 Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
+                Log.d(LOGTAG, "Swipe to the left");
             }
         }
         else if(Math.abs(yDifference) > MIN_SWIPE_DISTANCE){
             if(y2>y1){
                 Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
+                Log.d(LOGTAG, "Swipe down");
             } else {
                 Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
+                Log.d(LOGTAG, "Swipe up");
             }
         }
         else{
