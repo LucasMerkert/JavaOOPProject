@@ -83,7 +83,7 @@ public class TestCanvas extends AppCompatActivity {
             mRect.set(mOffset, mOffset, vWidth - mOffset, vHeight - mOffset);
             mCanvas.drawRect(mRect, mPaint);
             mCanvas.drawText(getString(R.string.keep_tapping), 100, 100, mPaintText);
-            mTextView.setText("" + counter);
+            mTextView.setText(""+counter);
             counter++;
             //Increase offset
             mOffset += OFFSET;
