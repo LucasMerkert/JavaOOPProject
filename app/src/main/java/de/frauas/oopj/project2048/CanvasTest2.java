@@ -3,6 +3,7 @@ package de.frauas.oopj.project2048;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 public class CanvasTest2 extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
@@ -18,13 +20,15 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
     private static final int MIN_SWIPE_DISTANCE = 150;
     private float x1, x2, y1, y2;
     private GestureDetector gestureDetector;
+    private Canvas gameGrid;
+    private static int q0, q1, q2, q3, TILE_LENGTH;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canvas_test);
 
-        Canvas gameGrid;
-        ImageView canvasBackgroundImage = (ImageView)findViewById(R.id.imageCanvas);
+
+        ImageView canvasBackgroundImage = (ImageView) findViewById(R.id.imageCanvas);
 
         /*ConstraintLayout screen = findViewById(R.id.gameLayout);
         int screenWidth = screen.getWidth();
@@ -39,17 +43,50 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
         canvasBackgroundImage.setImageBitmap(mBitmap);
 
         gameGrid = new Canvas(mBitmap);
-        //int backgroundColour = ResourcesCompat.getColor(getResources(), R.color.colorBackground, null);
+        int backgroundColour = ResourcesCompat.getColor(getResources(), R.color.colorBackground, null);
         //gameGrid.drawColor(backgroundColour);
 
+        gestureDetector = new GestureDetector(CanvasTest2.this, this);
 
-        this.gestureDetector = new GestureDetector(CanvasTest2.this, this);
+        init();
+    }
+
+    private void init() {
+        q0 = 0;
+        q1 = (int)(0.25d * gameGrid.getHeight());
+        q2 = (int)(0.50d * gameGrid.getHeight());
+        q3 = (int)(0.75d * gameGrid.getHeight());
+        TILE_LENGTH = (int)(0.25d * gameGrid.getHeight());
+        Log.d("Canvas Quantiles", "q1=" + q1);
+        Log.d("Canvas Quantiles", "q2=" + q2);
+        Log.d("Canvas Quantiles", "q3=" + q3);
+        Log.d("Canvas Quantiles", "TILE_LENGTH=" + TILE_LENGTH);
+
+        spawnTile();
+    }
+
+    private void spawnTile() {
+        int xpos = (int) (Math.random()*1000)%4;
+        int ypos = (int) (Math.random()*1000)%4;
+        Log.d("Tile Coords", "xpos=" + xpos);
+        Log.d("Tile Coords", "ypos=" + ypos);
+
+        Paint _paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        _paint.setColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
+
+        gameGrid.drawRect(xpos/4.0f * gameGrid.getWidth(),
+                ypos/4.0f * gameGrid.getHeight(),
+                xpos/4.0f * gameGrid.getWidth() + TILE_LENGTH,
+                ypos/4.0f * gameGrid.getHeight() + TILE_LENGTH,
+                _paint);
+        //gameGrid.drawRect(0,0,0.9f * gameGrid.getWidth(), 0.9f * gameGrid.getWidth(), _paint);
+
     }
 
     /**
      * Called when a touch screen event was not handled by any of the views
-     * under it.  This is most useful to process touch events that happen
-     * outside of your window bounds, where there is no view to receive it.
+     * under it.
+     * Detects the x and y coordinates at the start and at the end of the user touching the screen and determines in which direction (UP, DOWN, LEFT, RIGHT) the swipe occured.
      *
      * @param event The touch screen event being processed.
      * @return Return true if you have consumed the event, false if you haven't.
@@ -58,8 +95,8 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         gestureDetector.onTouchEvent(event);
-        //detecting the x and y coordinated both at the stat and at the end of the screen touch event
-        switch(event.getAction()){
+        //detecting the x and y coordinated both at the start and at the end of the screen touch
+        switch (event.getAction()) {
             //start of motion coords
             case MotionEvent.ACTION_DOWN:
                 x1 = event.getX();
@@ -73,33 +110,38 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
                 float xDifference = x1 - x2;
                 float yDifference = y1 - y2;
 
-                if(Math.abs(xDifference) > MIN_SWIPE_DISTANCE){
+                if (Math.abs(xDifference) > MIN_SWIPE_DISTANCE && Math.abs(xDifference) > Math.abs(yDifference)) {
                     //Horizontal swipe detected
-                    if(x2>x1){
+                    if (x2 > x1) {
                         Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the right");
                     } else {
                         Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the left");
                     }
-                }
-                else if(Math.abs(yDifference) > MIN_SWIPE_DISTANCE){
-                    if(y2>y1){
+                    return true;
+                } else if (Math.abs(yDifference) > MIN_SWIPE_DISTANCE && Math.abs(xDifference) < Math.abs(yDifference)) {
+                    //Vertical swipe detected
+                    if (y2 > y1) {
                         Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe down");
                     } else {
                         Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe up");
                     }
-                }
-                else{
+                    return true;
+                } else {
                     Toast.makeText(this, "Not enough distance", Toast.LENGTH_SHORT).show();
+                    Log.d(LOGTAG, "Not enough distance");
                 }
         }
 
 
         return super.onTouchEvent(event);
     }
+
+
+    //The following methods need to be implemented by GestureDetector which is abstract and are not used.
 
     /**
      * Notified when a tap occurs with the down {@link MotionEvent}
