@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -68,11 +69,9 @@ public class TestCanvas extends AppCompatActivity {
 
         if (mOffset == OFFSET) {
             mTextView.setText("mOff =OFF");
-            mBitmap = Bitmap.createBitmap(vWidth, vHeight, Bitmap.Config.ARGB_8888);
-            mImageView.setImageBitmap(mBitmap);
-
-            mCanvas = new Canvas(mBitmap);
-            mCanvas.drawColor(mColorBackground);
+            Drawable d = getResources().getDrawable(R.drawable.grid4x4_background);
+            d.setBounds(0,0,vWidth,vHeight);
+            d.draw(mCanvas);
 
             mCanvas.drawText(getString(R.string.keep_tapping), 100, 100, mPaintText);
             mOffset += OFFSET; // 1: moff = 30 2: moff = 60

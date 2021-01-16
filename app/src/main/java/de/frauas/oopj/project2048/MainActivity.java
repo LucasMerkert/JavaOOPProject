@@ -4,11 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
         /*
           Sets up an on-click-listener for each button, executing the respective code block assigned to the button-listener
          */
-        final Button _button4x4 = findViewById(R.id.button4x4);
-        _button4x4.setOnClickListener(v -> {
+        final Button _gameCanvas = findViewById(R.id.button4x4);
+        _gameCanvas.setOnClickListener(v -> {
             //Button 4x4 is clicked; Start 4x4 View
-            open4x4activity();
+            openGameCanvas();
         });
 
         //Optimierbar
@@ -55,16 +51,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startCanvasTest() {
-        Intent startCanvasTest = new Intent(this, CanvasTest2.class);
+        Intent startCanvasTest = new Intent(this, GameCanvas.class);
         startActivity(startCanvasTest);
     }
 
 
-    private void open4x4activity(){
-        Intent grid4x4open = new Intent(this, Grid4x4.class);
-        grid4x4open.putExtra("EXTRA_GRID_HEIGHT", 4);
-        grid4x4open.putExtra("EXTRA_GRID_WIDTH", 4);
-        startActivity(grid4x4open);
+    private void openGameCanvas(){
+        Intent gameCanvasOpen = new Intent(this, GameCanvas.class);
+        gameCanvasOpen.putExtra("EXTRA_GRID_HEIGHT", 4);
+        gameCanvasOpen.putExtra("EXTRA_GRID_WIDTH", 4);
+        startActivity(gameCanvasOpen);
     }
 
     private void open5x5activity() {

@@ -14,39 +14,35 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
-public class CanvasTest2 extends AppCompatActivity implements GestureDetector.OnGestureListener {
+public class GameCanvas extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
+    private Grid gameGrid;
     private static final String LOGTAG = "Touch Event";
     private static final int MIN_SWIPE_DISTANCE = 150;
     private float x1, x2, y1, y2;
     private GestureDetector gestureDetector;
-    private Canvas gameGrid;
+    private Canvas gameCanvas;
+    private CanvasHandler canvasHandler;
+
     private static int q0, q1, q2, q3, TILE_LENGTH;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_canvas_test);
+        setContentView(R.layout.activity_game_canvas);
+
+        gameGrid = new Grid(4,4);
+        canvasHandler = new CanvasHandler();
+
+        ImageView canvasBackgroundImage = (ImageView)findViewById(R.id.imageCanvas);
 
 
-        ImageView canvasBackgroundImage = findViewById(R.id.imageCanvas);
+        Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
+        canvasBackgroundImage.setImageBitmap(background);
 
-        /*ConstraintLayout screen = findViewById(R.id.gameLayout);
-        int screenWidth = screen.getWidth();
-        int screenHeight = screen.getHeight();
+        gameCanvas = canvasHandler.drawGridToCanvas(gameGrid,background);
 
-        int canvasHeight = canvasBackgroundImage.getHeight();
-        int canvasWidth = canvasBackgroundImage.getWidth();*/
+        gestureDetector = new GestureDetector(GameCanvas.this, this);
 
-        //Bitmap mBitmap = Bitmap.createBitmap(canvasWidth, canvasHeight, Bitmap.Config.ARGB_8888);
-        //Bitmap mBitmap = ((BitmapDrawable)canvasBackgroundImage.getDrawable()).getBitmap();
-        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
-        canvasBackgroundImage.setImageBitmap(mBitmap);
-
-        gameGrid = new Canvas(mBitmap);
-        int backgroundColour = ResourcesCompat.getColor(getResources(), R.color.colorBackground, null);
-        //gameGrid.drawColor(backgroundColour);
-
-        gestureDetector = new GestureDetector(CanvasTest2.this, this);
 
         init();
     }
@@ -121,9 +117,11 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
                     if (x2 > x1) {
                         Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the right");
+                        gameGrid.swipeRight();
                     } else {
                         Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the left");
+                        gameGrid.swipeLeft();
                     }
                     return true;
                 } else if (Math.abs(yDifference) > MIN_SWIPE_DISTANCE && Math.abs(xDifference) < Math.abs(yDifference)) {
@@ -131,9 +129,11 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
                     if (y2 > y1) {
                         Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe down");
+                        gameGrid.swipeDown();
                     } else {
                         Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe up");
+                        gameGrid.swipeUp();
                     }
                     return true;
                 } else {
