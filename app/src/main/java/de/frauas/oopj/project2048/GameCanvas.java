@@ -49,10 +49,10 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
 
     private void init() {
         q0 = 0;
-        q1 = (int)(0.25d * gameGrid.getHeight());
-        q2 = (int)(0.50d * gameGrid.getHeight());
-        q3 = (int)(0.75d * gameGrid.getHeight());
-        TILE_LENGTH = (int)(0.25d * gameGrid.getHeight());
+        q1 = (int)(0.25d * gameCanvas.getHeight());
+        q2 = (int)(0.50d * gameCanvas.getHeight());
+        q3 = (int)(0.75d * gameCanvas.getHeight());
+        TILE_LENGTH = (int)(0.25d * gameCanvas.getHeight());
         Log.d("Canvas Quantiles", "q1=" + q1);
         Log.d("Canvas Quantiles", "q2=" + q2);
         Log.d("Canvas Quantiles", "q3=" + q3);
@@ -70,10 +70,10 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
         Paint _paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         _paint.setColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
 
-        gameCanvas.drawRect(xpos/4.0f * gameGrid.getWidth(),
-                ypos/4.0f * gameGrid.getHeight(),
-                xpos/4.0f * gameGrid.getWidth() + TILE_LENGTH,
-                ypos/4.0f * gameGrid.getHeight() + TILE_LENGTH,
+        gameCanvas.drawRect(xpos/4.0f * gameCanvas.getWidth(),
+                ypos/4.0f * gameCanvas.getHeight(),
+                xpos/4.0f * gameCanvas.getWidth() + TILE_LENGTH,
+                ypos/4.0f * gameCanvas.getHeight() + TILE_LENGTH,
                 _paint);
     }
 
