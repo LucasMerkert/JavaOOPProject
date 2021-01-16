@@ -28,7 +28,7 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
         setContentView(R.layout.activity_canvas_test);
 
 
-        ImageView canvasBackgroundImage = (ImageView) findViewById(R.id.imageCanvas);
+        ImageView canvasBackgroundImage = findViewById(R.id.imageCanvas);
 
         /*ConstraintLayout screen = findViewById(R.id.gameLayout);
         int screenWidth = screen.getWidth();
@@ -74,13 +74,19 @@ public class CanvasTest2 extends AppCompatActivity implements GestureDetector.On
         Paint _paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         _paint.setColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
 
-        gameGrid.drawRect(xpos/4.0f * gameGrid.getWidth(),
+        gameCanvas.drawRect(xpos/4.0f * gameGrid.getWidth(),
                 ypos/4.0f * gameGrid.getHeight(),
                 xpos/4.0f * gameGrid.getWidth() + TILE_LENGTH,
                 ypos/4.0f * gameGrid.getHeight() + TILE_LENGTH,
                 _paint);
-        //gameGrid.drawRect(0,0,0.9f * gameGrid.getWidth(), 0.9f * gameGrid.getWidth(), _paint);
+    }
 
+    int getYCoords(int ypos){
+        return 1;
+    }
+
+    int getXCoords(int xpos){
+        return 1;
     }
 
     /**
