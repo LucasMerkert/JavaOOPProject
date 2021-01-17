@@ -24,6 +24,7 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
     private Canvas gameCanvas;
     private CanvasHandler canvasHandler;
     private Bitmap background;
+    private static int q0, q1, q2, q3, TILE_LENGTH;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +38,33 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
         canvasHandler = new CanvasHandler(gameCanvas);
         gameCanvas = canvasHandler.drawGridToCanvas(gameGrid,background);
         gestureDetector = new GestureDetector(GameCanvas.this, this);
+
+        q0 = 0;
+        q1 = (int)(0.25d * gameCanvas.getHeight());
+        q2 = (int)(0.50d * gameCanvas.getHeight());
+        q3 = (int)(0.75d * gameCanvas.getHeight());
+        TILE_LENGTH = (int)(0.25d * gameCanvas.getHeight());
+        Log.d("Canvas Quantiles", "q1=" + q1);
+        Log.d("Canvas Quantiles", "q2=" + q2);
+        Log.d("Canvas Quantiles", "q3=" + q3);
+        Log.d("Canvas Quantiles", "TILE_LENGTH=" + TILE_LENGTH);
+
+        drawTileAtLocation(2,3);
     }
 
+    private void drawTileAtLocation(int xpos, int ypos){
+        Log.d("Tile Coords", "xpos=" + xpos);
+        Log.d("Tile Coords", "ypos=" + ypos);
+
+        Paint _paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        _paint.setColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
+
+        gameCanvas.drawRect(xpos/4.0f * gameCanvas.getWidth(),
+                ypos/4.0f * gameCanvas.getHeight(),
+                xpos/4.0f * gameCanvas.getWidth() + TILE_LENGTH,
+                ypos/4.0f * gameCanvas.getHeight() + TILE_LENGTH,
+                _paint);
+    }
 
     int getYCoords(int ypos){
         return 1;
