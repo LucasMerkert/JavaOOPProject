@@ -23,59 +23,22 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
     private GestureDetector gestureDetector;
     private Canvas gameCanvas;
     private CanvasHandler canvasHandler;
-
-    private static int q0, q1, q2, q3, TILE_LENGTH;
+    private Bitmap background;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_canvas);
 
         gameGrid = new Grid(4,4);
-        canvasHandler = new CanvasHandler();
-
-        ImageView canvasBackgroundImage = (ImageView)findViewById(R.id.imageCanvas);
-
-
-        Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
+        ImageView canvasBackgroundImage = findViewById(R.id.imageCanvas);
+        background = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
         canvasBackgroundImage.setImageBitmap(background);
-
+        gameCanvas = new Canvas(background);
+        canvasHandler = new CanvasHandler(gameCanvas);
         gameCanvas = canvasHandler.drawGridToCanvas(gameGrid,background);
-
         gestureDetector = new GestureDetector(GameCanvas.this, this);
-
-
-        init();
     }
 
-    private void init() {
-        q0 = 0;
-        q1 = (int)(0.25d * gameCanvas.getHeight());
-        q2 = (int)(0.50d * gameCanvas.getHeight());
-        q3 = (int)(0.75d * gameCanvas.getHeight());
-        TILE_LENGTH = (int)(0.25d * gameCanvas.getHeight());
-        Log.d("Canvas Quantiles", "q1=" + q1);
-        Log.d("Canvas Quantiles", "q2=" + q2);
-        Log.d("Canvas Quantiles", "q3=" + q3);
-        Log.d("Canvas Quantiles", "TILE_LENGTH=" + TILE_LENGTH);
-
-        spawnTile();
-    }
-
-    private void spawnTile() {
-        int xpos = (int) (Math.random()*1000)%4;
-        int ypos = (int) (Math.random()*1000)%4;
-        Log.d("Tile Coords", "xpos=" + xpos);
-        Log.d("Tile Coords", "ypos=" + ypos);
-
-        Paint _paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        _paint.setColor(ResourcesCompat.getColor(getResources(), R.color.black, null));
-
-        gameCanvas.drawRect(xpos/4.0f * gameCanvas.getWidth(),
-                ypos/4.0f * gameCanvas.getHeight(),
-                xpos/4.0f * gameCanvas.getWidth() + TILE_LENGTH,
-                ypos/4.0f * gameCanvas.getHeight() + TILE_LENGTH,
-                _paint);
-    }
 
     int getYCoords(int ypos){
         return 1;
@@ -141,9 +104,13 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
                     Log.d(LOGTAG, "Not enough distance");
                 }
         }
-
+        updateCanvas();
 
         return super.onTouchEvent(event);
+    }
+
+    private void updateCanvas() {
+        gameCanvas = canvasHandler.drawGridToCanvas(gameGrid,background);
     }
 
 
