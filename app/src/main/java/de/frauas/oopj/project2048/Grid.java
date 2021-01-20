@@ -1,7 +1,7 @@
 package de.frauas.oopj.project2048;
 
 /**
- * @author Tarik
+ * @author Tarik, Friedrich, Ana, Lucas
  *
  */
 public class Grid {
@@ -27,38 +27,51 @@ public class Grid {
 
     }
 
+    /* two possibilities:
+     * a) execute isSwipePossible before swiping (check all directions)
+     * pro: check if game over
+     * con: maybe slower?
+     * b) execute isSwipePossible after swiping (only check swiping direction)
+     * pro: maybe faster?
+     * con: how to check game over?
+     */
+
     /**
      * TODO
      */
     public void swipeUp() {
-        for(int column=0; column<width; column++) {
-            for(int row=0; row<height; row++) {
-                if(matrix[column][row] != null) {
+        //if (isSwipeUpPossible()){
 
-                }
-            }
-        }
+        //}
     }
+
+    /*detect merge when swipeUp not implemented (yet) :(
+     * were thinking about if value of matrix cell == to one before -> merge possible
+     * but dont know how to get value yet
+     */
 
     /**
      * Determine if swipe up is possible
      * @return true if swipe up is possible
      */
     private boolean isSwipeUpPossible() {
-        return true;
+        for(int column=0; column<width; column++) {
+            for(int row=1; row<height; row++) {
+                //as long as there is a free space in front of a tile, swipe is possible
+                if (matrix[row-1][column] == null && matrix[row][column] != null){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
      * TODO
      */
     public void swipeLeft() {
-        for(int column=0; column<width; column++) {
-            for(int row=0; row<height; row++) {
-                if(matrix[column][row] != null) {
-
-                }
-            }
-        }
+       // if (isSwipeLeftPossible()){
+        //}
     }
 
     /**
@@ -66,20 +79,23 @@ public class Grid {
      * @return true if swipe left is possible
      */
     private boolean isSwipeLeftPossible() {
-        return true;
+        for(int row=0; row<height; row++) {
+            for(int column=1; column<width; column++) {
+                //as long as there is a free space in front of a tile, swipe is possible
+                if (matrix[row][column-1] == null && matrix[row][column] != null){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
      * TODO
      */
     public void swipeRight() {
-        for(int column=0; column<width; column++) {
-            for(int row=0; row<height; row++) {
-                if(matrix[column][row] != null) {
-
-                }
-            }
-        }
+        //if (isSwipeRightPossible()){
+        //}
     }
 
     /**
@@ -87,20 +103,23 @@ public class Grid {
      * @return true if swipe right is possible
      */
     private boolean isSwipeRightPossible() {
-        return true;
+        for(int row=0; row<height; row++) {
+            for(int column=width; column>0; column--) {
+                //as long as there is a free space in front of a tile, swipe is possible
+                if (matrix[row][column-1] == null && matrix[row][column] != null){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
      * TODO
      */
     public void swipeDown() {
-        for(int column=0; column<width; column++) {
-            for(int row=0; row<height; row++) {
-                if(matrix[column][row] != null) {
-
-                }
-            }
-        }
+        //if (isSwipeDownPossible()){
+        //}
     }
 
     /**
@@ -108,7 +127,15 @@ public class Grid {
      * @return true if swipe down is possible
      */
     private boolean isSwipeDownPossible() {
-        return true;
+        for(int column=0; column<width; column++) {
+            for(int row=height; row>0; row--) {
+                //as long as there is a free space in front of a tile, swipe is possible
+                if (matrix[row-1][column] == null && matrix[row][column] != null){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
