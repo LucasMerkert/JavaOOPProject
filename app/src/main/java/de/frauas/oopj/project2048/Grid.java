@@ -8,6 +8,7 @@ public class Grid {
     Tile[][] matrix;
     int width;
     int height;
+    boolean change = false;
 
     /**
      * Contructor for Grid object, the main playing field. The top-left corner of the grid is [0][0], the one to the right of it [1][0]; the one below [0][1]
@@ -49,22 +50,50 @@ public class Grid {
      * were thinking about if value of matrix cell == to one before -> merge possible
      * but dont know how to get value yet
      */
-
     /**
      * Determine if swipe up is possible
      * @return true if swipe up is possible
+     * this method might get merged into swipeUp if it is unnecessary
+     * problem if 4480, swipe left, how to merge? result should be 8800, not 16000
      */
     private boolean isSwipeUpPossible() {
+        change = false;
         for(int column=0; column<width; column++) {
+            int pivotTile = 0;
             for(int row=1; row<height; row++) {
-                //as long as there is a free space in front of a tile, swipe is possible
-                if (matrix[row-1][column] == null && matrix[row][column] != null){
-                    return true;
+                if (matrix[row][column] == null) continue;
+                if (matrix[pivotTile][column] == matrix[row][column]){
+                    //merge function
+
+                    //grid changed to spawn new tiles
+                    change = true;
+                    pivotTile++;
+                }
+                else {
+                    // move row contents as method?
+                    //copy row contents onto pivot tile, then clear contents of row tile
+                    if (matrix[pivotTile][column] == null) {
+                        //want to compare contents at said coordinate
+                        matrix[pivotTile][column] = matrix[row][column];
+                        matrix[row][column] = null;
+                        //grid changed to spawn new tiles
+                        change = true;
+                    }
+                    else{
+                        if (pivotTile++ == row) {
+                            matrix[pivotTile++][column] = matrix[row][column];
+                            matrix[row][column] = null;
+                            //grid changed to spawn new tiles
+                            change = true;
+                        }
+                        pivotTile++;
+                    }
                 }
             }
         }
-        return false;
+        return change;
     }
+
 
     /**
      * TODO
