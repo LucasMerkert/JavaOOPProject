@@ -12,17 +12,20 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class Tile {
     private int exp;
+    public int pos; //for posfree array check
     //private int value;
     private Bitmap display;
 
     /**
      * Constructor for tile object,
-     * value = 2^nr
-     * @param nr
+     * @param exp = Exponent
+     *        value = 2^exp
      *
      */
-    public Tile(int nr) {
-        exp = nr;
+    public Tile(int exp) {
+        if(exp < 0 )
+            new IllegalArgumentException("Tile is a negative number");
+        this.exp = exp;
         //value = (int) Math.pow(2, nr);
         //Bitmap fehlt
     }
