@@ -11,44 +11,38 @@ import androidx.appcompat.app.AppCompatActivity;
  *
  */
 public class Tile {
-    private int value;
+    private int exp;
+    //private int value;
     private Bitmap display;
 
     /**
      * Constructor for tile object,
-     * @param value
-     * @throws TileSpawnException if value is not 2 or 4
+     * value = 2^nr
+     * @param nr
+     *
      */
-    public Tile(int value, int xPos, int yPos) throws TileSpawnException{
-        if (value == 2 || value == 4) {
-            this.value=value;
-        } else throw new TileSpawnException();
-        /*
-        if(value == 2) {
-            //TODO Set Tile 2 Bitmap
-            display = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
-        } else if(value == 4) {
-            //TODO Set Tile 4 Bitmap
-            display = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
-        }*/
+    public Tile(int nr) {
+        exp = nr;
+        //value = (int) Math.pow(2, nr);
+        //Bitmap fehlt
     }
+
 
 
     /**
      * Getter for Tile value
      * @return value of Tile
      */
-    public int getValue() {
-        return this.value;
+    public int getValue() { return (int) Math.pow(2, exp);
     }
 
-
-    @Override
     /**
-     * Outputs tile as String; Overrides 'toString()' from java.lang.Object
+     * Getter for Tile exp
+     * @return value of Tile
      */
-    public String toString(){
-        return "("+ Integer.toString(value) + ")";
+    public int getExp() { return exp;
     }
+
 
 }
+
