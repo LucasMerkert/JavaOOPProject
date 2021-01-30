@@ -1,52 +1,49 @@
 package de.frauas.oopj.project2048;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
-public class GameCanvas extends AppCompatActivity implements GestureDetector.OnGestureListener {
+public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
     private Grid gameGrid;
     private static final String LOGTAG = "Touch Event";
     private static final int MIN_SWIPE_DISTANCE = 150;
     private float x1, x2, y1, y2;
     private GestureDetector gestureDetector;
-    private Canvas gameCanvas;
-    private CanvasHandler canvasHandler;
-    private Bitmap background;
+
+    private GameView gameviewTEST;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_canvas);
 
-        gameGrid = new Grid(4,4);
-        ImageView canvasBackgroundImage = findViewById(R.id.imageCanvas);
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
-        canvasBackgroundImage.setImageBitmap(background);
-        gameCanvas = new Canvas(background);
-        canvasHandler = new CanvasHandler(gameCanvas);
-        gameCanvas = canvasHandler.drawGridToCanvas(gameGrid,background);
-        gestureDetector = new GestureDetector(GameCanvas.this, this);
+        gameviewTEST = findViewById(R.id.gameView);
+        updateCanvas();
+        gestureDetector = new GestureDetector(GameActivity.this, this);
     }
 
+   private void updateCanvas() {
+       gameviewTEST.drawRectangle();
+       Log.d("GameCanvas", "invalidate");
+       gameviewTEST.invalidate();
 
-    int getYCoords(int ypos){
-        return 1;
-    }
+   }
 
-    int getXCoords(int xpos){
-        return 1;
-    }
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Called when a touch screen event was not handled by any of the views
@@ -80,11 +77,13 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
                     if (x2 > x1) {
                         Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the right");
-                        gameGrid.swipeRight();
+                       // gameGrid.swipeRight();
+                        updateCanvas();
                     } else {
                         Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the left");
-                        gameGrid.swipeLeft();
+                        //gameGrid.swipeLeft();
+                        updateCanvas();
                     }
                     return true;
                 } else if (Math.abs(yDifference) > MIN_SWIPE_DISTANCE && Math.abs(xDifference) < Math.abs(yDifference)) {
@@ -92,11 +91,13 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
                     if (y2 > y1) {
                         Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe down");
-                        gameGrid.swipeDown();
+                        //gameGrid.swipeDown();
+                        updateCanvas();
                     } else {
                         Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe up");
-                        gameGrid.swipeUp();
+                        //gameGrid.swipeUp();
+                        updateCanvas();
                     }
                     return true;
                 } else {
@@ -109,9 +110,34 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
         return super.onTouchEvent(event);
     }
 
-    private void updateCanvas() {
-        gameCanvas = canvasHandler.drawGridToCanvas(gameGrid,background);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //The following methods need to be implemented by GestureDetector which is abstract and are not used.
