@@ -1,5 +1,7 @@
 package de.frauas.oopj.project2048;
 
+import java.util.Random;
+
 /**
  * @author Tarik, Friedrich, Ana, Lucas
  *
@@ -10,6 +12,7 @@ public class Grid {
     int height;
     int tileCount;
     boolean change = false;
+    int [] pos_free_array;
 
     //NEED GRID PRINT FUNCTION IWIE
     /**
@@ -22,6 +25,9 @@ public class Grid {
         this.width = width;
         this.height = height;
         matrix = new Tile[width][height];
+        for(int i=0; i<16 ;i++){
+            pos_free_array[i] = i;
+        }
     }
 
     /**
@@ -60,7 +66,10 @@ public class Grid {
                 if (matrix[pivotTile][column].getExp() == matrix[row][column].getExp()){
                     //merge! function?
                     matrix[pivotTile][column] = new Tile(1 + matrix[pivotTile][column].getExp());
+                    //MAYBE matrix[pivotTile][column].exp++ ;
+                    //      update bitmap
                     matrix[row][column] = null;
+                    tileCount--;
                     //Animation
                     //Sound
 
@@ -114,6 +123,7 @@ public class Grid {
                     //merge! function?
                     matrix[pivotTile][column] = new Tile(1 + matrix[pivotTile][column].getExp());
                     matrix[row][column] = null;
+                    tileCount--;
                     //Animation
                     //Sound
 
@@ -166,6 +176,7 @@ public class Grid {
                     //merge! function?
                     matrix[row][pivotTile] = new Tile(1 + matrix[row][pivotTile].getExp());
                     matrix[row][column] = null;
+                    tileCount--;
                     //Animation
                     //Sound
 
@@ -218,6 +229,7 @@ public class Grid {
                     //merge! function?
                     matrix[row][pivotTile] = new Tile(1 + matrix[row][pivotTile].getExp());
                     matrix[row][column] = null;
+                    tileCount--;
                     //Animation
                     //Sound
 
@@ -262,9 +274,36 @@ public class Grid {
      * @return true if successfully spawned the tiles
      */
     private boolean spawnNewTile() {
+        if(tileCount == 16){return false;}
+        int[] pos_free_array = fill_array();
+        //finds random field in matrix which is empty
+        int position = new Random().nextInt((16 - tileCount));
+        int new_tile_position = pos_free_array[position];
+        matrix[position/4][position%4] = new Tile(1);
+        //Canvas update needed
 
+        tileCount++;
+       return true;
+    }
 
-       return false;
+    /**
+     * Finds all positions which are empty in matrix
+     * @return Array with empty matrix positions
+     */
+    private int [] fill_array(){
+        int count = 0;
+        int empty_pos = 0;
+        int[] array = new int[16-tileCount];
+        for(int i=0; i<height; i++){
+            for(int j=0; i<width; i++){
+                if(matrix[j][i] == null){
+                    array[empty_pos] = count;
+                    empty_pos++;
+                }
+                count++;
+            }
+        }
+        return array;
     }
 
     /**
@@ -275,25 +314,7 @@ public class Grid {
         return  true;
     }
 
-    /**
-     * Determine whether Tile a and b have to be merged
-     * @param movingTile Tile that is moved
-     * @param staticTile Tile that is already on its final position
-     * @return true if Tiles have to be merged
-     */
-    private boolean isMergePossible(Tile movingTile, Tile staticTile) {
-        return true;
-    }
 
-    /**
-     * Merge 2 Tiles with the same value into a new Tile
-     * @param movingTile that is moved
-     * @param staticTile Tile that will be replaced with the new Tile
-     * @return merged Tile
-     */
-    private Tile mergeTiles(Tile movingTile, Tile staticTile) {
-        return staticTile;
-    }
 
     /**
      * Determine if you are unable to Spawn new Tiles and unable to swipe in any direction
