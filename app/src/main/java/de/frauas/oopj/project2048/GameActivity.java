@@ -11,21 +11,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
+
+
     private Grid gameGrid;
     private static final String LOGTAG = "Touch Event";
     private static final int MIN_SWIPE_DISTANCE = 150;
     private float x1, x2, y1, y2;
     private GestureDetector gestureDetector;
 
-    private GameView gameviewTEST;
+    private GameView gameView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_canvas);
 
-        gameviewTEST = findViewById(R.id.gameView);
-        gameviewTEST.initCanvas();
+        gameView = findViewById(R.id.gameView);
+        gameView.initCanvas();
 
         gameGrid = new Grid(4,4);
         updateCanvas();
@@ -33,14 +35,15 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     }
 
    private void updateCanvas() {
-       Log.d("GameCanvas", "invalidate");
-       gameviewTEST.invalidate();
-       for(int i =0; i <= 3; i++){
-           for(int j = 0; j <= 3; j++) {
+        gameView.drawGridonCanvas(gameGrid);
+        Log.d("GameCanvas", "invalidate");
+        gameView.invalidate();
+        for(int j =0; j <= 3; j++){
+           for(int i = 0; i <= 3; i++) {
                System.out.print(gameGrid.getValue(i, j) + " ");
            }
-           System.out.println(" :" + i );
-       }
+           System.out.println(" :" + j );
+        }
    }
 
     /**
@@ -105,8 +108,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         }
         return super.onTouchEvent(event);
     }
-
-
 
 
 
