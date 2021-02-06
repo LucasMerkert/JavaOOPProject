@@ -59,11 +59,23 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
         gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
     }
 
-    public void drawGridonCanvas(){
+    public void drawGridonCanvas(Grid gameGrid){
+        for(int j = 0; j <= 3; j++) {
+            for(int i = 0; i <= 3;i++ ) {
+                if(gameGrid.getValue(i,j) != 0) {
+                    drawTileAtpos(i,j, gameGrid.getValue(i,j));
+                }
+            }
+        }
 
+    }
 
-
-
+    public void drawTileAtpos(int x, int y, int value) {
+        Paint tileColor = new Paint();
+        tileColor.setARGB(255, 255,0,0);
+        System.out.print("x: " + x +" y: "+ y);
+        Rect tileRect = new Rect(x * (screenWidth/4),screenHeight-BOTTOM_OFFSET-((4-y)*(screenWidth/4)) ,(x+1) * (screenWidth/4),screenHeight-BOTTOM_OFFSET-((4-(y+1))*(screenWidth/4)));
+        gameCanvas.drawRect(tileRect, tileColor);
     }
 
 
