@@ -35,11 +35,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
    private void updateCanvas() {
        Log.d("GameCanvas", "invalidate");
        gameviewTEST.invalidate();
-       for(int i =0; i <= 3; i++){
-           for(int j = 0; j <= 3; j++) {
+       for(int j =0; j <= 3; j++){
+           for(int i = 0; i <= 3; i++) {
                System.out.print(gameGrid.getValue(i, j) + " ");
            }
-           System.out.println(" :" + i );
+           System.out.println(" :" + j );
        }
    }
 
@@ -76,13 +76,12 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                         Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the right");
                         gameGrid.swipeRight();
-                        updateCanvas();
                     } else {
                         Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the left");
                         //gameGrid.swipeLeft();
-                        updateCanvas();
                     }
+                    updateCanvas();
                     return true;
                 } else if (Math.abs(yDifference) > MIN_SWIPE_DISTANCE && Math.abs(xDifference) < Math.abs(yDifference)) {
                     //Vertical swipe detected
@@ -90,13 +89,12 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                         Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe down");
                         //gameGrid.swipeDown();
-                        updateCanvas();
                     } else {
                         Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe up");
                         //gameGrid.swipeUp();
-                        updateCanvas();
                     }
+                    updateCanvas();
                     return true;
                 } else {
                     Toast.makeText(this, "Not enough distance", Toast.LENGTH_SHORT).show();

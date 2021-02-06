@@ -61,7 +61,7 @@ public class Grid {
     public boolean swipeUp() {
         change = false;
         for(int column=0; column<width; column++) {
-            int pivotTile = 0;
+            int pivotTile = width - 1;
             for(int row=1; row<height; row++) {
                 if (matrix[row][column] == null) continue;
                 if (matrix[pivotTile][column].getExp() == matrix[row][column].getExp()){
@@ -223,13 +223,31 @@ public class Grid {
     public boolean swipeRight() {
         change = false;
         for(int row=0; row<height; row++) {
-            int pivotTile = height - 1;
-            for(int column=height-2; column>0; column--) {
-                if (matrix[row][column] == null) continue;
-                if (matrix[row][pivotTile].getExp() == matrix[row][column].getExp()){
-                    //merge! function?
-                    matrix[row][pivotTile] = new Tile(1 + matrix[row][pivotTile].getExp());
-                    matrix[row][column] = null;
+            int pivotTile = width - 1;
+            for(int column=width-2; column>-1; column--) {
+                //System.out.print(row + " = Row " + column +" = Column\n" );
+
+                if (matrix[column][row] == null) continue;
+
+                //copy row contents onto pivot tile, then clear contents of row tile
+                if (matrix[pivotTile][row] == null) {
+                    //want to compare contents at said coordinate
+                    System.out.print("VERSCHIEBUNG new Tile: " + pivotTile + row + "old Tile:" + column + row + "\n");
+                    matrix[pivotTile][row] = matrix[column][row];
+                    matrix[column][row] = null;
+                    //Animation
+                    //Sound
+
+                    //grid changed to spawn new tiles
+                    change = true;
+                    continue;
+
+                    //MERGE
+                }else if (matrix[pivotTile][row].getExp() == matrix[column][row].getExp()){
+
+                    System.out.print("MERGE new Tile: " + pivotTile + row + " old Tile:" + column + row + "\n");
+                    matrix[pivotTile][row] = new Tile(1 + matrix[pivotTile][row].getExp());
+                    matrix[column][row] = null;
                     tileCount--;
                     //Animation
                     //Sound
@@ -238,32 +256,20 @@ public class Grid {
                     change = true;
                     pivotTile--;
                 }
-                else {
-                    //copy row contents onto pivot tile, then clear contents of row tile
-                    if (matrix[row][pivotTile] == null) {
-                        //want to compare contents at said coordinate
-                        matrix[row][pivotTile] = matrix[row][column];
-                        matrix[row][column] = null;
+                else
+                    //pivot empty
+                    if (pivotTile-- != row) {
+                        System.out.print("PIVOT LEER VERSCHIEBUNG new Tile: " + pivotTile-- + row + " old Tile:" + column + row + "\n");
+                        matrix[pivotTile--][row] = matrix[column][row];
+                        matrix[column][row] = null;
                         //Animation
                         //Sound
 
                         //grid changed to spawn new tiles
                         change = true;
-                    }
-                    else{
-                        //pivot empty
-                        if (pivotTile-- != row) {
-                            matrix[row][pivotTile--] = matrix[row][column];
-                            matrix[row][column] = null;
-                            //Animation
-                            //Sound
-
-                            //grid changed to spawn new tiles
-                            change = true;
-                        }
                         pivotTile--;
                     }
-                }
+
             }
         }
         spawnNewTile();
@@ -281,6 +287,7 @@ public class Grid {
         //finds random field in matrix which is empty
         int position = new Random().nextInt((16 - tileCount));
         int new_tile_position = pos_free_array[position];
+        System.out.print(position/4 + " " + position%4 + " Spawnposition of new Tile\n");
         matrix[position/4][position%4] = new Tile(1);
         //Canvas update needed
 
