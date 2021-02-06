@@ -12,7 +12,7 @@ public class Grid {
     int height;
     int tileCount;
     boolean change = false;
-    int [] pos_free_array;
+    int[] pos_free_array;
 
     //NEED GRID PRINT FUNCTION IWIE
     /**
@@ -25,6 +25,7 @@ public class Grid {
         this.width = width;
         this.height = height;
         matrix = new Tile[width][height];
+        pos_free_array = new int[16];
         for(int i=0; i<16 ;i++){
             pos_free_array[i] = i;
         }
@@ -265,6 +266,7 @@ public class Grid {
                 }
             }
         }
+        spawnNewTile();
         return change;
     }
 
@@ -322,6 +324,14 @@ public class Grid {
      */
     public boolean isGameOver() {
         return false;
+    }
+
+    public int getValue(int x, int y){
+        if(matrix[x][y] == null) {
+            return 0;
+        } else {
+            return matrix[x][y].getValue();
+        }
     }
 
 

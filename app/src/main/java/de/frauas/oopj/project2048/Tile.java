@@ -36,14 +36,16 @@ public class Tile {
      * Getter for Tile value
      * @return value of Tile
      */
-    public int getValue() { return (int) Math.pow(2, exp);
+    public int getValue() {
+        return (int) Math.pow(2, exp);
     }
 
     /**
      * Getter for Tile exp
      * @return value of Tile
      */
-    public int getExp() { return exp;
+    public int getExp() {
+        return exp;
     }
 
 

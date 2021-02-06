@@ -1,34 +1,25 @@
 package de.frauas.oopj.project2048;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
-
-import androidx.core.content.res.ResourcesCompat;
-
-import java.util.jar.Attributes;
 
 public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
-    private Paint testPaint;
-    private Bitmap testBitmap;
-    private Canvas testcanvas;
-    private int vWidth;
-    private int vHeight;
+    private static final int BOTTOM_OFFSET = 35;
+    private Paint backgroundColor;
+    private Bitmap backgroundBitmap, gameBitmap;
+    private Canvas gameCanvas;
+    private int screenWidth;
+    private int screenHeight;
     private Context context;
 
     public GameView(Context context, AttributeSet attributesSet) {
@@ -39,41 +30,40 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
     private void setupPaint() {
 
-        testPaint = new Paint();
-        //testPaint = ResourcesCompat.getColor(getResources(),
-          //      R.color.colorRectangle, null);
-        testPaint.setColor(Color.GREEN);
+        backgroundColor = new Paint();
+        backgroundColor.setARGB(255, 0,255,255);
     }
 
-    public void drawRectangle() {
-        //vWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-
-        //vHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+    public void initCanvas() {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int vWidth = size.x;
-        int vHeight = size.y;
+        screenWidth = size.x;
+        screenHeight = size.y;
 
 
-        Log.d("GameView", vWidth + " " + vHeight);
-
+        Log.d("GameView", screenWidth + " " + screenHeight);
         Log.d("GameView", "drawing Rect");
 
-        testBitmap = Bitmap.createBitmap(vWidth, vHeight, Bitmap.Config.ARGB_8888);
-        this.setImageBitmap(testBitmap);
-        testcanvas = new Canvas(testBitmap);
+        backgroundBitmap = Bitmap.createBitmap(screenWidth, screenHeight, Bitmap.Config.ARGB_8888);
+        this.setImageBitmap(backgroundBitmap);
+        gameCanvas = new Canvas(backgroundBitmap);
 
-
-
-        Rect rectangle = new Rect(0,0,vWidth,vHeight);
-        testcanvas.drawRect(rectangle, testPaint);
+        Rect rectangle = new Rect(0,0, screenWidth,screenHeight);
+        gameCanvas.drawRect(rectangle, backgroundColor);
         Log.d("GameView", "drew Rect");
+
+        Rect gameBackgroundRect = new Rect(0,screenHeight-screenWidth-BOTTOM_OFFSET ,screenWidth,screenHeight-BOTTOM_OFFSET);
+        gameBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.grid4x4_background);
+        gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
     }
 
-    public Canvas getCanvas(){
-        return this.testcanvas;
+    public void drawGridonCanvas(){
+
+
+
+
     }
 
 

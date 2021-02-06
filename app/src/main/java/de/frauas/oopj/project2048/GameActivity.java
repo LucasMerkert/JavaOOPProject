@@ -25,15 +25,22 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         setContentView(R.layout.activity_game_canvas);
 
         gameviewTEST = findViewById(R.id.gameView);
+        gameviewTEST.initCanvas();
+
+        gameGrid = new Grid(4,4);
         updateCanvas();
         gestureDetector = new GestureDetector(GameActivity.this, this);
     }
 
    private void updateCanvas() {
-       gameviewTEST.drawRectangle();
        Log.d("GameCanvas", "invalidate");
        gameviewTEST.invalidate();
-
+       for(int i =0; i <= 3; i++){
+           for(int j = 0; j <= 3; j++) {
+               System.out.print(gameGrid.getValue(i, j) + " ");
+           }
+           System.out.println(" :" + i );
+       }
    }
 
     /**
@@ -68,7 +75,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                     if (x2 > x1) {
                         Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the right");
-                       // gameGrid.swipeRight();
+                        gameGrid.swipeRight();
                         updateCanvas();
                     } else {
                         Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
@@ -96,8 +103,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                     Log.d(LOGTAG, "Not enough distance");
                 }
         }
-        updateCanvas();
-
         return super.onTouchEvent(event);
     }
 
