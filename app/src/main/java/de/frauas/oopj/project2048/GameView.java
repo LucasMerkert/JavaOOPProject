@@ -7,12 +7,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -26,11 +29,12 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
     private Canvas testcanvas;
     private int vWidth;
     private int vHeight;
+    private Context context;
 
     public GameView(Context context, AttributeSet attributesSet) {
         super(context, attributesSet);
         setupPaint();
-
+        this.context = context;
 
 
 
@@ -45,9 +49,17 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
     }
 
     public void drawRectangle() {
-        vWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+        //vWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
-        vHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+        //vHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int vWidth = size.x;
+        int vHeight = size.y;
+
+
         Log.d("GameView", vWidth + " " + vHeight);
 
         Log.d("GameView", "drawing Rect");
