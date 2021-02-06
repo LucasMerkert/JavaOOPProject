@@ -35,9 +35,6 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
         super(context, attributesSet);
         setupPaint();
         this.context = context;
-
-
-
     }
 
     private void setupPaint() {

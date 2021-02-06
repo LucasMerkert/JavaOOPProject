@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_canvas);
 
         gameviewTEST = findViewById(R.id.gameView);
@@ -33,17 +35,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
        gameviewTEST.invalidate();
 
    }
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Called when a touch screen event was not handled by any of the views
