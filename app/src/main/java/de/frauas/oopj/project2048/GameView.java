@@ -73,7 +73,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
     public void drawTileAtpos(int x, int y, int value) {
         Paint tileColor = new Paint();
         tileColor.setARGB(255, 255,0,0);
-        System.out.print("x: " + x +" y: "+ y);
+        //System.out.print("x: " + x +" y: "+ y);
         Rect tileRect = new Rect(x * (screenWidth/4),screenHeight-BOTTOM_OFFSET-((4-y)*(screenWidth/4)) ,(x+1) * (screenWidth/4),screenHeight-BOTTOM_OFFSET-((4-(y+1))*(screenWidth/4)));
         gameCanvas.drawRect(tileRect, tileColor);
     }

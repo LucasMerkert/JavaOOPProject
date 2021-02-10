@@ -226,6 +226,7 @@ public class Grid {
             int pivotTile = width - 1;
             for(int column=width-2; column>-1; column--) {
                 //System.out.print(row + " = Row " + column +" = Column\n" );
+                System.out.print("Pivot " + pivotTile + "\n");
 
                 if (matrix[column][row] == null) continue;
 
@@ -255,21 +256,19 @@ public class Grid {
                     //grid changed to spawn new tiles
                     change = true;
                     pivotTile--;
+
+                }   //pivot empty
+                else if ( column < pivotTile--) {
+                    System.out.print("PIVOT LEER VERSCHIEBUNG new Tile: " + pivotTile + row + " old Tile:" + column + row + " Pivot Nr " + pivotTile + " Column " + column +"\n");
+                    matrix[pivotTile][row] = matrix[column][row];
+                    matrix[column][row] = null;
+                    //Animation
+                    //Sound
+
+                    //grid changed to spawn new tiles
+                    change = true;
+                    pivotTile--;
                 }
-                else
-                    //pivot empty
-                    if (pivotTile-- != row) {
-                        System.out.print("PIVOT LEER VERSCHIEBUNG new Tile: " + pivotTile-- + row + " old Tile:" + column + row + "\n");
-                        matrix[pivotTile--][row] = matrix[column][row];
-                        matrix[column][row] = null;
-                        //Animation
-                        //Sound
-
-                        //grid changed to spawn new tiles
-                        change = true;
-                        pivotTile--;
-                    }
-
             }
         }
         spawnNewTile();
@@ -283,7 +282,16 @@ public class Grid {
      */
     private boolean spawnNewTile() {
         if(tileCount == 16){return false;}
-        int[] pos_free_array = fill_array();
+
+        while(true){
+            int position = new Random().nextInt(16);
+            if(matrix[position/4][position%4] == null){
+                matrix[position/4][position%4] = new Tile(1);
+                return true;
+            }
+        }
+
+        /*int[] pos_free_array = fill_array();
         //finds random field in matrix which is empty
         int position = new Random().nextInt((16 - tileCount));
         int new_tile_position = pos_free_array[position];
@@ -292,7 +300,8 @@ public class Grid {
         //Canvas update needed
 
         tileCount++;
-       return true;
+        return true;
+         */
     }
 
     /**
@@ -302,10 +311,10 @@ public class Grid {
     private int [] fill_array(){
         int count = 0;
         int empty_pos = 0;
-        int[] array = new int[16-tileCount];
-        for(int i=0; i<height; i++){
-            for(int j=0; i<width; i++){
-                if(matrix[j][i] == null){
+        int[] array = new int[16-tileCount+1];
+        for(int i=0; i<width; i++){
+            for(int j=0; j<height; j++){
+                if(matrix[i][j] == null){
                     array[empty_pos] = count;
                     empty_pos++;
                 }
