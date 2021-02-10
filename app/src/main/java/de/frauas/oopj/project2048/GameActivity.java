@@ -80,7 +80,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                     } else {
                         Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the left");
-                        //gameGrid.swipeLeft();
+                        gameGrid.swipeLeft();
                     }
                     updateCanvas();
                     return true;
@@ -89,11 +89,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                     if (y2 > y1) {
                         Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe down");
-                        //gameGrid.swipeDown();
+                        gameGrid.swipeDown();
                     } else {
                         Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe up");
-                        //gameGrid.swipeUp();
+                        gameGrid.swipeUp();
                     }
                     updateCanvas();
                     return true;
