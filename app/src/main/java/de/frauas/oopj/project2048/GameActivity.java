@@ -74,11 +74,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                 if (Math.abs(xDifference) > MIN_SWIPE_DISTANCE && Math.abs(xDifference) > Math.abs(yDifference)) {
                     //Horizontal swipe detected
                     if (x2 > x1) {
-                        Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the right");
                         gameGrid.swipeRight();
                     } else {
-                        Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the left");
                         gameGrid.swipeLeft();
                     }
@@ -87,11 +87,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                 } else if (Math.abs(yDifference) > MIN_SWIPE_DISTANCE && Math.abs(xDifference) < Math.abs(yDifference)) {
                     //Vertical swipe detected
                     if (y2 > y1) {
-                        Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe down");
                         gameGrid.swipeDown();
                     } else {
-                        Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe up");
                         gameGrid.swipeUp();
                     }
