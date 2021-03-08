@@ -1,78 +1,48 @@
 package de.frauas.oopj.project2048;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.ImageView;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
-public class GameCanvas extends AppCompatActivity implements GestureDetector.OnGestureListener {
+public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
     private Grid gameGrid;
     private static final String LOGTAG = "Touch Event";
     private static final int MIN_SWIPE_DISTANCE = 150;
     private float x1, x2, y1, y2;
     private GestureDetector gestureDetector;
-    private Canvas gameCanvas;
-    private CanvasHandler canvasHandler;
-    private Bitmap background;
-    private static int q0, q1, q2, q3, TILE_LENGTH;
+
+    private GameView gameView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_canvas);
 
+        gameView = findViewById(R.id.gameView);
+        gameView.initCanvas();
+
         gameGrid = new Grid(4,4);
-        ImageView canvasBackgroundImage = findViewById(R.id.imageCanvas);
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
-        canvasBackgroundImage.setImageBitmap(background);
-        gameCanvas = new Canvas(background);
-        canvasHandler = new CanvasHandler(gameCanvas);
-        gameCanvas = canvasHandler.drawGridToCanvas(gameGrid,background);
-        gestureDetector = new GestureDetector(GameCanvas.this, this);
-
-        q0 = 0;
-        q1 = (int)(0.25d * gameCanvas.getHeight());
-        q2 = (int)(0.50d * gameCanvas.getHeight());
-        q3 = (int)(0.75d * gameCanvas.getHeight());
-        TILE_LENGTH = (int)(0.25d * gameCanvas.getHeight());
-        Log.d("Canvas Quantiles", "q1=" + q1);
-        Log.d("Canvas Quantiles", "q2=" + q2);
-        Log.d("Canvas Quantiles", "q3=" + q3);
-        Log.d("Canvas Quantiles", "TILE_LENGTH=" + TILE_LENGTH);
-
-        drawTileAtLocation(2,3);
+        updateCanvas();
+        gestureDetector = new GestureDetector(GameActivity.this, this);
     }
 
-    private void drawTileAtLocation(int xpos, int ypos){
-        Log.d("Tile Coords", "xpos=" + xpos);
-        Log.d("Tile Coords", "ypos=" + ypos);
-
-        Paint _paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        _paint.setColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
-
-        gameCanvas.drawRect(xpos/4.0f * gameCanvas.getWidth(),
-                ypos/4.0f * gameCanvas.getHeight(),
-                xpos/4.0f * gameCanvas.getWidth() + TILE_LENGTH,
-                ypos/4.0f * gameCanvas.getHeight() + TILE_LENGTH,
-                _paint);
-    }
-
-    int getYCoords(int ypos){
-        return 1;
-    }
-
-    int getXCoords(int xpos){
-        return 1;
-    }
+   private void updateCanvas() {
+        gameView.drawGridonCanvas(gameGrid);
+        Log.d("GameCanvas", "invalidate");
+        gameView.invalidate();
+        for(int j =0; j <= 3; j++){
+           for(int i = 0; i <= 3; i++) {
+               System.out.print(gameGrid.getValue(i, j) + " ");
+           }
+           System.out.println(" :" + j );
+        }
+   }
 
     /**
      * Called when a touch screen event was not handled by any of the views
@@ -112,6 +82,7 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
                         Log.d(LOGTAG, "Swipe to the left");
                         gameGrid.swipeLeft();
                     }
+                    updateCanvas();
                     return true;
                 } else if (Math.abs(yDifference) > MIN_SWIPE_DISTANCE && Math.abs(xDifference) < Math.abs(yDifference)) {
                     //Vertical swipe detected
@@ -124,20 +95,44 @@ public class GameCanvas extends AppCompatActivity implements GestureDetector.OnG
                         Log.d(LOGTAG, "Swipe up");
                         gameGrid.swipeUp();
                     }
+                    updateCanvas();
                     return true;
                 } else {
                     Toast.makeText(this, "Not enough distance", Toast.LENGTH_SHORT).show();
                     Log.d(LOGTAG, "Not enough distance");
                 }
         }
-        updateCanvas();
-
         return super.onTouchEvent(event);
     }
 
-    private void updateCanvas() {
-        gameCanvas = canvasHandler.drawGridToCanvas(gameGrid,background);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //The following methods need to be implemented by GestureDetector which is abstract and are not used.

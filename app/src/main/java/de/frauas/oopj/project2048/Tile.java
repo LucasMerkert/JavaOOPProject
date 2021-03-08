@@ -11,44 +11,47 @@ import androidx.appcompat.app.AppCompatActivity;
  *
  */
 public class Tile {
-    private int value;
-    private Bitmap display;
+	private int exp;
+	public int pos; //for posfree array check
+	//private int value;
+	private Bitmap display;
 
-    /**
-     * Constructor for tile object,
-     * @param value
-     * @throws TileSpawnException if value is not 2 or 4
-     */
-    public Tile(int value, int xPos, int yPos) throws TileSpawnException{
-        if (value == 2 || value == 4) {
-            this.value=value;
-        } else throw new TileSpawnException();
-        /*
-        if(value == 2) {
-            //TODO Set Tile 2 Bitmap
-            display = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
-        } else if(value == 4) {
-            //TODO Set Tile 4 Bitmap
-            display = BitmapFactory.decodeResource(getResources(), R.drawable.grid4x4_background).copy(Bitmap.Config.ARGB_8888, true);
-        }*/
-    }
+	/**
+	 * Constructor for tile object,
+	 * @param exp = Exponent
+	 *        value = 2^exp
+	 *
+	 */
+	public Tile(int exp) {
+		if(exp < 0 )
+			new IllegalArgumentException("Tile is a negative number");
+		this.exp = exp;
+		//value = (int) Math.pow(2, nr);
+		//Bitmap fehlt
+	}
 
-
-    /**
-     * Getter for Tile value
-     * @return value of Tile
-     */
-    public int getValue() {
-        return this.value;
-    }
+	public void upgrade(){
+		this.exp = 1 + this.getExp();
+	}
 
 
-    @Override
-    /**
-     * Outputs tile as String; Overrides 'toString()' from java.lang.Object
-     */
-    public String toString(){
-        return "("+ Integer.toString(value) + ")";
-    }
+
+	/**
+	 * Getter for Tile value
+	 * @return value of Tile
+	 */
+	public int getValue() {
+		return (int) Math.pow(2, exp);
+	}
+
+	/**
+	 * Getter for Tile exp
+	 * @return value of Tile
+	 */
+	public int getExp() {
+		return exp;
+	}
+
 
 }
+
