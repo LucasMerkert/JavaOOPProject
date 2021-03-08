@@ -104,7 +104,7 @@ public class Grid {
                     //pivotTile is moved to the left
 					pivotTile++;
                 }
-                //pivotTile and current tile have diffrent value; they collide and dont merge
+                //pivotTile and current tile have different value; they collide and dont merge
                 else if ( row > pivotTile+1) {
 					slideTile(column, row, pivotTile, true, pivotTyp.UP);
 
@@ -198,7 +198,7 @@ public class Grid {
                     //Sound
 					pivotTile++;
                 }
-                //pivotTile and current tile have diffrent value; they collide and dont merge
+                //pivotTile and current tile have different value; they collide and dont merge
                 else if ( column > pivotTile+1) {
 					slideTile(column, row, pivotTile, false, pivotTyp.LEFT);
 
@@ -243,7 +243,7 @@ public class Grid {
 					//Sound
 					pivotTile--;
 				}
-				//pivotTile and current tile have diffrent value; they collide and dont merge
+				//pivotTile and current tile have different value; they collide and dont merge
 				else if ( column < pivotTile-1) {
 					slideTile(column, row, pivotTile, false, pivotTyp.RIGHT);
 
