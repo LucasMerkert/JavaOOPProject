@@ -1,0 +1,27 @@
+English:
+
+Requirements:
+ - git (to clone from repository)
+ - Android Studio
+
+Step 1: Clone project and open in Android Studio 
+File -> New -> Project from Version Control...
+Enter <https://github.com/LucasMerkert/JavaOOPProject.git> as URL
+Choose your own Directory
+Click 'Clone'
+
+Step 2: Generate APK
+Build -> Generate Signed Bundle / APK
+Select 'APK'
+Click 'Next'
+Click 'Choose existing...'
+Select 'key.jks' from project folder
+Click 'OK'
+Passwords for Key and Key store are both 'game2048'
+Click 'Next'
+Choose Destination Path
+Select 'Release' Build Variant
+Select both V1 and V2 Signature Versions
+Click 'Finish'
+This can take some time.
+Open 'release' folder at Destination
