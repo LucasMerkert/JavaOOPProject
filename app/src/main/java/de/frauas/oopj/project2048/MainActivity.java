@@ -13,20 +13,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         /*
           Sets up an on-click-listener for each button, executing the respective code block assigned to the button-listener
          */
         final Button _test = findViewById(R.id.button4x4);
         _test.setOnClickListener(v -> {
-            startCanvasTest();
+            startGameActivity();
         });
 
 
     }
 
-    private void startCanvasTest() {
-        Intent startCanvasTest = new Intent(this, GameActivity.class);
-        startActivity(startCanvasTest);
+    private void startGameActivity() {
+        Intent GameActivity = new Intent(this, GameActivity.class);
+        startActivity(GameActivity);
     }
 
 
