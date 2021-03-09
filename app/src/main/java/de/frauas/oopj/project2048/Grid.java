@@ -30,15 +30,15 @@ public class Grid {
 		for(int i=0; i<16 ;i++){
 			pos_free_array[i] = i;
 		}
-        initSpawn();
+		initSpawn();
 	}
 
 	/**
 	 * Spawn 2 Tiles at the beginning of a game
 	 */
 	private void initSpawn() {
-        spawnNewTile();
-        spawnNewTile();
+		spawnNewTile();
+		spawnNewTile();
 	}
 
 	/* two possibilities:
@@ -235,6 +235,7 @@ public class Grid {
 
 					//Animation
 					//Sound
+					pivotTile--;
 				}
 				//pivotTile and current tile have different value; they collide and dont merge
 				else if ( column < pivotTile-1) {
@@ -242,6 +243,7 @@ public class Grid {
 
 					//Animation
 					//Sound
+					pivotTile--;
 				}
 				else pivotTile--;
 			}
@@ -266,6 +268,7 @@ public class Grid {
 			matrix[pivotTile + typ.value][row] = matrix[column][row];
 		}
 		deleteTile(column, row);
+		//pivotTile += typ.value;
 		change = true;
 		return pivotTile + typ.value;
 	}
@@ -279,6 +282,7 @@ public class Grid {
 			matrix[pivotTile][row].upgrade();
 		}
 		deleteTile(column, row);
+		//pivotTile += typ.value;
 		change = true;
 		return pivotTile + typ.value;
 	}
@@ -318,12 +322,8 @@ public class Grid {
 			tileCount++;
 			return true;
 		}
-
-
-
-
-
-		/*else{
+		/*
+		else{
 			int r_column, r_row, r_exp;
 			do{
 				Random dice = new Random();
