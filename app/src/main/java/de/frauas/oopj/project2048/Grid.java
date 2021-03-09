@@ -15,7 +15,6 @@ public class Grid {
 	int[] pos_free_array;
 	public static int pivotTile;
 
-	//NEED GRID PRINT FUNCTION IWIE
 	/**
 	 * Contructor for Grid object, the main playing field. The top-left corner of the grid is [0][0], the one to the right of it [1][0]; the one below [0][1]
 	 * @param width width of game grid
