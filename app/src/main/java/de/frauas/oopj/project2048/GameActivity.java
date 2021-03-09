@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
     private float x1, x2, y1, y2;
     private GestureDetector gestureDetector;
 
+    //private SoundManager gameSoundManager;
     private GameView gameView;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +29,17 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         gameView = findViewById(R.id.gameView);
         gameView.initCanvas();
 
+        //gameSoundManager = new SoundManager();
+        //gameSoundManager.InitSound();
+
         gameGrid = new Grid(4,4);
         updateCanvas();
         gestureDetector = new GestureDetector(GameActivity.this, this);
+
+        final Button _restart = findViewById(R.id.restartBtn);
+        _restart.setOnClickListener(v -> {
+            restart();
+        });
     }
 
    private void updateCanvas() {
@@ -44,6 +54,13 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
         }
    }
 
+
+
+   private void restart() {
+        gameView.initCanvas();
+        gameGrid = new Grid(4,4);
+        updateCanvas();
+   }
     /**
      * Called when a touch screen event was not handled by any of the views
      * under it.
@@ -77,6 +94,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
                         //Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the right");
                         gameGrid.swipeRight();
+                        //gameSoundManager.playSound(0);
                     } else {
                         //Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
                         Log.d(LOGTAG, "Swipe to the left");
