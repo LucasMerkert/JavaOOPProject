@@ -13,6 +13,7 @@ public class Grid {
 	int WIDTH;
 	int HEIGHT;
 	int tileCount;
+	int currentScore;
 	boolean change = false;
 	int[] pos_free_array;
 	public static int pivotTile;
@@ -72,9 +73,7 @@ public class Grid {
             pivotTile = 0;
             System.out.print("Neue Zeile\n");
             for(int row = 1; row < HEIGHT; row++) {
-                System.out.print(row + " = Row " + column +" = Column\n" );
-                System.out.print("Pivot " + pivotTile + "\n");
-
+				printPosition(row, column, pivotTile, true);
                 //current tile is empty; nothing to do
                 if (matrix[column][row] == null) {}
                 //pivotTile is empty; current tile is moved to pivotTile
@@ -118,9 +117,7 @@ public class Grid {
             pivotTile = HEIGHT - 1;
             System.out.print("Neue Zeile\n");
             for(int row = HEIGHT - 2; row > -1; row--) {
-                System.out.print(row + " = Row " + column +" = Column\n" );
-                System.out.print("Pivot " + pivotTile + "\n");
-
+				printPosition(row, column, pivotTile, false);
                 //current tile is empty; nothing to do
                 if (matrix[column][row] == null) {}
                 //pivotTile is empty; current tile is moved to pivotTile
@@ -161,11 +158,9 @@ public class Grid {
 		change = false;
         for(int row = 0; row< HEIGHT; row++) {
             pivotTile = 0;
-            System.out.print("Neue Zeile\n");
+            System.out.print("Neue Spalte\n");
             for(int column = 1; column < WIDTH; column++) {
-                System.out.print(row + " = Row " + column +" = Column\n" );
-                System.out.print("Pivot " + pivotTile + "\n");
-
+				printPosition(row, column, pivotTile, true);
                 //current tile is empty; nothing to do
                 if (matrix[column][row] == null) {}
                 //pivotTile is empty; current tile is moved to pivotTile
@@ -205,10 +200,9 @@ public class Grid {
 		change = false;
 		for(int row = 0; row< HEIGHT; row++) {
 			pivotTile = WIDTH - 1;
-            System.out.print("Neue Zeile\n");
+            System.out.print("Neue Spalte\n");
 			for(int column = WIDTH - 2; column > -1; column--) {
-				System.out.print(row + " = Row " + column +" = Column\n" );
-				System.out.print("Pivot " + pivotTile + "\n");
+				printPosition(row, column, pivotTile, true);
 				//current tile is empty; nothing to do
 				if (matrix[column][row] == null) {}
 				//pivotTile is empty; current tile is moved to pivotTile
@@ -219,7 +213,7 @@ public class Grid {
 					//Animation
 					//Sound
 				}
-				//pivotTile and current tile have same value; merge into eachother
+				//pivotTile and current tile have same value; merge into each other
 				else if (matrix[pivotTile][row].getExp() == matrix[column][row].getExp()){
 					pivotTile = mergeTile(column, row, pivotTile, false, RIGHT);
 
@@ -240,6 +234,16 @@ public class Grid {
 		return change;
 	}
 
+	private void printPosition(int row, int column, int pivotTile, boolean byRow) {
+		if(byRow){
+			System.out.print("CurrentTile = (" + row + "/" + column + ") (row/column)\n" );
+			System.out.print("PivotTile = (" + pivotTile + "/" + column + ") (row/column)\n");
+		}else{
+			System.out.print("CurrentTile = (" + row + "/" + column + ") (row/column)\n" );
+			System.out.print("PivotTile = (" + row + "/" + pivotTile + ") (row/column)\n");
+		}
+	}
+
 
 	// WARUM WURDE private void slideTile(int column, int row, int i, boolean b) vorgeschlagen geht pivotTile auch?
 	/**
@@ -256,7 +260,6 @@ public class Grid {
 			matrix[pivotTile + typ.value()][row] = matrix[column][row];
 		}
 		deleteTile(column, row, false);
-		//pivotTile += typ.value;
 		change = true;
 		return pivotTile + typ.value();
 	}
@@ -265,12 +268,13 @@ public class Grid {
 		if(sameColumn){
 			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + column + "," + pivotTile + ")");
 			matrix[column][pivotTile].upgrade();
+			currentScore +=matrix[column][pivotTile].getValue();
 		}else{
 			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + pivotTile + "," + row + ")");
 			matrix[pivotTile][row].upgrade();
+			currentScore +=matrix[pivotTile][row].getValue();
 		}
 		deleteTile(column, row, true);
-		//pivotTile += typ.value;
 		change = true;
 		return pivotTile + typ.value();
 	}
@@ -359,8 +363,4 @@ public class Grid {
 			return matrix[x][y].getValue();
 		}
 	}
-
-
-
-
 }
