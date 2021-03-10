@@ -225,7 +225,6 @@ public class Grid {
 
 					//Animation
 					//Sound
-					pivotTile--;
 				}
 				//pivotTile and current tile have different value; they collide and dont merge
 				else if ( column < pivotTile-1) {
@@ -233,7 +232,6 @@ public class Grid {
 
 					//Animation
 					//Sound
-					pivotTile--;
 				}
 				else pivotTile--;
 			}
@@ -257,7 +255,7 @@ public class Grid {
 			System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + (pivotTile + typ.value()) + "," + row + ")");
 			matrix[pivotTile + typ.value()][row] = matrix[column][row];
 		}
-		deleteTile(column, row);
+		deleteTile(column, row, false);
 		//pivotTile += typ.value;
 		change = true;
 		return pivotTile + typ.value();
@@ -271,7 +269,7 @@ public class Grid {
 			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + pivotTile + "," + row + ")");
 			matrix[pivotTile][row].upgrade();
 		}
-		deleteTile(column, row);
+		deleteTile(column, row, true);
 		//pivotTile += typ.value;
 		change = true;
 		return pivotTile + typ.value();
@@ -279,9 +277,9 @@ public class Grid {
 
 
 
-	private void deleteTile(int column, int row) {
+	private void deleteTile(int column, int row, boolean lowerTileCount) {
 		matrix[column][row] = null;
-		tileCount--;
+		if(lowerTileCount) tileCount--;
 	}
 
 
@@ -292,26 +290,29 @@ public class Grid {
 	private boolean spawnNewTile() {
 		if(tileCount == 16){
 			return false;
-		}else{
+		}
+		else{
 			int r_randomSpace, i= 0;
 			Random dice = new Random();
 			r_randomSpace = dice.nextInt(16 - tileCount++);
-			  //value of range [0,tileCount)
+			  //value of range [0, 16 - tileCount++)
 			for(int column = 0; column < WIDTH; column++) {
 				for(int row = 0; row < HEIGHT; row++){
 					if(matrix[column][row] == null) {
 						if(i == r_randomSpace) {
 							matrix[column][row] = new Tile(1);
-							System.out.println("TileCount:" + tileCount);
+
 							System.out.println("New tile spawned at ("+ column + "," + row + ")");
 						}
 						i++;
 					}
 				}
 			}
-			tileCount++;
+			//tileCount++;
+			System.out.println("TileCount:" + tileCount);
 			return true;
 		}
+
 		/*
 		else{
 			int r_column, r_row, r_exp;
@@ -323,9 +324,11 @@ public class Grid {
 
 				Math.random();
 			}while(matrix[r_column][r_row] != null);
+
 			System.out.println("New tile spawned at ("+ r_column + "," + r_row + ")");
 			matrix[r_column][r_row] = new Tile(1);
 			tileCount++;
+			System.out.println("TileCount: " + tileCount);
 			return true;
 		}*/
 	}
