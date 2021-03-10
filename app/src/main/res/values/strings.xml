@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JavaOOPProject</string>
+    <string name="app_name">2048</string>
     <string name="game_title">2048</string>
     <string name="start4x4button">Start 4x4 game</string>
 	<string name="restartBtnString">Restart Game</string>
