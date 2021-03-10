@@ -20,9 +20,9 @@ public class Tile {
 	 * Constructor for tile object,
 	 * @param exp = Exponent
 	 *        value = 2^exp
-	 *
+	 * @throws IllegalArgumentException
 	 */
-	public Tile(int exp) {
+	public Tile(int exp) throws IllegalArgumentException{
 		if(exp < 0 )
 			new IllegalArgumentException("Tile is a negative number");
 		this.exp = exp;

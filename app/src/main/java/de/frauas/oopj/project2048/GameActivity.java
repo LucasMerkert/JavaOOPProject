@@ -118,7 +118,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 					updateCanvas();
 					return true;
 				} else {
-					Toast.makeText(this, "Not enough distance", Toast.LENGTH_SHORT).show();
+					//Toast.makeText(this, "Not enough distance", Toast.LENGTH_SHORT).show();
 					Log.d(LOGTAG, "Not enough distance");
 				}
 		}

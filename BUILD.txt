@@ -4,8 +4,15 @@ Requirements:
  - git (to clone from repository)
  - Android Studio
 
-Step 1: Clone project and open in Android Studio 
+Step 1: Clone project and open in Android Studio
+If you are opening Android Studio with an active Project:
 File -> New -> Project from Version Control...
+Enter <https://github.com/LucasMerkert/JavaOOPProject.git> as URL
+Choose your own Directory
+Click 'Clone'
+
+If you are opening Android Studio without an active Project:
+Click 'Get from Version Control'
 Enter <https://github.com/LucasMerkert/JavaOOPProject.git> as URL
 Choose your own Directory
 Click 'Clone'
@@ -18,6 +25,7 @@ Click 'Choose existing...'
 Select 'key.jks' from project folder
 Click 'OK'
 Passwords for Key and Key store are both 'game2048'
+Enter key0 as key alias
 Click 'Next'
 Choose Destination Path
 Select 'Release' Build Variant

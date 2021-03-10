@@ -2,6 +2,8 @@ package de.frauas.oopj.project2048;
 
 import java.util.Random;
 
+import static de.frauas.oopj.project2048.Direction.*;
+
 /**
  * @author Tarik, Friedrich, Ana, Lucas
  *
@@ -11,6 +13,7 @@ public class Grid {
 	int WIDTH;
 	int HEIGHT;
 	int tileCount;
+	int currentScore;
 	boolean change = false;
 	int[] pos_free_array;
 	public static int pivotTile;
@@ -55,18 +58,7 @@ public class Grid {
 	 * but dont know how to get value yet
 	 */
 
-	enum pivotTyp{
-		EMPTY(0),
-		UP(1),
-		LEFT(1),
-		DOWN(-1),
-		RIGHT(-1);
 
-		private int value;
-		pivotTyp(int value){
-			this.value = value;
-		}
-	}
 
 
 	/**
@@ -81,15 +73,13 @@ public class Grid {
             pivotTile = 0;
             System.out.print("Neue Zeile\n");
             for(int row = 1; row < HEIGHT; row++) {
-                System.out.print(row + " = Row " + column +" = Column\n" );
-                System.out.print("Pivot " + pivotTile + "\n");
-
+				printPosition(row, column, pivotTile, true);
                 //current tile is empty; nothing to do
                 if (matrix[column][row] == null) {}
                 //pivotTile is empty; current tile is moved to pivotTile
                 else if (matrix[column][pivotTile] == null) {
                     //want to compare contents at said coordinate
-					pivotTile = slideTile(column, row, pivotTile, true, pivotTyp.EMPTY);
+					pivotTile = slideTile(column, row, pivotTile, true, EMPTY);
 
                     //Animation
                     //Sound
@@ -97,14 +87,14 @@ public class Grid {
                 //pivotTile and current tile have same value; merge into eachother
                 else if (matrix[column][pivotTile].getExp() == matrix[column][row].getExp()){
 
-					pivotTile = mergeTile(column, row, pivotTile, true, pivotTyp.UP);
+					pivotTile = mergeTile(column, row, pivotTile, true, UP);
 
                     //Animation
                     //Sound
                 }
                 //pivotTile and current tile have different value; they collide and dont merge
                 else if ( row > pivotTile+1) {
-					pivotTile = slideTile(column, row, pivotTile, true, pivotTyp.UP);
+					pivotTile = slideTile(column, row, pivotTile, true, UP);
 
                 	//Animation
                     //Sound
@@ -112,7 +102,7 @@ public class Grid {
                 else pivotTile++;
             }
         }
-        if(change)spawnNewTile();
+		checkSpawnNewTile();
         return change;
 	}
 
@@ -127,15 +117,13 @@ public class Grid {
             pivotTile = HEIGHT - 1;
             System.out.print("Neue Zeile\n");
             for(int row = HEIGHT - 2; row > -1; row--) {
-                System.out.print(row + " = Row " + column +" = Column\n" );
-                System.out.print("Pivot " + pivotTile + "\n");
-
+				printPosition(row, column, pivotTile, false);
                 //current tile is empty; nothing to do
                 if (matrix[column][row] == null) {}
                 //pivotTile is empty; current tile is moved to pivotTile
                 else if (matrix[column][pivotTile] == null) {
                     //want to compare contents at said coordinate
-					pivotTile = slideTile(column, row, pivotTile, true, pivotTyp.EMPTY);
+					pivotTile = slideTile(column, row, pivotTile, true, EMPTY);
 
                     //Animation
                     //Sound
@@ -143,14 +131,14 @@ public class Grid {
                 //MERGE into eachother, pivotTile and current tile have same value;
                 else if (matrix[column][pivotTile].getExp() == matrix[column][row].getExp()){
 
-					pivotTile = mergeTile(column, row, pivotTile, true, pivotTyp.DOWN);
+					pivotTile = mergeTile(column, row, pivotTile, true, DOWN);
 
                     //Animation
                     //Sound
                 }
                 //pivotTile and current tile have different value; they collide and dont merge
                 else if ( row < pivotTile-1) {
-					pivotTile = slideTile(column, row, pivotTile, true, pivotTyp.DOWN);
+					pivotTile = slideTile(column, row, pivotTile, true, DOWN);
 
                     //Animation
                     //Sound
@@ -158,7 +146,7 @@ public class Grid {
                 else pivotTile--;
             }
         }
-        if(change)spawnNewTile();
+		checkSpawnNewTile();
         return change;
 	}
 
@@ -170,31 +158,29 @@ public class Grid {
 		change = false;
         for(int row = 0; row< HEIGHT; row++) {
             pivotTile = 0;
-            System.out.print("Neue Zeile\n");
+            System.out.print("Neue Spalte\n");
             for(int column = 1; column < WIDTH; column++) {
-                System.out.print(row + " = Row " + column +" = Column\n" );
-                System.out.print("Pivot " + pivotTile + "\n");
-
+				printPosition(row, column, pivotTile, true);
                 //current tile is empty; nothing to do
                 if (matrix[column][row] == null) {}
                 //pivotTile is empty; current tile is moved to pivotTile
                 else if (matrix[pivotTile][row] == null) {
                     //want to compare contents at said coordinate
-					pivotTile = slideTile(column, row, pivotTile, false, pivotTyp.EMPTY);
+					pivotTile = slideTile(column, row, pivotTile, false, EMPTY);
 
                     //Animation
                     //Sound
                 }
                 //pivotTile and current tile have same value; merge into eachother
                 else if (matrix[pivotTile][row].getExp() == matrix[column][row].getExp()){
-					pivotTile = mergeTile(column, row, pivotTile, false, pivotTyp.LEFT);
+					pivotTile = mergeTile(column, row, pivotTile, false, LEFT);
 
                     //Animation
                     //Sound
                 }
                 //pivotTile and current tile have different value; they collide and dont merge
                 else if ( column > pivotTile+1) {
-					pivotTile = slideTile(column, row, pivotTile, false, pivotTyp.LEFT);
+					pivotTile = slideTile(column, row, pivotTile, false, LEFT);
 
                     //Animation
                     //Sound
@@ -202,7 +188,7 @@ public class Grid {
                 else pivotTile++;
             }
         }
-        if(change)spawnNewTile();
+		checkSpawnNewTile();
         return change;
 	}
 
@@ -214,41 +200,61 @@ public class Grid {
 		change = false;
 		for(int row = 0; row< HEIGHT; row++) {
 			pivotTile = WIDTH - 1;
-            System.out.print("Neue Zeile\n");
+            System.out.print("Neue Spalte\n");
 			for(int column = WIDTH - 2; column > -1; column--) {
-				System.out.print(row + " = Row " + column +" = Column\n" );
-				System.out.print("Pivot " + pivotTile + "\n");
+				printPosition(row, column, pivotTile, true);
 				//current tile is empty; nothing to do
 				if (matrix[column][row] == null) {}
 				//pivotTile is empty; current tile is moved to pivotTile
 				else if (matrix[pivotTile][row] == null) {
 					//want to compare contents at said coordinate
-					pivotTile = slideTile(column, row, pivotTile, false, pivotTyp.EMPTY);
+					pivotTile = slideTile(column, row, pivotTile, false, EMPTY);
 
 					//Animation
 					//Sound
 				}
-				//pivotTile and current tile have same value; merge into eachother
+				//pivotTile and current tile have same value; merge into each other
 				else if (matrix[pivotTile][row].getExp() == matrix[column][row].getExp()){
-					pivotTile = mergeTile(column, row, pivotTile, false, pivotTyp.RIGHT);
+					pivotTile = mergeTile(column, row, pivotTile, false, RIGHT);
 
 					//Animation
 					//Sound
-					pivotTile--;
 				}
 				//pivotTile and current tile have different value; they collide and dont merge
 				else if ( column < pivotTile-1) {
-					pivotTile = slideTile(column, row, pivotTile, false, pivotTyp.RIGHT);
+					pivotTile = slideTile(column, row, pivotTile, false, RIGHT);
 
 					//Animation
 					//Sound
-					pivotTile--;
 				}
 				else pivotTile--;
 			}
 		}
-		if(change)spawnNewTile();
+
+		checkSpawnNewTile();
+
 		return change;
+	}
+
+	private void checkSpawnNewTile() {
+		if(change){
+			if(spawnNewTile()){
+				System.out.print("SWIPE MÖGLICH o)\n");
+			}else{
+			System.out.print("------------------------------------------DU BIST EIN KNOOB o)------------------------------------------------------------\n");}
+			System.out.println("TileCount:" + tileCount);
+			System.out.print("Current Score: " + currentScore +"\n");
+		}
+	}
+
+	private void printPosition(int row, int column, int pivotTile, boolean byRow) {
+		if(byRow){
+			System.out.print("CurrentTile = (" + row + "/" + column + ") (row/column)\n" );
+			System.out.print("PivotTile = (" + pivotTile + "/" + column + ") (row/column)\n");
+		}else{
+			System.out.print("CurrentTile = (" + row + "/" + column + ") (row/column)\n" );
+			System.out.print("PivotTile = (" + row + "/" + pivotTile + ") (row/column)\n");
+		}
 	}
 
 
@@ -258,39 +264,41 @@ public class Grid {
 	 * @param sameColumn true for swipeUp and swipeDown
 	 * @param typ if value of pivot tile equals empty typ = pivotTyp.EMPTY else if swiped down or right typ = pivotTyp.DOWNORRIGHT or up and left typ = pivotTyp.UPORLEFT
 	 * */
-	private int slideTile(int column, int row, int pivotTile, boolean sameColumn, pivotTyp typ) {
+	private int slideTile(int column, int row, int pivotTile, boolean sameColumn, Direction typ) {
 		if(sameColumn){
-			System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile + typ.value) + ")");
-			matrix[column][pivotTile + typ.value] = matrix[column][row];
+			System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile + typ.value()) + ")");
+			matrix[column][pivotTile + typ.value()] = matrix[column][row];
 		}else{
-			System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + (pivotTile + typ.value) + "," + row + ")");
-			matrix[pivotTile + typ.value][row] = matrix[column][row];
+			System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + (pivotTile + typ.value()) + "," + row + ")");
+			matrix[pivotTile + typ.value()][row] = matrix[column][row];
 		}
-		deleteTile(column, row);
-		//pivotTile += typ.value;
+		deleteTile(column, row, false);
 		change = true;
-		return pivotTile + typ.value;
+		return pivotTile + typ.value();
 	}
 
-	private int mergeTile(int column, int row, int pivotTile, boolean sameColumn, pivotTyp typ) {
+	private int mergeTile(int column, int row, int pivotTile, boolean sameColumn, Direction typ) {
 		if(sameColumn){
-			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + column + "," + pivotTile + ")");
+			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + column + "," + pivotTile + ")\n");
 			matrix[column][pivotTile].upgrade();
+			currentScore +=matrix[column][pivotTile].getValue();
+			System.out.print("Current Score: " + currentScore +"\n");
 		}else{
-			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + pivotTile + "," + row + ")");
+			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + pivotTile + "," + row + ")\n");
 			matrix[pivotTile][row].upgrade();
+			currentScore +=matrix[pivotTile][row].getValue();
+			System.out.print("Current Score: " + currentScore +"\n");
 		}
-		deleteTile(column, row);
-		//pivotTile += typ.value;
+		deleteTile(column, row, true);
 		change = true;
-		return pivotTile + typ.value;
+		return pivotTile + typ.value();
 	}
 
 
 
-	private void deleteTile(int column, int row) {
+	private void deleteTile(int column, int row, boolean lowerTileCount) {
 		matrix[column][row] = null;
-		tileCount--;
+		if(lowerTileCount) tileCount--;
 	}
 
 
@@ -299,28 +307,30 @@ public class Grid {
 	 * @return true if successfully spawned the tiles
 	 */
 	private boolean spawnNewTile() {
-		if(tileCount == 16){
-			return false;
-		}else{
-			int r_randomSpace, i= 0;
-			Random dice = new Random();
-			r_randomSpace = dice.nextInt(16 - tileCount++);
-			  //value of range [0,tileCount)
-			for(int column = 0; column < WIDTH; column++) {
-				for(int row = 0; row < HEIGHT; row++){
-					if(matrix[column][row] == null) {
-						if(i == r_randomSpace) {
-							matrix[column][row] = new Tile(1);
-							System.out.println("TileCount:" + tileCount);
-							System.out.println("New tile spawned at ("+ column + "," + row + ")");
-						}
-						i++;
+		int r_randomSpace, i= 0;
+
+		Random dice = new Random();
+		r_randomSpace = dice.nextInt(16 - tileCount++);
+		//value of range [0, 16 - tileCount++)
+		for(int column = 0; column < WIDTH; column++) {
+			for(int row = 0; row < HEIGHT; row++){
+				if(matrix[column][row] == null) {
+					if(i == r_randomSpace) {
+						matrix[column][row] = new Tile(1);
+						System.out.println("New tile spawned at ("+ column + "," + row + ")");
 					}
+					i++;
 				}
 			}
-			tileCount++;
-			return true;
 		}
+		if(tileCount == 16){
+			return swipePossible();
+		}
+		//tileCount++;
+		System.out.println("TileCount:" + tileCount);
+		return true;
+
+
 		/*
 		else{
 			int r_column, r_row, r_exp;
@@ -332,11 +342,29 @@ public class Grid {
 
 				Math.random();
 			}while(matrix[r_column][r_row] != null);
+
 			System.out.println("New tile spawned at ("+ r_column + "," + r_row + ")");
 			matrix[r_column][r_row] = new Tile(1);
 			tileCount++;
+			System.out.println("TileCount: " + tileCount);
 			return true;
 		}*/
+	}
+
+	private boolean swipePossible() {
+		for(int column = 0; column < WIDTH; column++) {
+			for(int row = 0; row < HEIGHT-1; row++){
+				//System.out.print("AUSGABE NR 1 CurrentTile = (" + row + "/" + column + ") and otherTile = (" + (row+1) + "/" + column + ")\n");
+				if(matrix[column][row].getExp() == matrix[column][row+1].getExp()) return true;
+			}
+		}
+		for(int row = 0; row < HEIGHT; row++) {
+			for(int column = 0; column < WIDTH-1; column++){
+				//System.out.print("AUSGABE NR 2 CurrentTile = (" + row + "/" + column + ") and otherTile = (" + row + "/" + (column+1) + ")\n");
+				if(matrix[column][row].getExp() == matrix[column+1][row].getExp()) return true;
+			}
+		}
+		return false;
 	}
 
 
@@ -365,8 +393,4 @@ public class Grid {
 			return matrix[x][y].getValue();
 		}
 	}
-
-
-
-
 }
