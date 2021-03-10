@@ -1,5 +1,6 @@
 package de.frauas.oopj.project2048;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -40,18 +41,33 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		_restart.setOnClickListener(v -> {
 			restartGame();
 		});
+
+		final Button temp_loose = findViewById(R.id.temp_loose);
+		temp_loose.setOnClickListener(v -> {
+			looseGame(gameGrid.currentScore);
+		});
 	}
 
 	private void updateCanvas() {
 		gameView.drawGridOnCanvas(gameGrid);
 		Log.d("GameCanvas", "invalidate");
 		gameView.invalidate();
+		if (gameGrid.looseFlag) looseGame(gameGrid.currentScore);
+
+
+		//The following is console log and not relevant for release
 		for(int j =0; j <= 3; j++){
 			for(int i = 0; i <= 3; i++) {
 				System.out.print(gameGrid.getValue(i, j) + " ");
 			}
 			System.out.println(" :" + j );
 		}
+	}
+
+	private void looseGame(int currentScore) {
+		Intent looseActivity = new Intent(this, LooseActivity.class);
+		looseActivity.putExtra("score", currentScore);
+		startActivity(looseActivity);
 	}
 
 	/**

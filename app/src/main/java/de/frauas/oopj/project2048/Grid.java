@@ -17,6 +17,7 @@ public class Grid {
 	boolean change = false;
 	int[] pos_free_array;
 	public static int pivotTile;
+	boolean looseFlag = false;
 
 	/**
 	 * Contructor for Grid object, the main playing field. The top-left corner of the grid is [0][0], the one to the right of it [1][0]; the one below [0][1]
@@ -237,13 +238,15 @@ public class Grid {
 	}
 
 	private void checkSpawnNewTile() {
-		if(change){
-			if(spawnNewTile()){
+		if(change) {
+			if (spawnNewTile()) {
 				System.out.print("SWIPE MÖGLICH o)\n");
-			}else{
-			System.out.print("------------------------------------------DU BIST EIN KNOOB o)------------------------------------------------------------\n");}
-			System.out.println("TileCount:" + tileCount);
-			System.out.print("Current Score: " + currentScore +"\n");
+			} else {
+				looseFlag = true;
+				System.out.print("------------------------------------------DU BIST EIN KNOOB o)------------------------------------------------------------\n");
+				System.out.println("TileCount:" + tileCount);
+				System.out.print("Current Score: " + currentScore + "\n");
+			}
 		}
 	}
 
