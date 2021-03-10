@@ -102,7 +102,7 @@ public class Grid {
                 else pivotTile++;
             }
         }
-        if(change)spawnNewTile();
+		checkSpawnNewTile();
         return change;
 	}
 
@@ -146,7 +146,7 @@ public class Grid {
                 else pivotTile--;
             }
         }
-        if(change)spawnNewTile();
+		checkSpawnNewTile();
         return change;
 	}
 
@@ -188,7 +188,7 @@ public class Grid {
                 else pivotTile++;
             }
         }
-        if(change)spawnNewTile();
+		checkSpawnNewTile();
         return change;
 	}
 
@@ -230,8 +230,21 @@ public class Grid {
 				else pivotTile--;
 			}
 		}
-		if(change)spawnNewTile();
+
+		checkSpawnNewTile();
+
 		return change;
+	}
+
+	private void checkSpawnNewTile() {
+		if(change){
+			if(spawnNewTile()){
+				System.out.print("SWIPE MÖGLICH o)\n");
+			}else{
+			System.out.print("------------------------------------------DU BIST EIN KNOOB o)------------------------------------------------------------\n");}
+			System.out.println("TileCount:" + tileCount);
+			System.out.print("Current Score: " + currentScore +"\n");
+		}
 	}
 
 	private void printPosition(int row, int column, int pivotTile, boolean byRow) {
@@ -266,13 +279,15 @@ public class Grid {
 
 	private int mergeTile(int column, int row, int pivotTile, boolean sameColumn, Direction typ) {
 		if(sameColumn){
-			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + column + "," + pivotTile + ")");
+			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + column + "," + pivotTile + ")\n");
 			matrix[column][pivotTile].upgrade();
 			currentScore +=matrix[column][pivotTile].getValue();
+			System.out.print("Current Score: " + currentScore +"\n");
 		}else{
-			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + pivotTile + "," + row + ")");
+			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + pivotTile + "," + row + ")\n");
 			matrix[pivotTile][row].upgrade();
 			currentScore +=matrix[pivotTile][row].getValue();
+			System.out.print("Current Score: " + currentScore +"\n");
 		}
 		deleteTile(column, row, true);
 		change = true;
@@ -292,30 +307,29 @@ public class Grid {
 	 * @return true if successfully spawned the tiles
 	 */
 	private boolean spawnNewTile() {
-		if(tileCount == 16){
-			return false;
-		}
-		else{
-			int r_randomSpace, i= 0;
-			Random dice = new Random();
-			r_randomSpace = dice.nextInt(16 - tileCount++);
-			  //value of range [0, 16 - tileCount++)
-			for(int column = 0; column < WIDTH; column++) {
-				for(int row = 0; row < HEIGHT; row++){
-					if(matrix[column][row] == null) {
-						if(i == r_randomSpace) {
-							matrix[column][row] = new Tile(1);
+		int r_randomSpace, i= 0;
 
-							System.out.println("New tile spawned at ("+ column + "," + row + ")");
-						}
-						i++;
+		Random dice = new Random();
+		r_randomSpace = dice.nextInt(16 - tileCount++);
+		//value of range [0, 16 - tileCount++)
+		for(int column = 0; column < WIDTH; column++) {
+			for(int row = 0; row < HEIGHT; row++){
+				if(matrix[column][row] == null) {
+					if(i == r_randomSpace) {
+						matrix[column][row] = new Tile(1);
+						System.out.println("New tile spawned at ("+ column + "," + row + ")");
 					}
+					i++;
 				}
 			}
-			//tileCount++;
-			System.out.println("TileCount:" + tileCount);
-			return true;
 		}
+		if(tileCount == 16){
+			return swipePossible();
+		}
+		//tileCount++;
+		System.out.println("TileCount:" + tileCount);
+		return true;
+
 
 		/*
 		else{
@@ -335,6 +349,22 @@ public class Grid {
 			System.out.println("TileCount: " + tileCount);
 			return true;
 		}*/
+	}
+
+	private boolean swipePossible() {
+		for(int column = 0; column < WIDTH; column++) {
+			for(int row = 0; row < HEIGHT-1; row++){
+				//System.out.print("AUSGABE NR 1 CurrentTile = (" + row + "/" + column + ") and otherTile = (" + (row+1) + "/" + column + ")\n");
+				if(matrix[column][row].getExp() == matrix[column][row+1].getExp()) return true;
+			}
+		}
+		for(int row = 0; row < HEIGHT; row++) {
+			for(int column = 0; column < WIDTH-1; column++){
+				//System.out.print("AUSGABE NR 2 CurrentTile = (" + row + "/" + column + ") and otherTile = (" + row + "/" + (column+1) + ")\n");
+				if(matrix[column][row].getExp() == matrix[column+1][row].getExp()) return true;
+			}
+		}
+		return false;
 	}
 
 
