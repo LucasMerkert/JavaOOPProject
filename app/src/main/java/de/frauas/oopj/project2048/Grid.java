@@ -254,11 +254,11 @@ public class Grid {
 
 	private void printPosition(int row, int column, int pivotTile, boolean byRow) {
 		if(byRow){
-			System.out.print("CurrentTile = (" + row + "/" + column + ") (row/column)\n" );
-			System.out.print("PivotTile = (" + pivotTile + "/" + column + ") (row/column)\n");
+			System.out.print("CurrentTile = (" + column + "/" + row + ") (column/row)\n" );
+			System.out.print("PivotTile = (" + column + "/" + pivotTile + ") (column/row)\n");
 		}else{
-			System.out.print("CurrentTile = (" + row + "/" + column + ") (row/column)\n" );
-			System.out.print("PivotTile = (" + row + "/" + pivotTile + ") (row/column)\n");
+			System.out.print("CurrentTile = (" + column + "/" + row + ") (column/row)\n" );
+			System.out.print("PivotTile = (" + pivotTile + "/" + row + ") (column/row)\n");
 		}
 	}
 
