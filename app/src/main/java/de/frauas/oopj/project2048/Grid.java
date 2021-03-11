@@ -18,13 +18,15 @@ public class Grid {
 	int[] pos_free_array;
 	public static int pivotTile;
 	boolean looseFlag = false;
+	public GameView gameView;
 
 	/**
 	 * Contructor for Grid object, the main playing field. The top-left corner of the grid is [0][0], the one to the right of it [1][0]; the one below [0][1]
 	 * @param width width of game grid
 	 * @param height height of game grid
 	 */
-	public Grid(int width, int height) {
+	public Grid(int width, int height, GameView gameView) {
+		this.gameView = gameView;
 		this.tileCount = 0;
 		this.WIDTH = width;
 		this.HEIGHT = height;
@@ -271,6 +273,7 @@ public class Grid {
 		if(sameColumn){
 			System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile + typ.value()) + ")");
 			matrix[column][pivotTile + typ.value()] = matrix[column][row];
+			//gameView.slideColumnAnimation(column,row,column,pivotTile+ typ.value(),matrix[column][pivotTile + typ.value()].getValue());//move Tile from: x1,y1 -> x2,y2
 		}else{
 			System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + (pivotTile + typ.value()) + "," + row + ")");
 			matrix[pivotTile + typ.value()][row] = matrix[column][row];
@@ -289,8 +292,8 @@ public class Grid {
 		}else{
 			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + pivotTile + "," + row + ")\n");
 			matrix[pivotTile][row].upgrade();
-			currentScore +=matrix[pivotTile][row].getValue();
 			System.out.print("Current Score: " + currentScore +"\n");
+			currentScore +=matrix[pivotTile][row].getValue();
 		}
 		deleteTile(column, row, true);
 		change = true;
