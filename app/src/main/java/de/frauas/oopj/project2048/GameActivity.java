@@ -7,6 +7,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,12 +22,14 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
 	//private SoundManager gameSoundManager;
 	private GameView gameView;
+	private TextView inGameScore;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_game_canvas);
+		setContentView(R.layout.activity_game);
 
+		inGameScore = findViewById(R.id.inGameScoreText);
 		gameView = findViewById(R.id.gameView);
 		gameView.initCanvas();
 
@@ -53,6 +56,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		Log.d("GameCanvas", "invalidate");
 		gameView.invalidate();
 		if (gameGrid.looseFlag) looseGame(gameGrid.currentScore);
+		else inGameScore.setText("Your Score: " + gameGrid.currentScore);
 
 
 		//The following is console log and not relevant for release
