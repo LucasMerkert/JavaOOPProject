@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
-	private Grid gameGrid = new Grid(4,4);
+	private Grid gameGrid;
 	private static final String LOGTAG = "Touch Event";
 	private static final int MIN_SWIPE_DISTANCE = 150;
 	private float x1, x2, y1, y2;
@@ -37,7 +37,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		//gameSoundManager = new SoundManager();
 		//gameSoundManager.InitSound();
 
-		gameGrid = new Grid(4,4);
+		gameGrid = new Grid(4,4, gameView);
 		updateCanvas();
 		gestureDetector = new GestureDetector(GameActivity.this, this);
 
@@ -89,7 +89,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	 */
 	private void restartGame() {
 		gameView.initCanvas();
-		gameGrid = new Grid(4,4);
+		gameGrid = new Grid(4,4, gameView);
 		updateCanvas();
 	}
 

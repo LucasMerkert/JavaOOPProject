@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
@@ -84,6 +85,35 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 		Rect tileRect = new Rect(x * (screenWidth/4),screenHeight-BOTTOM_OFFSET-((4-y)*(screenWidth/4)) ,(x+1) * (screenWidth/4),screenHeight-BOTTOM_OFFSET-((4-(y+1))*(screenWidth/4)));
 		gameCanvas.drawRect(tileRect, tileColor);
 		gameCanvas.drawText(value + "", tileRect.centerX(), tileRect.centerY(), textColor);
+	}
+
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+	}
+
+	public void slideColumnAnimation(int x1, int y1, int x2, int y2, int value) {
+
+		Paint tileColor = new Paint();
+		tileColor.setARGB(255, 255,0,0);
+		//System.out.print("x: " + x +" y: "+ y);
+		int top= screenHeight-BOTTOM_OFFSET-((4-y1)*(screenWidth/4));
+		while (Math.abs(y1-y2) != 0) {
+			gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
+			Rect tileRect = new Rect(x1 * (screenWidth / 4), screenHeight-BOTTOM_OFFSET-((4-y1)*(screenWidth/4)), (x1 + 1) * (screenWidth / 4), screenHeight - BOTTOM_OFFSET - ((4 - (y1 + 1)) * (screenWidth / 4)));
+			gameCanvas.drawRect(tileRect, tileColor);
+			gameCanvas.drawText(value + "", tileRect.centerX(), tileRect.centerY(), textColor);
+			System.out.println("Animation: x: " + x1 + " y1: " + y1 + " y2: " + y2);
+			postInvalidate();
+			if(y1 < y2){
+				top--;
+			} else {
+				y1--;
+			}
+			//SystemClock.sleep(100);
+		}
+
+
 	}
 
 
