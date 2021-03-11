@@ -1,6 +1,7 @@
 package de.frauas.oopj.project2048;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -69,8 +70,17 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	}
 
 	private void looseGame(int currentScore) {
+		SharedPreferences savefile = getPreferences(MODE_PRIVATE);
+		int highScore = savefile.getInt("High Score", 0);
+		if(highScore <= currentScore){		//new High Score!
+			SharedPreferences.Editor writer = savefile.edit();
+			writer.putInt("High Score", currentScore);
+			writer.apply();
+		}
+
 		Intent looseActivity = new Intent(this, LooseActivity.class);
 		looseActivity.putExtra("score", currentScore);
+		looseActivity.putExtra("high score", highScore);
 		startActivity(looseActivity);
 	}
 

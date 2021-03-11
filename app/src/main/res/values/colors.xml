@@ -11,4 +11,5 @@
     <color name="colorBackground">#FF00FF00</color>
     <color name="colorAccent">#FFFFD888</color>
     <color name="colorPrimaryDark">#FF000000</color>
+	<color name="HighScoreRed">#FFFF0000</color>
 </resources>

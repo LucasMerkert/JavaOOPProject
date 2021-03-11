@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class LooseActivity extends AppCompatActivity {
 
-	int score;
+	int score, highscore;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +18,19 @@ public class LooseActivity extends AppCompatActivity {
 		Intent _intent = getIntent();
 
 		this.score = _intent.getIntExtra("score", -1);
+		this.highscore = _intent.getIntExtra("high score", -1);
 
 		TextView scoreTextField = findViewById(R.id.scoreText);
-		scoreTextField.setText("Your score: " + score);
+		TextView highScoreTextField = findViewById(R.id.highScoreText);
+		TextView newHighScoreTextField = findViewById(R.id.newHighScoreField);
+
+
+		scoreTextField.setText("Your Score: " + score);
+		if(highscore < score) {
+			highScoreTextField.setText("High Score: " + score);
+			newHighScoreTextField.setText("New High Score! Congratualtions!");
+		}
+		else highScoreTextField.setText("High Score: " + highscore);
 
 		final Button _restart = findViewById(R.id.restartGameButton);
 		_restart.setOnClickListener(v -> {
