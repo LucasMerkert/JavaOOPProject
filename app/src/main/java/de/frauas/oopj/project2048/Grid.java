@@ -9,15 +9,15 @@ import static de.frauas.oopj.project2048.Direction.*;
  *
  */
 public class Grid {
-	Tile[][] matrix;
-	int WIDTH;
-	int HEIGHT;
-	int tileCount;
-	int currentScore;
-	boolean change = false;
-	int[] pos_free_array;
-	public static int pivotTile;
-	boolean looseFlag = false;
+	private Tile[][] matrix;
+	private int WIDTH;
+	private int HEIGHT;
+	private int tileCount;
+	private int currentScore;
+	private boolean change = false;
+	private int[] pos_free_array;
+	private static int pivotTile;
+	private boolean looseFlag = false;
 	public GameView gameView;
 
 	/**
@@ -373,23 +373,12 @@ public class Grid {
 		return false;
 	}
 
-
-	/**
-	 * Determine if there are free Tiles in grid
-	 * @return true if there are free Tiles in grid
-	 */
-	private boolean isSpawnTilePossible(){
-		return  true;
+	public int getScore(){
+		return currentScore;
 	}
 
-
-
-	/**
-	 * Determine if you are unable to Spawn new Tiles and unable to swipe in any direction
-	 * @return true if game is over
-	 */
 	public boolean isGameOver() {
-		return false;
+		return looseFlag;
 	}
 
 	public int getValue(int x, int y){
