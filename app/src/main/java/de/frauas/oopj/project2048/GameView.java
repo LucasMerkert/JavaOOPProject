@@ -25,6 +25,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	private int screenHeight;
 	private Context context;
 	private Rect gameBackgroundRect;
+	private Bitmap tileBitmap;
 
 	public GameView(Context context, AttributeSet attributesSet) {
 		super(context, attributesSet);
@@ -69,22 +70,24 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
 	public void drawGridOnCanvas(Grid gameGrid){
 		gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
-		for(int j = 0; j <= 3; j++) {
-			for(int i = 0; i <= 3;i++ ) {
+		for(int j = 0; j <= 3; j++) { //row
+			for(int i = 0; i <= 3;i++ ) { //column
 				if(gameGrid.getValue(i,j) != 0) {
-					drawTileAtpos(i,j, gameGrid.getValue(i,j));
+					drawTileAtpos(i,j, gameGrid.getTileAtPos(i,j));
 				}
 			}
 		}
 	}
 
-	public void drawTileAtpos(int x, int y, int value) {
-		Paint tileColor = new Paint();
-		tileColor.setARGB(255, 255,0,0);
+	public void drawTileAtpos(int x, int y, Tile currentTile) {
+		/*Paint tileColor = new Paint();
+		tileColor.setARGB(255, 255,0,0);*/
 		//System.out.print("x: " + x +" y: "+ y);
 		Rect tileRect = new Rect(x * (screenWidth/4),screenHeight-BOTTOM_OFFSET-((4-y)*(screenWidth/4)) ,(x+1) * (screenWidth/4),screenHeight-BOTTOM_OFFSET-((4-(y+1))*(screenWidth/4)));
-		gameCanvas.drawRect(tileRect, tileColor);
-		gameCanvas.drawText(value + "", tileRect.centerX(), tileRect.centerY(), textColor);
+		tileBitmap = currentTile.getDisplay();
+		gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
+		/*gameCanvas.drawRect(tileRect, tileColor);
+		gameCanvas.drawText(value + "", tileRect.centerX(), tileRect.centerY(), textColor);*/
 	}
 
 	@Override
