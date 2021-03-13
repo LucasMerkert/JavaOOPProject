@@ -339,7 +339,7 @@ public class Grid {
 			for(int row = 0; row < HEIGHT; row++){
 				if(matrix[column][row] == null) {
 					if(i == r_randomSpace) {
-						matrix[column][row] = new Tile(1);
+						matrix[column][row] = new Tile(1, context);
 						System.out.println("New tile spawned at ("+ column + "," + row + ")");
 					}
 					i++;
@@ -405,4 +405,9 @@ public class Grid {
 			return matrix[x][y].getValue();
 		}
 	}
+
+	public Tile getTileAtPos(int x, int y){
+		return matrix[x][y];
+	}
+
 }
