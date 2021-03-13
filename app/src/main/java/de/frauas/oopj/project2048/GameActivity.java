@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This is the activity where the game take place. It manages user input and passes them on to GameView and Grid classes.
+ * It is responsible for starting, restarting and ending (loosing) the game.
+ */
 public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
 	private Grid gameGrid;
@@ -23,14 +27,18 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
 	//private SoundManager gameSoundManager;
 	private GameView gameView;
-	private TextView inGameScore;
+	private TextView inGameScoreText;
 
+	/**
+	 * Called when Activity is started. Sets up the restart button, grid, canvas, and gesture detetor.
+	 * @param savedInstanceState naturally passed by android
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_game);
 
-		inGameScore = findViewById(R.id.inGameScoreText);
+		inGameScoreText = findViewById(R.id.inGameScoreText);
 		gameView = findViewById(R.id.gameView);
 		gameView.initCanvas();
 
@@ -48,18 +56,22 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
 		final Button temp_loose = findViewById(R.id.temp_loose);
 		temp_loose.setOnClickListener(v -> {
-			looseGame(gameGrid.currentScore);
+			looseGame(gameGrid.getScore());
 		});
 	}
 
+	/**
+	 * Gets called initially at game start and after a change has been done to the gameGrid.
+	 * Calls gameView to update the canvas, checks for loosing conditon and updates the current score
+	 */
 	private void updateCanvas() {
 		gameView.drawGridOnCanvas(gameGrid);
 		Log.d("GameCanvas", "invalidate");
 		gameView.invalidate();
-		if (gameGrid.looseFlag) looseGame(gameGrid.currentScore);
-		else inGameScore.setText("Your Score: " + gameGrid.currentScore);
+		if (gameGrid.isGameOver()) looseGame(gameGrid.getScore());
+		else inGameScoreText.setText("Your Score: " + gameGrid.getScore());
 
-
+		//TODO: Delete this before release
 		//The following is console log and not relevant for release
 		for(int j =0; j <= 3; j++){
 			for(int i = 0; i <= 3; i++) {
@@ -69,6 +81,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		}
 	}
 
+	/**
+	 * Called by updateCanvas() when a loosing condition is detected. Checks for a new high score and updates if necessary.
+	 * Starts activity LooseActivity packing the achieved score and the high score as extras.
+	 * @param currentScore the achieved score
+	 */
 	private void looseGame(int currentScore) {
 		SharedPreferences savefile = getPreferences(MODE_PRIVATE);
 		int highScore = savefile.getInt("High Score", 0);
@@ -85,6 +102,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	}
 
 	/**
+	 * Gets called by pushing the restart game button.
 	 * Restarts the Game by resetting the view and grid.
 	 */
 	private void restartGame() {
@@ -96,11 +114,12 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	/**
 	 * Called when a touch screen event was not handled by any of the views
 	 * under it.
-	 * Detects the x and y coordinates at the start and at the end of the user touching the screen and determines in which direction (UP, DOWN, LEFT, RIGHT) the swipe occured.
+	 * Detects the x and y coordinates at the start and at the end of the user touching the screen
+	 * and determines in which direction (UP, DOWN, LEFT, RIGHT) the swipe occured.
+	 * calls swipe____() functions in gameGrid and then updated canvas
 	 *
 	 * @param event The touch screen event being processed.
-	 * @return Return true if you have consumed the event, false if you haven't.
-	 * The default implementation always returns false.
+	 * @return Returns true if a swipe was detected, fals if not
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -150,6 +169,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 				} else {
 					//Toast.makeText(this, "Not enough distance", Toast.LENGTH_SHORT).show();
 					Log.d(LOGTAG, "Not enough distance");
+					return false;
 				}
 		}
 		return super.onTouchEvent(event);
@@ -185,7 +205,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
 
 
-	//The following methods need to be implemented by GestureDetector which is abstract and are not used.
+	//The following methods need to be implemented for GestureDetector which is abstract and are not used by us directly.
 
 	/**
 	 * Notified when a tap occurs with the down {@link MotionEvent}
