@@ -1,5 +1,7 @@
 package de.frauas.oopj.project2048;
 
+import android.content.Context;
+
 import java.util.Random;
 
 import static de.frauas.oopj.project2048.Direction.*;
@@ -18,15 +20,18 @@ public class Grid {
 	private int[] pos_free_array;
 	private static int pivotTile;
 	private boolean looseFlag = false;
-	public GameView gameView;
+	public Context context;
+
+	//SOUND test
+	private SoundPlayer sound;
 
 	/**
 	 * Contructor for Grid object, the main playing field. The top-left corner of the grid is [0][0], the one to the right of it [1][0]; the one below [0][1]
 	 * @param width width of game grid
 	 * @param height height of game grid
 	 */
-	public Grid(int width, int height, GameView gameView) {
-		this.gameView = gameView;
+	public Grid(int width, int height, Context context) {
+		this.context = context;
 		this.tileCount = 0;
 		this.WIDTH = width;
 		this.HEIGHT = height;
@@ -36,6 +41,9 @@ public class Grid {
 			pos_free_array[i] = i;
 		}
 		initSpawn();
+
+		//sound test
+		sound = new SoundPlayer(context);
 	}
 
 	/**
@@ -106,6 +114,7 @@ public class Grid {
             }
         }
 		checkSpawnNewTile();
+		sound.playSound();
         return change;
 	}
 
@@ -150,6 +159,7 @@ public class Grid {
             }
         }
 		checkSpawnNewTile();
+		sound.playSound();
         return change;
 	}
 
@@ -192,6 +202,7 @@ public class Grid {
             }
         }
 		checkSpawnNewTile();
+		sound.playSound();
         return change;
 	}
 
@@ -235,7 +246,7 @@ public class Grid {
 		}
 
 		checkSpawnNewTile();
-
+		sound.playSound();
 		return change;
 	}
 

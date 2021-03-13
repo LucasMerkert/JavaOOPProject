@@ -26,6 +26,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	private GestureDetector gestureDetector;
 
 	//private SoundManager gameSoundManager;
+	private SoundPlayer sound;
 	private GameView gameView;
 	private TextView inGameScoreText;
 
@@ -44,8 +45,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
 		//gameSoundManager = new SoundManager();
 		//gameSoundManager.InitSound();
+		//sound test
+		sound = new SoundPlayer(this);
 
-		gameGrid = new Grid(4,4, gameView);
+
+		gameGrid = new Grid(4,4, this);
 		updateCanvas();
 		gestureDetector = new GestureDetector(GameActivity.this, this);
 
@@ -107,7 +111,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	 */
 	private void restartGame() {
 		gameView.initCanvas();
-		gameGrid = new Grid(4,4, gameView);
+		gameGrid = new Grid(4,4, this);
 		updateCanvas();
 	}
 
