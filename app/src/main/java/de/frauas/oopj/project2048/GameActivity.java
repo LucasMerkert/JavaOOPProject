@@ -93,7 +93,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	private void looseGame(int currentScore) {
 		SharedPreferences savefile = getPreferences(MODE_PRIVATE);
 		int highScore = savefile.getInt("High Score", 0);
-		if(highScore <= currentScore){		//new High Score!
+		if(highScore < currentScore){		//new High Score!
 			SharedPreferences.Editor writer = savefile.edit();
 			writer.putInt("High Score", currentScore);
 			writer.apply();
