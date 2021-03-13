@@ -24,8 +24,8 @@ public class Tile {
 	 */
 	public Tile(int exp) throws IllegalArgumentException{
 		if(exp < 0 )
-			new IllegalArgumentException("Tile is a negative number");
-		this.exp = exp;
+			throw new IllegalArgumentException("Tile is a negative number");
+		else this.exp = exp;
 		//value = (int) Math.pow(2, nr);
 		//Bitmap fehlt
 	}
