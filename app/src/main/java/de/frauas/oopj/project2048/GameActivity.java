@@ -74,15 +74,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		gameView.invalidate();
 		if (gameGrid.isGameOver()) looseGame(gameGrid.getScore());
 		else inGameScoreText.setText("Your Score: " + gameGrid.getScore());
-
-		//TODO: Delete this before release
-		//The following is console log and not relevant for release
-		for(int j =0; j <= 3; j++){
-			for(int i = 0; i <= 3; i++) {
-				System.out.print(gameGrid.getValue(i, j) + " ");
-			}
-			System.out.println(" :" + j );
-		}
 	}
 
 	/**
@@ -149,7 +140,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 						//Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
 						Log.d(LOGTAG, "Swipe to the right");
 						gameGrid.swipeRight();
-						//gameSoundManager.playSound(0);
+						//gameSoundManager.playWooshSound(0);
 					} else {
 						//Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
 						Log.d(LOGTAG, "Swipe to the left");

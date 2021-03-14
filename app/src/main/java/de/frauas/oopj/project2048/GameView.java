@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+/**
+ * GameView
+ */
 public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
 	private static final int BOTTOM_OFFSET = 35;
