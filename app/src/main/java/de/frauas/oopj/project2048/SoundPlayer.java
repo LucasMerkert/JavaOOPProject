@@ -12,14 +12,16 @@ public class SoundPlayer {
     private static SoundPool soundPool;
     private static int wooshSound;
 
+    /**
+     * SoundPlayer class constructor
+     * @param context context of android activity
+     */
     public SoundPlayer(Context context) {
-
         soundPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
-
         wooshSound = soundPool.load(context, R.raw.woosh, 1);
     }
 
-    public void playSound(){
+    public void playWooshSound(){
         soundPool.play(wooshSound,1,1,1,0,1f);
     }
 
@@ -28,31 +30,4 @@ public class SoundPlayer {
         soundPool.release();
         soundPool = null;
     }
-
-
-    /*
-    static SoundPool soundPool;
-    static int[] soundID;
-
-    public void InitSound() {
-
-        int maxStreams = 1;
-        Context mContext = SoundManager.this.getApplicationContext();
-        soundPool = new SoundPool(maxStreams, AudioManager.STREAM_MUSIC, 0);
-
-        soundID = new int[2];
-
-        soundID[0] = soundPool.load(mContext,R.raw.sound1,1);
-    }
-
-    public void playSound(int Sound){
-        soundPool.play(soundID[Sound],1,1,1,0,1f);
-    }
-
-    public final void cleanUpIfEnd(){
-        soundID = null;
-        soundPool.release();
-        soundPool = null;
-    }
-     */
 }
