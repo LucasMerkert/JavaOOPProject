@@ -113,7 +113,7 @@ public class Grid {
             }
         }
 		checkSpawnNewTile();
-		sound.playSound();
+		sound.playWooshSound();
         return change;
 	}
 
@@ -154,7 +154,7 @@ public class Grid {
             }
         }
 		checkSpawnNewTile();
-		sound.playSound();
+		sound.playWooshSound();
         return change;
 	}
 
@@ -194,7 +194,7 @@ public class Grid {
             }
         }
 		checkSpawnNewTile();
-		sound.playSound();
+		sound.playWooshSound();
         return change;
 	}
 
@@ -235,7 +235,7 @@ public class Grid {
 		}
 
 		checkSpawnNewTile();
-		sound.playSound();
+		sound.playWooshSound();
 		return change;
 	}
 
