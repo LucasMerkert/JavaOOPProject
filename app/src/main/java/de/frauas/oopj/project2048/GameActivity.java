@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
+ * @author Tarik, Friedrich, Ana, Lucas
  * This is the activity where the game take place. It manages user input and passes them on to GameView and Grid classes.
  * It is responsible for starting, restarting and ending (loosing) the game.
  */

@@ -8,7 +8,7 @@ import android.graphics.Canvas;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * @author Tarik
+ * @author Tarik, Friedrich, Ana, Lucas
  *
  */
 public class Tile {

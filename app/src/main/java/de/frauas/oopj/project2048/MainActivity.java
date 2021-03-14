@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+/**
+ * @author Tarik, Friedrich, Ana, Lucas
+ */
 public class MainActivity extends AppCompatActivity {
 
 	@Override
