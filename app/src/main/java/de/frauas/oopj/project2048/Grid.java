@@ -273,11 +273,11 @@ public class Grid {
 			throw new IllegalArgumentException("row not [0," + HEIGHT + "]");
 		}
 		if(column < 0 || column > WIDTH){
-			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
+			throw new IllegalArgumentException("column not [0," + WIDTH + "]");
 		}
 		// check all conditions in case of rectangular (not square) Grid
 		if(pivotTile < 0 || pivotTile > WIDTH || pivotTile > HEIGHT){
-			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
+			throw new IllegalArgumentException("pivotTile not [0," + WIDTH + "]");
 		}
 		if(typ == DOWN || typ == UP){
 			System.out.print("CurrentTile = (" + column + "/" + row + ") (column/row)\n" );
@@ -300,11 +300,11 @@ public class Grid {
 			throw new IllegalArgumentException("row not [0," + HEIGHT + "]");
 		}
 		if(column < 0 || column > WIDTH){
-			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
+			throw new IllegalArgumentException("column not [0," + WIDTH + "]");
 		}
 		// check all conditions in case of rectangular (not square) Grid
 		if(pivotTile < 0 || pivotTile > WIDTH || pivotTile > HEIGHT){
-			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
+			throw new IllegalArgumentException("pivotTile not [0," + WIDTH + "]");
 		}
 		if(typ == DOWN || typ == UP){
 			if(matrix[column][pivotTile] == null){
@@ -344,7 +344,7 @@ public class Grid {
 			throw new IllegalArgumentException("row not [0," + HEIGHT + "]");
 		}
 		if(column < 0 || column > WIDTH){
-			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
+			throw new IllegalArgumentException("column not [0," + WIDTH + "]");
 		}
 		// check all conditions in case of rectangular (not square) Grid
 		if(pivotTile < 0 || pivotTile > WIDTH || pivotTile > HEIGHT){
@@ -367,12 +367,19 @@ public class Grid {
 	}
 
 	/**
+	 * deletes matrix[column][row] tile and lowersTileCount if wanted
 	 *
 	 * @param column is the column of Tile which should be deleted
 	 * @param row is the row of Tile which should be deleted
 	 * @param lowerTileCount true if tile gets merged tile count gets decremented; false if tile gets slided tile count stays the same
 	 */
 	private void deleteTile(int column, int row, boolean lowerTileCount) {
+		if(row < 0 || row > HEIGHT){
+			throw new IllegalArgumentException("row not [0," + HEIGHT + "]");
+		}
+		if(column < 0 || column > WIDTH){
+			throw new IllegalArgumentException("column not [0," + WIDTH + "]");
+		}
 		matrix[column][row] = null;
 		if(lowerTileCount) tileCount--;
 	}
@@ -428,6 +435,7 @@ public class Grid {
 				if(matrix[column][row].getExp() == matrix[column+1][row].getExp()) return true;
 			}
 		}
+		sound.playGameoverSound();
 		return false;
 	}
 

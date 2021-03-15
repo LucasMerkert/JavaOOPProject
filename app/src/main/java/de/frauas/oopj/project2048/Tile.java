@@ -22,9 +22,8 @@ public class Tile {
 	 * Constructor for tile object,
 	 * @param exp = Exponent
 	 *        value = 2^exp
-	 * @throws IllegalArgumentException
 	 */
-	public Tile(int exp,Context context) throws IllegalArgumentException{
+	public Tile(int exp,Context context){
 
 		this.context = context;
 		if(exp < 0 )
