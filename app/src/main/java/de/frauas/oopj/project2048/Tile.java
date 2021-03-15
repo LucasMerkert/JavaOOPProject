@@ -8,8 +8,9 @@ import android.graphics.Canvas;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * @author Tarik, Friedrich, Ana, Lucas
+ * class to construct, upgrade, getValue, getExp Tiles and to get the corresponding picture of each tile,
  *
+ * @author Tarik, Friedrich, Ana, Lucas
  */
 public class Tile {
 	private int exp;
@@ -34,6 +35,9 @@ public class Tile {
 
 	}
 
+	/**
+	 *
+	 */
 	private void setDisplay() {
 		switch(exp) {
 			case 1:
@@ -89,6 +93,9 @@ public class Tile {
 		}
 	}
 
+	/**
+	 * increments the exp of tile
+	 */
 	public void upgrade(){
 		exp++;
 		setDisplay();

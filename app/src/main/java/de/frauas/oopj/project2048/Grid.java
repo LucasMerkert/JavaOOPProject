@@ -306,6 +306,7 @@ public class Grid {
 		if(pivotTile < 0 || pivotTile > WIDTH || pivotTile > HEIGHT){
 			throw new IllegalArgumentException("pivotTile not [0," + WIDTH + "]");
 		}
+
 		if(typ == DOWN || typ == UP){
 			if(matrix[column][pivotTile] == null){
 				System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile) + ")");
@@ -350,6 +351,7 @@ public class Grid {
 		if(pivotTile < 0 || pivotTile > WIDTH || pivotTile > HEIGHT){
 			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
 		}
+
 		if(typ == DOWN || typ == UP){
 			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + column + "," + pivotTile + ")\n");
 			matrix[column][pivotTile].upgrade();
