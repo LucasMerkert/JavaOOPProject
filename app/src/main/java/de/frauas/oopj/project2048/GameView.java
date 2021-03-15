@@ -42,7 +42,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	private void setupPaint() {
 
 		backgroundColor = new Paint();
-		backgroundColor.setARGB(255, 0,255,255);	//Türkis - Turquois
+		backgroundColor.setARGB(200, 175,246,200);	//Türkis - Turquois
 
 		textColor = new Paint();
 		textColor.setColor(Color.BLACK);
