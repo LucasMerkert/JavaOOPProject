@@ -11,9 +11,9 @@ import static de.frauas.oopj.project2048.Direction.*;
  * @author Tarik, Friedrich, Ana, Lucas
  */
 public class Grid {
-	private Tile[][] matrix;
-	private int WIDTH;
-	private int HEIGHT;
+	private final Tile[][] matrix;
+	private final int WIDTH;
+	private final int HEIGHT;
 	private int tileCount;
 	private int currentScore;
 	private boolean change = false;
@@ -22,7 +22,7 @@ public class Grid {
 	public Context context;
 
 	//SOUND test
-	private SoundPlayer sound;
+	private final SoundPlayer sound;
 
 	/**
 	 * Contructor for Grid object, the main playing field. The top-left corner of the grid is [0][0],
@@ -77,11 +77,8 @@ public class Grid {
 
 	/**
 	 * swipeUp: Merges tiles if possible and moves Tiles to new position in swipe direction
-	 * @return true if tiles changed position, to spawn new tile
-	 * this method might get merged into swipeUp if it is unnecessary
-	 * problem if 4480, swipe left, how to merge? result should be 8800, not 16000
 	 */
-	public boolean swipeUp() {
+	public void swipeUp() {
 		change = false;
         for(int column = 0; column< WIDTH; column++) {
             pivotTile = 0;
@@ -114,15 +111,13 @@ public class Grid {
         }
 		checkSpawnNewTile();
 		sound.playWooshSound();
-        return change;
 	}
 
 
 	/**
 	 * swipeDown: Merges tiles if possible and moves Tiles to new position in swipe direction
-	 * @return true if tiles changed position, to spawn new tile
 	 */
-	public boolean swipeDown() {
+	public void swipeDown() {
 		change = false;
         for(int column = 0; column< WIDTH; column++) {
             pivotTile = HEIGHT - 1;
@@ -155,14 +150,12 @@ public class Grid {
         }
 		checkSpawnNewTile();
 		sound.playWooshSound();
-        return change;
 	}
 
 	/**
 	 * swipeLeft: Merges tiles if possible and moves Tiles to new position in swipe direction
-	 * @return true if tiles changed position, to spawn new tile
 	 */
-	public boolean swipeLeft() {
+	public void swipeLeft() {
 		change = false;
         for(int row = 0; row< HEIGHT; row++) {
             pivotTile = 0;
@@ -195,14 +188,12 @@ public class Grid {
         }
 		checkSpawnNewTile();
 		sound.playWooshSound();
-        return change;
 	}
 
 	/**
 	 * swipeRight: Merges tiles if possible and moves Tiles to new position in swipe direction
-	 * @return true if tiles changed position, to spawn new tile
 	 */
-	public boolean swipeRight() {
+	public void swipeRight() {
 		change = false;
 		for(int row = 0; row< HEIGHT; row++) {
 			pivotTile = WIDTH - 1;
@@ -236,7 +227,6 @@ public class Grid {
 
 		checkSpawnNewTile();
 		sound.playWooshSound();
-		return change;
 	}
 
 	/**

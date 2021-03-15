@@ -1,7 +1,7 @@
 package de.frauas.oopj.project2048;
 
 /**
- * Direction enum for use in Gris class.
+ * Direction enum for use in Grid class.
  */
 enum Direction{
 	EMPTY(0),
