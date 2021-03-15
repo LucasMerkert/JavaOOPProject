@@ -75,6 +75,13 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		gameView.invalidate();
 		if (gameGrid.isGameOver()) looseGame(gameGrid.getScore());
 		else inGameScoreText.setText("Your Score: " + gameGrid.getScore());
+		//The following is console log and not relevant for release
+		for(int j =0; j <= 3; j++){
+			for(int i = 0; i <= 3; i++) {
+				System.out.print(gameGrid.getValue(i, j) + " ");
+			}
+			System.out.println(" :" + j );
+		}
 	}
 
 	/**

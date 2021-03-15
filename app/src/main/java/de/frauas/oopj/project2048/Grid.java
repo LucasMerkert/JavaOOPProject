@@ -113,7 +113,7 @@ public class Grid {
             }
         }
 		checkSpawnNewTile();
-		sound.playSound();
+		sound.playWooshSound();
         return change;
 	}
 
@@ -154,7 +154,7 @@ public class Grid {
             }
         }
 		checkSpawnNewTile();
-		sound.playSound();
+		sound.playWooshSound();
         return change;
 	}
 
@@ -194,7 +194,7 @@ public class Grid {
             }
         }
 		checkSpawnNewTile();
-		sound.playSound();
+		sound.playWooshSound();
         return change;
 	}
 
@@ -235,7 +235,7 @@ public class Grid {
 		}
 
 		checkSpawnNewTile();
-		sound.playSound();
+		sound.playWooshSound();
 		return change;
 	}
 
@@ -307,16 +307,27 @@ public class Grid {
 			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
 		}
 		if(typ == DOWN || typ == UP){
-			System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile + typ.value()) + ")");
-			matrix[column][pivotTile + typ.value()] = matrix[column][row];
-			//gameView.slideColumnAnimation(column,row,column,pivotTile+ typ.value(),matrix[column][pivotTile + typ.value()].getValue());//move Tile from: x1,y1 -> x2,y2
+			if(matrix[column][pivotTile] == null){
+				System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile) + ")");
+				matrix[column][pivotTile] = matrix[column][row];
+			}else{
+				System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile + typ.value()) + ")");
+				matrix[column][pivotTile + typ.value()] = matrix[column][row];
+				pivotTile += typ.value();
+			}
 		}else{
-			System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + (pivotTile + typ.value()) + "," + row + ")");
-			matrix[pivotTile + typ.value()][row] = matrix[column][row];
+			if(matrix[pivotTile][row] == null){
+				System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile) + ")");
+				matrix[pivotTile][row] = matrix[column][row];
+			}else{
+				System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + (pivotTile + typ.value()) + "," + row + ")");
+				matrix[pivotTile + typ.value()][row] = matrix[column][row];
+				pivotTile += typ.value();
+			}
 		}
 		deleteTile(column, row, false);
 		change = true;
-		return pivotTile + typ.value();
+		return pivotTile;
 	}
 
 
