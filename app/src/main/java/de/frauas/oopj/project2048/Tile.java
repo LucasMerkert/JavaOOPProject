@@ -120,7 +120,10 @@ public class Tile {
 	}
 
 
-
+	/**
+	 *
+	 * @return
+	 */
 	public Bitmap getDisplay(){
 		return this.display;
 	}

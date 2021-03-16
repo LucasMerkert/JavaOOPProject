@@ -5,7 +5,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 
 /**
- * class to load in sounds and the methods to play those
+ * class to load in sounds and the methods to play those sounds
  */
 public class SoundPlayer {
     private static SoundPool soundPool;
@@ -27,7 +27,6 @@ public class SoundPlayer {
      * method to play the woosh sound
      */
     public void playWooshSound(){
-
         soundPool.play(wooshSound,1,1,1,0,1f);
     }
 
