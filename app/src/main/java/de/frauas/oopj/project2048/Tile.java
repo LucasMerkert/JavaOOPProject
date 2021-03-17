@@ -36,7 +36,7 @@ public class Tile {
 	}
 
 	/**
-	 *
+	 * Assigns the according bitmap to the value of a tile
 	 */
 	private void setDisplay() {
 		switch(exp) {
@@ -120,7 +120,10 @@ public class Tile {
 	}
 
 
-
+	/**
+	 * Getter of the Bitmap assigned to a Tile
+	 * @return Bitmap of the Tile
+	 */
 	public Bitmap getDisplay(){
 		return this.display;
 	}
