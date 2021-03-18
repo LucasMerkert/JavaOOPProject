@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class Tile {
 	private int exp;
-	public int pos; //for posfree array check
-	//private int value;
 	private Bitmap display;
 	private Context context;
 
@@ -25,14 +23,11 @@ public class Tile {
 	 *        value = 2^exp
 	 */
 	public Tile(int exp,Context context){
-
 		this.context = context;
 		if(exp < 0 )
 			throw new IllegalArgumentException("Tile is a negative number");
 		else this.exp = exp;
 		setDisplay();
-
-
 	}
 
 	/**
@@ -101,8 +96,6 @@ public class Tile {
 		setDisplay();
 	}
 
-
-
 	/**
 	 * Getter for Tile value
 	 * @return value of Tile
@@ -118,7 +111,6 @@ public class Tile {
 	public int getExp() {
 		return exp;
 	}
-
 
 	/**
 	 * Getter of the Bitmap assigned to a Tile

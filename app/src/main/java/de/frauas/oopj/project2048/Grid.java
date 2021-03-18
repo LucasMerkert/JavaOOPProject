@@ -39,6 +39,10 @@ public class Grid {
 		if(height < 4){
 			throw new IllegalArgumentException("Height too small");
 		}
+		if(context == null){
+			throw new IllegalArgumentException("Context ");
+		}
+
 		this.context = context;
 		this.tileCount = 0;
 		this.WIDTH = width;
@@ -87,6 +91,7 @@ public class Grid {
 				}
             }
         }
+        //List printed
         for(int i = 0; i < this.tilePathLinkedList.size(); i++){
 			tilePathLinkedList.get(i).printList();
 		}
@@ -94,8 +99,10 @@ public class Grid {
 
 		checkSpawnNewTile();
 		sound.playWooshSound();
-	}
 
+		//list clear
+		tilePathLinkedList.clear();
+	}
 
 	/**
 	 * swipeDown: Merges tiles if possible and moves Tiles to new position in swipe direction
@@ -441,10 +448,10 @@ public class Grid {
 	 * @return tile of matrix[x][y]
 	 */
 	public Tile getTileAtPos(int x, int y){
-		if(y < 0 || y > HEIGHT){
+		if(y < 0 || y >= HEIGHT){
 			throw new IllegalArgumentException("row not [0," + HEIGHT + "]");
 		}
-		if(x < 0 || y > WIDTH){
+		if(x < 0 || x >= WIDTH){
 			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
 		}
 		return matrix[x][y];

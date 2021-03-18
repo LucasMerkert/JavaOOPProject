@@ -44,11 +44,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		gameView = findViewById(R.id.gameView);
 		gameView.initCanvas();
 
-		//gameSoundManager = new SoundManager();
-		//gameSoundManager.InitSound();
-		//sound test
 		sound = new SoundPlayer(this);
-
 
 		gameGrid = new Grid(4,4, this);
 		updateCanvas();
