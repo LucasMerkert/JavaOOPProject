@@ -2,6 +2,7 @@ package de.frauas.oopj.project2048;
 
 import android.content.Context;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 import static de.frauas.oopj.project2048.Direction.*;
@@ -16,10 +17,13 @@ public class Grid {
 	private final int HEIGHT;
 	private int tileCount;
 	private int currentScore;
-	private static int pivotTile;
 	private boolean change = false;
+	private static int pivotTile;
 	private boolean looseFlag = false;
 	public Context context;
+	LinkedList<TilePath> tilePathLinkedList = new LinkedList<>();
+
+	//SOUND test
 	private final SoundPlayer sound;
 
 	/**
@@ -39,9 +43,11 @@ public class Grid {
 		this.tileCount = 0;
 		this.WIDTH = width;
 		this.HEIGHT = height;
-		sound = new SoundPlayer(context);
 		matrix = new Tile[WIDTH][HEIGHT];
 		initSpawn();
+
+		//sound test
+		sound = new SoundPlayer(context);
 	}
 
 	/**
@@ -81,6 +87,11 @@ public class Grid {
 				}
             }
         }
+        for(int i = 0; i < this.tilePathLinkedList.size(); i++){
+			tilePathLinkedList.get(i).printList();
+		}
+		//animation
+
 		checkSpawnNewTile();
 		sound.playWooshSound();
 	}
@@ -271,6 +282,7 @@ public class Grid {
 				pivotTile += typ.value();
 			}
 		}
+		tilePathLinkedList.add(new TilePath(column, row, pivotTile, matrix[column][row].getExp(), false));
 		deleteTile(column, row, false);
 		change = true;
 		return pivotTile;
@@ -308,6 +320,7 @@ public class Grid {
 			currentScore +=matrix[pivotTile][row].getValue();
 		}
 		System.out.print("Current Score: " + currentScore +"\n");
+		tilePathLinkedList.add(new TilePath(column, row, pivotTile, matrix[column][row].getExp(), true));
 		deleteTile(column, row, true);
 		change = true;
 		return pivotTile + typ.value();
