@@ -12,4 +12,6 @@
     <color name="colorAccent">#FFFFD888</color>
     <color name="colorPrimaryDark">#FF000000</color>
 	<color name="HighScoreRed">#FFFF0000</color>
+    <color name="ic_launcher_background">#005500</color>
+    <color name="canvas_background_color">#c8aff6c8</color>
 </resources>

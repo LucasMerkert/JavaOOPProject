@@ -23,7 +23,7 @@ public class Tile {
 	 * @param exp = Exponent
 	 *        value = 2^exp
 	 */
-	public Tile(int exp,Context context){
+	public Tile(int exp, Context context){
 		if(exp < 0 || exp >= 17 )
 			throw new IllegalArgumentException("Tile is a negative exponent or to big to to be displayed ");
 
