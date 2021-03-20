@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-
         /*
           Sets up an on-click-listener for each button, executing the respective code block assigned to the button-listener
          */
@@ -24,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
 		_test.setOnClickListener(v -> {
 			startGameActivity();
 		});
-
-
 	}
 
 	private void startGameActivity() {
