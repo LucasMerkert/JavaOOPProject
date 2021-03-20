@@ -16,6 +16,7 @@ public class Tile {
 	private int exp;
 	private Bitmap display;
 	private Context context;
+	private TilePath tilePath;
 
 	/**
 	 * Constructor for tile object,
@@ -23,11 +24,54 @@ public class Tile {
 	 *        value = 2^exp
 	 */
 	public Tile(int exp,Context context){
+		if(exp < 0 || exp >= 17 )
+			throw new IllegalArgumentException("Tile is a negative exponent or to big to to be displayed ");
+
 		this.context = context;
-		if(exp < 0 )
-			throw new IllegalArgumentException("Tile is a negative number");
-		else this.exp = exp;
+		this.tilePath = null;
+		this.exp = exp;
 		setDisplay();
+	}
+
+	/**
+	 * Method to set the old location of a tile after a swipe
+	 * @param x old x coordinate or column
+	 * @param y old y coordinate or row
+	 * @param merge if the tile was merge = true or swiped = false
+	 */
+	public void setPath(int x, int y, boolean merge){
+		tilePath = new TilePath( x,  y,  merge);
+	}
+
+	/**
+	 * deletes tilePath
+	 */
+	public void deletePath(){
+		tilePath = null;
+	}
+
+	/**
+	 * method to return  X coordinate before the last swipe
+	 * @return old X coordinate
+	 */
+	public int getX(){
+		return tilePath.getPathX();
+	}
+
+	/**
+	 * method to return old Y coordinate before the last swipe
+	 * @return old Y coordinate
+	 */
+	public int getY(){
+		return tilePath.getPathY();
+	}
+
+	/**
+	 * method to return if tile was merged or not during last swipe
+	 * @return tile was merged or not
+	 */
+	public boolean getMerge(){
+		return tilePath.getPathMerge();
 	}
 
 	/**

@@ -21,7 +21,6 @@ public class Grid {
 	private static int pivotTile;
 	private boolean looseFlag = false;
 	public Context context;
-	LinkedList<TilePath> tilePathLinkedList = new LinkedList<>();
 
 	//SOUND test
 	private final SoundPlayer sound;
@@ -91,17 +90,10 @@ public class Grid {
 				}
             }
         }
-        //List printed
-        for(int i = 0; i < this.tilePathLinkedList.size(); i++){
-			tilePathLinkedList.get(i).printList();
-		}
 		//animation
 
 		checkSpawnNewTile();
 		sound.playWooshSound();
-
-		//list clear
-		tilePathLinkedList.clear();
 	}
 
 	/**
@@ -276,9 +268,11 @@ public class Grid {
 				matrix[column][pivotTile] = matrix[column][row];
 			}else{
 				System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile + typ.value()) + ")");
+
 				matrix[column][pivotTile + typ.value()] = matrix[column][row];
 				pivotTile += typ.value();
 			}
+			matrix[column][pivotTile].setPath(column, row, false);
 		}else{
 			if(matrix[pivotTile][row] == null){
 				System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile) + ")");
@@ -288,8 +282,8 @@ public class Grid {
 				matrix[pivotTile + typ.value()][row] = matrix[column][row];
 				pivotTile += typ.value();
 			}
+			matrix[pivotTile][row].setPath(column, row, false);
 		}
-		tilePathLinkedList.add(new TilePath(column, row, pivotTile, matrix[column][row].getExp(), false));
 		deleteTile(column, row, false);
 		change = true;
 		return pivotTile;
@@ -317,17 +311,18 @@ public class Grid {
 		}
 
 		if(typ == DOWN || typ == UP){
+			matrix[column][pivotTile].setPath(column, row, true);
 			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + column + "," + pivotTile + ")\n");
 			matrix[column][pivotTile].upgrade();
 			currentScore +=matrix[column][pivotTile].getValue();
 		}else{
 			// swipe direction is left or right
+			matrix[pivotTile][row].setPath(column, row, true);
 			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + pivotTile + "," + row + ")\n");
 			matrix[pivotTile][row].upgrade();
 			currentScore +=matrix[pivotTile][row].getValue();
 		}
 		System.out.print("Current Score: " + currentScore +"\n");
-		tilePathLinkedList.add(new TilePath(column, row, pivotTile, matrix[column][row].getExp(), true));
 		deleteTile(column, row, true);
 		change = true;
 		return pivotTile + typ.value();
