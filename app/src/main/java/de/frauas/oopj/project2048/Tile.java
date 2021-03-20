@@ -40,7 +40,7 @@ public class Tile {
 	 * @param merge if the tile was merge = true or swiped = false
 	 */
 	public void setPath(int x, int y, boolean merge){
-		tilePath = new TilePath( x,  y,  merge);
+		tilePath = new TilePath( x,  y,  merge, context);
 	}
 
 	/**

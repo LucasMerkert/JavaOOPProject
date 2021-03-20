@@ -7,16 +7,13 @@ import java.util.LinkedList;
 
 
 /**
- * class to manage the Tile path after a merge
+ * class to manage the Tile
  */
 public class TilePath {
     private int x;
     private int y;
     private boolean merge;
-    //CHANGE THIS IT'S JUST FOR DEBUG (line 13+14)
-    int HEIGHT = 0;
-    int WIDTH = 0;
-
+    int WIDTH, HEIGHT;
     /**
      * method to set the TilePath
      * @param x coordinate before last swipe
@@ -25,14 +22,10 @@ public class TilePath {
      * @param context application context
      */
     public TilePath(int x, int y, boolean merge, Context context){
-        try {
-            WIDTH = ((Application2048) context.getApplication()).getWidth();
-            HEIGHT = ((Application2048) context.getApplication()).getHeight();
-        } catch (Exception e) {
-            Log.e("Tile Path", "Using Static Values");
-            WIDTH = 4;
-            HEIGHT = 4;
-        }
+        Application2048 app = (Application2048) context.getApplicationContext();
+        WIDTH = app.getWidth();
+        HEIGHT = app.getHeight();
+
         if(y < 0 || y > HEIGHT){
             throw new IllegalArgumentException("row not [0," + HEIGHT + "]");
         }
