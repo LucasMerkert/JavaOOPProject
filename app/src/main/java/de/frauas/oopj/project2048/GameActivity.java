@@ -9,7 +9,6 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +30,9 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	private GameView gameView;
 	private TextView inGameScoreText;
 
+	private final int WIDTH = 4;
+	private final int HEIGHT = 4;
+
 	/**
 	 * Called when Activity is started. Sets up the restart button, grid, canvas, and gesture detetor.
 	 * @param savedInstanceState naturally passed by android
@@ -39,6 +41,8 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_game);
+		((Application2048) this.getApplication()).setWidth(WIDTH);
+		((Application2048) this.getApplication()).setHeight(HEIGHT);
 
 		inGameScoreText = findViewById(R.id.inGameScoreText);
 		gameView = findViewById(R.id.gameView);
@@ -46,7 +50,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
 		sound = new SoundPlayer(this);
 
-		gameGrid = new Grid(4,4, this);
+		gameGrid = new Grid(WIDTH, HEIGHT,this);
 		updateCanvas();
 		gestureDetector = new GestureDetector(GameActivity.this, this);
 
