@@ -19,22 +19,24 @@ public class TilePath {
 	 * @param x coordinate before last swipe
 	 * @param y coordinate before last swipe
 	 * @param merge if tile was merges or not
-	 * @param context application context
+	 * @param activityContext activity context
 	 */
-	public TilePath(int x, int y, boolean merge, Context context){
-		Application2048 app = (Application2048) context.getApplicationContext();
+	public TilePath(int x, int y, boolean merge, Context activityContext){
+		Application2048 app = (Application2048) activityContext.getApplicationContext();
 		WIDTH = app.getWidth();
 		HEIGHT = app.getHeight();
 
 		if(y < 0 || y > HEIGHT){
 			throw new IllegalArgumentException("row not [0," + HEIGHT + "]");
 		}
-		if(x < 0 || x > WIDTH){
+		else if(x < 0 || x > WIDTH){
 			throw new IllegalArgumentException("column not [" + WIDTH + ",0]");
 		}
 		this.x = x;
 		this.y = y;
 		this.merge = merge;
+		Log.d("Tile Path creation", "Old Coords: "+ x + " " + y + "\n" +
+				"MergeFlag: " + merge);
 	}
 
 	/**

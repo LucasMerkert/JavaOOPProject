@@ -103,7 +103,8 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	 * @param currentTile Tile which will be drawn to canvas
 	 */
 	public void drawTileAtpos(int x, int y, Tile currentTile) {
-		Rect tileRect = new Rect((int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + x* (screenWidth-2*OFFSET)*0.242),
+		Rect tileRect = new Rect(
+				(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + x* (screenWidth-2*OFFSET)*0.242),
 				(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-y)*(screenWidth-2*OFFSET)*0.242)+0.028*(screenWidth-2*OFFSET)),
 				(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + (x+ 1)* (screenWidth-2*OFFSET)*0.242-0.028*(screenWidth-2*OFFSET)),
 				(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-(y+1))*(screenWidth-2*OFFSET)*0.242)));
