@@ -31,6 +31,7 @@ public class Grid {
 	 * the one to the right of it [1][0]; the one below [0][1]
 	 * @param width width of game grid
 	 * @param height height of game grid
+	 * @param context of your current android activity
 	 */
 	public Grid(int width, int height, Context context) {
 		if(width < 4){
