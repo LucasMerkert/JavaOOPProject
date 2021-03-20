@@ -92,7 +92,7 @@ public class Grid {
             }
         }
 		//animation
-
+		deleteTilePath();
 		checkSpawnNewTile();
 		sound.playWooshSound();
 	}
@@ -125,6 +125,8 @@ public class Grid {
 				}
             }
         }
+        //animation
+		deleteTilePath();
 		checkSpawnNewTile();
 		sound.playWooshSound();
 	}
@@ -157,6 +159,8 @@ public class Grid {
 				}
             }
         }
+        //animation
+		deleteTilePath();
 		checkSpawnNewTile();
 		sound.playWooshSound();
 	}
@@ -189,7 +193,8 @@ public class Grid {
 				}
 			}
 		}
-
+		//animation
+		deleteTilePath();
 		checkSpawnNewTile();
 		sound.playWooshSound();
 	}
@@ -453,4 +458,16 @@ public class Grid {
 		return matrix[x][y];
 	}
 
+	/**
+	 * method to clear TilePath from every Tile in Grid
+	 * prime it for new use
+	 */
+	public void deleteTilePath(){
+		for(int i = 0; i < WIDTH; i++){
+			for(int j = 0; j < HEIGHT; j++)
+				if(matrix[i][j] != null) matrix[i][j].deletePath();
+		}
+	}
+
 }
+
