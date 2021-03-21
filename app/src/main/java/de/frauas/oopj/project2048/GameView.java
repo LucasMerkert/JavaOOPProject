@@ -91,9 +91,10 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	 * @param gameGrid grid which holds current game state
 	 */
 	public void drawGridOnCanvas(Grid gameGrid){
-		gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
+		//gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
 		int totalMoments = 10;
 		for (int moment = 1; totalMoments >= moment; moment++) {
+			gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
 			for(int j = 0; j <= 3; j++) { //row
 				for(int i = 0; i <= 3;i++ ) { //column
 					if(gameGrid.getTileAtPos(i,j) != null) {
@@ -103,6 +104,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 				}
 			}
 			invalidate();
+			//SHOW STUFF HERE!!!! -Tarik
 		}
 		gameGrid.deleteTilePaths();
 	}
@@ -177,7 +179,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 											+"Bottom:" + bottom_current);
 			tileBitmap = currentTile.getDisplay();
 			gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
-			//SystemClock.sleep(1000);
+			SystemClock.sleep(1000);
 		}
 	}
 
