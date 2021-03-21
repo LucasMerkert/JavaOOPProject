@@ -464,7 +464,7 @@ public class Grid {
 	 * method to clear TilePath from every Tile in Grid
 	 * prime it for new use
 	 */
-	public void deleteTilePath(){
+	public void deleteTilePaths(){
 		for(int i = 0; i < WIDTH; i++){
 			for(int j = 0; j < HEIGHT; j++){
 				if (matrix[i][j] != null) {
