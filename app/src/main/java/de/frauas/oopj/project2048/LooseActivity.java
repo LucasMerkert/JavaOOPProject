@@ -11,6 +11,10 @@ public class LooseActivity extends AppCompatActivity {
 
 	int score, highscore;
 
+	/**
+	 * onCreate for the loose activity
+	 * @param savedInstanceState
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +52,9 @@ public class LooseActivity extends AppCompatActivity {
 		});
 	}
 
+	/**
+	 * exits the game to the home screen
+	 */
 	private void exitGame() {
 		Intent homeIntent = new Intent(Intent.ACTION_MAIN);
 		homeIntent.addCategory(Intent.CATEGORY_HOME);
@@ -55,11 +62,17 @@ public class LooseActivity extends AppCompatActivity {
 		startActivity(homeIntent);
 	}
 
+	/**
+	 * starts MainActivity, returning to title Screen
+	 */
 	private void titleScreen() {
 		Intent titleIntent = new Intent(this, MainActivity.class);
 		startActivity(titleIntent);
 	}
 
+	/**
+	 * starts GameActivity, restarting the Game
+	 */
 	private void restartGame() {
 		Intent restartIntent = new Intent(this, GameActivity.class);
 		startActivity(restartIntent);

@@ -27,37 +27,11 @@ public class Tile {
 	public Tile(int exp, Context context){
 		if(exp < 0 || exp >= 17 )
 			throw new IllegalArgumentException("Tile is a negative exponent or to big to to be displayed ");
-
 		this.context = context;
 		this.tilePath = null;
 		this.exp = exp;
 		setDisplay();
 		this.newSpawn = true;
-	}
-
-	/**
-	 * Method to set the old location of a tile after a swipe
-	 * @param x old x coordinate or column
-	 * @param y old y coordinate or row
-	 * @param merge if the tile was merge = true or swiped = false
-	 */
-	public void setPath(int x, int y, boolean merge){
-		tilePath = new TilePath( x,  y,  merge, context);
-	}
-
-	/**
-	 * deletes tilePath
-	 */
-	public void deletePath(){
-		tilePath = null;
-	}
-
-	/**
-	 * Getter for the Path of a tile
-	 * @return Path of a Tile
-	 */
-	public TilePath getTilePath() {
-		return this.tilePath;
 	}
 
 	/**
@@ -158,5 +132,31 @@ public class Tile {
 	public boolean getNewSpawn(){
 		return this.newSpawn;
 	}
+
+	/**
+	 * Method to set the old location of a tile after a swipe
+	 * @param x old x coordinate or column
+	 * @param y old y coordinate or row
+	 * @param merge if the tile was merge = true or swiped = false
+	 */
+	public void setPath(int x, int y, boolean merge){
+		tilePath = new TilePath( x,  y,  merge, context);
+	}
+
+	/**
+	 * deletes tilePath
+	 */
+	public void deletePath(){
+		tilePath = null;
+	}
+
+	/**
+	 * Getter for the Path of a tile
+	 * @return Path of a Tile
+	 */
+	public TilePath getTilePath() {
+		return this.tilePath;
+	}
+
 }
 

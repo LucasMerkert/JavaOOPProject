@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 /**
+ * Main activity of our application.
  * @author Tarik, Friedrich, Ana, Lucas
  */
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
+	/**
+	 * Starts the game activity
+	 */
 	private void startGameActivity() {
 		Intent GameActivity = new Intent(this, GameActivity.class);
 		startActivity(GameActivity);

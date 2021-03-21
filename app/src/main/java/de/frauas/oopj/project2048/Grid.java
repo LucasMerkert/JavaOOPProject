@@ -67,7 +67,7 @@ public class Grid {
 	 * swipeUp: Merges tiles if possible and moves Tiles to new position in swipe direction
 	 */
 	public void swipeUp() {
-		deleteTilePath();
+		deleteTilePaths();
 		change = false;
         for(int column = 0; column< WIDTH; column++) {
             pivotTile = 0;
@@ -104,7 +104,7 @@ public class Grid {
 	 * swipeDown: Merges tiles if possible and moves Tiles to new position in swipe direction
 	 */
 	public void swipeDown() {
-		deleteTilePath();
+		deleteTilePaths();
 		change = false;
         for(int column = 0; column< WIDTH; column++) {
             pivotTile = HEIGHT - 1;
@@ -139,7 +139,7 @@ public class Grid {
 	 * swipeLeft: Merges tiles if possible and moves Tiles to new position in swipe direction
 	 */
 	public void swipeLeft() {
-		deleteTilePath();
+		deleteTilePaths();
 		change = false;
         for(int row = 0; row< HEIGHT; row++) {
             pivotTile = 0;
@@ -174,7 +174,7 @@ public class Grid {
 	 * swipeRight: Merges tiles if possible and moves Tiles to new position in swipe direction
 	 */
 	public void swipeRight() {
-		deleteTilePath();
+		deleteTilePaths();
 		change = false;
 		for(int row = 0; row< HEIGHT; row++) {
 			pivotTile = WIDTH - 1;

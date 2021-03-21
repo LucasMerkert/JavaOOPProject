@@ -14,6 +14,7 @@ public class TilePath {
 	private int y;
 	private boolean merge;
 	int WIDTH, HEIGHT;
+
 	/**
 	 * method to set the TilePath
 	 * @param x coordinate before last swipe
@@ -25,6 +26,9 @@ public class TilePath {
 		Application2048 app = (Application2048) activityContext.getApplicationContext();
 		WIDTH = app.getWidth();
 		HEIGHT = app.getHeight();
+		this.x = x;
+		this.y = y;
+		this.merge = merge;
 
 		if(y < 0 || y > HEIGHT){
 			throw new IllegalArgumentException("row not [0," + HEIGHT + "]");
@@ -32,14 +36,10 @@ public class TilePath {
 		else if(x < 0 || x > WIDTH){
 			throw new IllegalArgumentException("column not [" + WIDTH + ",0]");
 		}
-		this.x = x;
-		this.y = y;
-		this.merge = merge;
+
 		Log.d("Tile Path creation", "Old Coords: "+ x + " " + y + "\n" +
 				"MergeFlag: " + merge);
 	}
-
-
 
     /**
      * returns pre-swipe x coordinate of a tile
