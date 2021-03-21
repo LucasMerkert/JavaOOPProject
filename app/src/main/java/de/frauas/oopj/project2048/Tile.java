@@ -151,5 +151,12 @@ public class Tile {
 	}
 
 
+	/**
+	 * Getter to check if the tile is newly spawned
+	 * @return boolean if tile is newly spawned
+	 */
+	public boolean getNewSpawn(){
+		return this.newSpawn;
+	}
 }
 

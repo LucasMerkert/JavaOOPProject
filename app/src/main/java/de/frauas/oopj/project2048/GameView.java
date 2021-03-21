@@ -196,7 +196,10 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	}
 
 
-
+	/**
+	 *
+	 * @param canvas
+	 */
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
@@ -209,6 +212,8 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 			for(int x = 0; x <= 3;x++ ) { //column
 				if(currentState.getTileAtPos(x,y) != null) { // There is a tile at position(i,j) of the grid
 					if(currentState.getTileAtPos(x,y).getTilePath() != null){
+
+
 						System.out.println("Animation Frame: " + x + " " + y);
 						Rect tileRect;
 						double distance =  ((screenWidth - 2 * OFFSET) * 0.242);
@@ -223,8 +228,8 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 							//down
 							if (currentState.getTileAtPos(x, y).getTilePath().getY() > y) {
 								tileRect = new Rect((int) left, (int) (top - distanceToMove), (int)right, (int) (bottom - distanceToMove));
-								//up
-							} else {
+
+							} else {//up
 								tileRect = new Rect((int) left, (int) (top + distanceToMove), (int)right, (int) (bottom + distanceToMove));
 							}
 						} else if (currentState.getTileAtPos(x, y).getTilePath().getY() == y) {
@@ -232,8 +237,8 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 							//left
 							if (currentState.getTileAtPos(x, y).getTilePath().getX() > x) {
 								tileRect = new Rect((int) (left- distanceToMove), (int) top, (int) (right -distanceToMove), (int) bottom);
-								//right
-							} else {
+
+							} else {//right
 								tileRect = new Rect((int) (left+ distanceToMove), (int) top, (int) (right +distanceToMove), (int) bottom);
 
 							}
@@ -249,7 +254,11 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 							tileBitmap = currentState.getTileAtPos(x, y).getDisplay();
 						}
 						gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
-					} else {
+
+
+					} else if(!currentState.getTileAtPos(x,y).getNewSpawn()) {
+
+
 						if(y < 0 || y > currentState.getHEIGHT()){
 							throw new IllegalArgumentException("row not [0," + currentState.getHEIGHT() + "]");
 						}
@@ -263,6 +272,8 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 						tileBitmap = currentState.getTileAtPos(x,y).getDisplay();
 						gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
 					}
+
+
 				}
 			}
 		}
