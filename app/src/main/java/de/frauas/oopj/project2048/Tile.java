@@ -50,20 +50,29 @@ public class Tile {
 		tilePath = null;
 	}
 
-	/**
+	//TODO: Probably not necessary
+	/*/**
 	 * method to return  X coordinate before the last swipe
 	 * @return old X coordinate
-	 */
-	public int getX(){
+	 *//*
+	public int getOldX(){
 		return tilePath.getPathX();
 	}
 
 	/**
 	 * method to return old Y coordinate before the last swipe
 	 * @return old Y coordinate
-	 */
-	public int getY(){
+	 *//*
+	public int getOldY(){
 		return tilePath.getPathY();
+	}/*
+
+	/**
+	 * Getter Method for tilePath of Tile
+	 * @return tilePath
+	 */
+	public TilePath getTilePath(){
+		return tilePath;
 	}
 
 	/**
