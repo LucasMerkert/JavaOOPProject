@@ -36,6 +36,11 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 		this.context = context;
 	}
 
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+	}
+
 	/**
 	 * initial definition for the background color and the Text color
 	 */
@@ -87,14 +92,14 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	 */
 	public void drawGridOnCanvas(Grid gameGrid){
 		gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
-		int totalMoments = 3;
+		int totalMoments = 10;
 		for (int moment = 1; totalMoments >= moment; moment++) {
 			for(int j = 0; j <= 3; j++) { //row
 				for(int i = 0; i <= 3;i++ ) { //column
 					if(gameGrid.getTileAtPos(i,j) != null) {
 						animatePath(i, j, gameGrid.getTileAtPos(i,j), moment, totalMoments);
 					}
-						//drawTileAtpos(i,j, gameGrid.getTileAtPos(i,j));
+					//drawTileAtpos(i,j, gameGrid.getTileAtPos(i,j));
 				}
 			}
 			invalidate();
