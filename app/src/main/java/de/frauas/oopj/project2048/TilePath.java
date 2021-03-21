@@ -39,35 +39,30 @@ public class TilePath {
 				"MergeFlag: " + merge);
 	}
 
-	/**
-	 * prints the x and y value
-	 */
-	public void printList(){
-		System.out.print("position before swipe [" + x + "] [" + y + "] \n");
-	}
 
-	/**
-	 * returns pre-swipe x coordinate of a tile
-	 * @return  x coordinate before swipe
-	 */
-	public int getPathX(){
-		return x;
-	}
 
-	/**
-	 * returns pre-swipe y coordinate of a tile
-	 * @return y coordinate before swipe
-	 */
-	public int getPathY(){
-		return y;
-	}
+    /**
+     * returns pre-swipe x coordinate of a tile
+     * @return  x coordinate before swipe
+     */
+    public int getX(){
+        return x;
+    }
 
-	/**
-	 * indicate if tile was merged or not
-	 * @return if tile was merged or not
-	 */
-	public boolean getPathMerge(){
-		return merge;
-	}
+    /**
+     * returns pre-swipe y coordinate of a tile
+     * @return y coordinate before swipe
+     */
+    public int getY(){
+        return y;
+    }
+
+    /**
+     * indicate if tile was merged or not
+     * @return if tile was merged or not
+     */
+    public boolean getMerge(){
+        return merge;
+    }
 }
 

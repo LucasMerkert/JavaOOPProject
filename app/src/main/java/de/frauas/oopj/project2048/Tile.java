@@ -17,6 +17,7 @@ public class Tile {
 	private Bitmap display;
 	private Context context;
 	private TilePath tilePath;
+	private boolean newSpawn;
 
 	/**
 	 * Constructor for tile object,
@@ -31,6 +32,7 @@ public class Tile {
 		this.tilePath = null;
 		this.exp = exp;
 		setDisplay();
+		this.newSpawn = true;
 	}
 
 	/**
@@ -50,37 +52,12 @@ public class Tile {
 		tilePath = null;
 	}
 
-	//TODO: Probably not necessary
-	/*/**
-	 * method to return  X coordinate before the last swipe
-	 * @return old X coordinate
-	 *//*
-	public int getOldX(){
-		return tilePath.getPathX();
-	}
-
 	/**
-	 * method to return old Y coordinate before the last swipe
-	 * @return old Y coordinate
-	 *//*
-	public int getOldY(){
-		return tilePath.getPathY();
-	}/*
-
-	/**
-	 * Getter Method for tilePath of Tile
-	 * @return tilePath
+	 * Getter for the Path of a tile
+	 * @return Path of a Tile
 	 */
-	public TilePath getTilePath(){
-		return tilePath;
-	}
-
-	/**
-	 * method to return if tile was merged or not during last swipe
-	 * @return tile was merged or not
-	 */
-	public boolean getMerge(){
-		return tilePath.getPathMerge();
+	public TilePath getTilePath() {
+		return this.tilePath;
 	}
 
 	/**

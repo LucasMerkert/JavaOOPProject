@@ -70,7 +70,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	 * Calls gameView to update the canvas, checks for loosing conditon and updates the current score
 	 */
 	private void updateCanvas() {
-		gameView.drawGridOnCanvas(gameGrid);
+		gameView.setCurrentState(gameGrid);
 		Log.d("GameCanvas", "invalidate");
 		gameView.invalidate();
 		if (gameGrid.isGameOver()) looseGame(gameGrid.getScore());

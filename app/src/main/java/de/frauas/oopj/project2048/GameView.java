@@ -14,9 +14,12 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import java.util.LinkedList;
+
 
 /**
  * @author Tarik, Friedrich, Ana, Lucas
+ * Extends ImageView to display current game state on the screen
  */
 public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
@@ -29,16 +32,14 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	private int screenHeight;
 	private Context context;
 	private Rect gameBackgroundRect;
+	private double factor;
+	private Grid currentState;
 
 	public GameView(Context context, AttributeSet attributesSet) {
 		super(context, attributesSet);
 		setupPaint();
 		this.context = context;
-	}
-
-	@Override
-	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
+		factor = 0;
 	}
 
 	/**
@@ -48,7 +49,6 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
 		backgroundColor = new Paint();
 		backgroundColor.setARGB(200, 175,246,200);	//Türkis - Turquois
-
 
 		textColor = new Paint();
 		textColor.setColor(Color.BLACK);
@@ -87,126 +87,202 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	}
 
 	/**
-	 * Draws grid on the canvas
-	 * @param gameGrid grid which holds current game state
+	 * Draws grid on the canvas with Animation
 	 */
-	public void drawGridOnCanvas(Grid gameGrid){
-		//gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
-		int totalMoments = 10;
-		for (int moment = 1; totalMoments >= moment; moment++) {
-			gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
-			for(int j = 0; j <= 3; j++) { //row
-				for(int i = 0; i <= 3;i++ ) { //column
-					if(gameGrid.getTileAtPos(i,j) != null) {
-						animatePath(i, j, gameGrid.getTileAtPos(i,j), moment, totalMoments);
+	public void drawGridOnCanvasAnimate(){
+		if(currentState == null) {
+			throw new NullPointerException("No game state to display");
+		}
+		gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
+		for(int j = 0; j <= 3; j++) { //row
+			for(int i = 0; i <= 3;i++ ) { //column
+				if(currentState.getTileAtPos(i,j) != null) { // There is a tile at position(i,j) of the grid
+					if(currentState.getTileAtPos(i,j).getTilePath() != null){
+						System.out.println("Animation Frame: " + i + " " + j);
+						animateTilePath(i,j); // Tile has to be animated
+					} else {
+						drawTileAtpos(i,j);
 					}
-					//drawTileAtpos(i,j, gameGrid.getTileAtPos(i,j));
 				}
 			}
-			invalidate();
-			//SHOW STUFF HERE!!!! -Tarik
 		}
-		gameGrid.deleteTilePaths();
+	}
+
+	/**
+	 * Draws grid on the canvas without animation
+	 */
+	public void drawGridOnCanvas(){
+		if(currentState == null) {
+			throw new NullPointerException("No game state to display");
+		}
+		gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
+		for(int j = 0; j <= 3; j++) { //row
+			for(int i = 0; i <= 3;i++ ) { //column
+				if(currentState.getTileAtPos(i,j) != null) { // There is a tile at position(i,j) of the grid
+						drawTileAtpos(i,j);
+				}
+			}
+		}
 	}
 
 	/**
 	 * Draws a Tile with the respective Bitmap to the canvas at position (x,y)
 	 * @param x column coordinate of the tile
 	 * @param y row coordinate of the tile
-	 * @param currentTile Tile which will be drawn to canvas
 	 */
-	private void drawTileAtpos(int x, int y, Tile currentTile) {
-		Rect tileRect = new Rect(
-				(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + x* (screenWidth-2*OFFSET)*0.242),
+	public void drawTileAtpos(int x, int y) {
+		if(y < 0 || y > currentState.getHEIGHT()){
+			throw new IllegalArgumentException("row not [0," + currentState.getHEIGHT() + "]");
+		}
+		if(x < 0 || x > currentState.getWIDTH()){
+			throw new IllegalArgumentException("column not [0," + currentState.getWIDTH() + "]");
+		}
+		Rect tileRect = new Rect((int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + x* (screenWidth-2*OFFSET)*0.242),
 				(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-y)*(screenWidth-2*OFFSET)*0.242)+0.028*(screenWidth-2*OFFSET)),
-				(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + (x + 1)* (screenWidth-2*OFFSET)*0.242-0.028*(screenWidth-2*OFFSET)),
+				(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + (x+ 1)* (screenWidth-2*OFFSET)*0.242-0.028*(screenWidth-2*OFFSET)),
 				(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-(y+1))*(screenWidth-2*OFFSET)*0.242)));
-		tileBitmap = currentTile.getDisplay();
+		tileBitmap = currentState.getTileAtPos(x,y).getDisplay();
 		gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
 	}
 
 	/**
-	 * an attempt at animating the tiles
-	 * @param new_x the new x coord of the tile
-	 * @param new_y the new y coord of the tile
-	 * @param currentTile the tile itself
-	 * @param moment the glipse of the moment this happens
+	 * Draws For each frame the position of the Tiles which have to be moved
+	 * @param x new column position of the Tile
+	 * @param y new row position of the Tile
 	 */
-	private void animatePath(int new_x, int new_y, Tile currentTile, int moment, int totalMoments){
-		Log.d("Animate Path", "Called");
-		if(currentTile.getTilePath() == null){
-			Log.d("Animate Path", "Nothing to animate for " + new_x + "|" + new_y);
-			Rect tileRect = new Rect(
-					(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + new_x* (screenWidth-2*OFFSET)*0.242),
-					(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-new_y)*(screenWidth-2*OFFSET)*0.242)+0.028*(screenWidth-2*OFFSET)),
-					(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + (new_x + 1)* (screenWidth-2*OFFSET)*0.242-0.028*(screenWidth-2*OFFSET)),
-					(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-(new_y+1))*(screenWidth-2*OFFSET)*0.242))
-			);
-			tileBitmap = currentTile.getDisplay();
-			gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
+	public void animateTilePath(int x, int y) {
+
+		Rect tileRect;
+		int distance = (int) ((screenWidth - 2 * OFFSET) * 0.242);
+		int left = (int) (OFFSET + 0.03 * (screenWidth - 2 * OFFSET) + currentState.getTileAtPos(x, y).getTilePath().getX() * distance);
+		int top = (int) (screenHeight - OFFSET - 0.03 * (screenWidth - 2 * OFFSET) - ((4 - currentState.getTileAtPos(x, y).getTilePath().getY()) * distance) + 0.028 * (screenWidth - 2 * OFFSET));
+		int right = (int) (OFFSET + 0.03 * (screenWidth - 2 * OFFSET) + (currentState.getTileAtPos(x, y).getTilePath().getX() + 1) * distance - 0.028 * (screenWidth - 2 * OFFSET));
+		int bottom = (int) (screenHeight - OFFSET - 0.03 * (screenWidth - 2 * OFFSET) - (4 - (currentState.getTileAtPos(x, y).getTilePath().getY() + 1)) * distance);
+		int distanceToMove;
+
+		if (currentState.getTileAtPos(x, y).getTilePath().getX() == x) {
+			distanceToMove = (int) factor * distance * Math.abs(currentState.getTileAtPos(x, y).getTilePath().getY() - y);
+			//down
+			if (currentState.getTileAtPos(x, y).getTilePath().getY() > y) {
+				tileRect = new Rect(left, top - distanceToMove, right, bottom - distanceToMove);
+				//up
+			} else {
+				tileRect = new Rect(left, top + distanceToMove, right, bottom + distanceToMove);
+
+			}
+		} else if (currentState.getTileAtPos(x, y).getTilePath().getY() == y) {
+			distanceToMove = (int) factor * distance * Math.abs(currentState.getTileAtPos(x, y).getTilePath().getY() - y);
+			//left
+			if (currentState.getTileAtPos(x, y).getTilePath().getX() > x) {
+				tileRect = new Rect(left - distanceToMove, top, right - distanceToMove, bottom);
+				//right
+			} else {
+				tileRect = new Rect(left + distanceToMove, top, right + distanceToMove, bottom);
+
+			}
+		} else {
+			throw new IllegalArgumentException("Tile was not moved");
 		}
-		else{
-			TilePath path = currentTile.getTilePath();
-			int old_x = path.getPathX();
-			int old_y = path.getPathY();
-			Log.d("Tile" + currentTile, "("+ old_x + "," + old_y + ")->(" + new_x + ","
-					+ new_y + ") - Moment " + moment + "/" + totalMoments);
+		if (currentState.getTileAtPos(x, y).getTilePath().getMerge()) {
 
-			int left_old = (int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + old_x* (screenWidth-2*OFFSET)*0.242);
-			int top_old = (int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-old_y)*(screenWidth-2*OFFSET)*0.242)+0.028*(screenWidth-2*OFFSET));
-			int right_old = (int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + (old_x + 1)* (screenWidth-2*OFFSET)*0.242-0.028*(screenWidth-2*OFFSET));
-			int bottom_old = (int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-(old_y+1))*(screenWidth-2*OFFSET)*0.242));
+			Tile tempTile = new Tile(currentState.getTileAtPos(x, y).getExp() - 1, context);
+			tileBitmap = tempTile.getDisplay();
+		} else {
 
-			int left_new = (int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + new_x* (screenWidth-2*OFFSET)*0.242);
-			int top_new = (int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-new_y)*(screenWidth-2*OFFSET)*0.242)+0.028*(screenWidth-2*OFFSET));
-			int right_new = (int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + (new_x + 1)* (screenWidth-2*OFFSET)*0.242-0.028*(screenWidth-2*OFFSET));
-			int bottom_new = (int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-(new_y+1))*(screenWidth-2*OFFSET)*0.242));
-
-			int left_current = (int) (left_old + ((float)moment/totalMoments)*(left_new-left_old));
-			int top_current = (int) (top_old + ((float)moment/totalMoments)*(top_new-top_old));
-			int right_current = (int) (right_old + ((float)moment/totalMoments)*(right_new-right_old));
-			int bottom_current = (int) (bottom_old + ((float)moment/totalMoments)*(bottom_new-bottom_old));
-
-			Rect tileRect = new Rect(
-					left_current,
-					top_current,
-					right_current,
-					bottom_current
-			);
-			Log.d("Tile drawn", "Left:" + left_current + "\n"
-											+"Top:" + top_current + "\n"
-											+"Right:" + right_current + "\n"
-											+"Bottom:" + bottom_current);
-			tileBitmap = currentTile.getDisplay();
-			gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
-			SystemClock.sleep(1000);
+			tileBitmap = currentState.getTileAtPos(x, y).getDisplay();
 		}
+		gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
+
 	}
 
 
-	//TODO: animations
-	public void slideColumnAnimation(int x1, int y1, int x2, int y2, int value) {
 
-		Paint tileColor = new Paint();
-		tileColor.setARGB(255, 255,0,0);
-		//System.out.print("x: " + x +" y: "+ y);
-		int top= screenHeight- OFFSET -((4-y1)*(screenWidth/4));
-		while (Math.abs(y1-y2) != 0) {
-			gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
-			Rect tileRect = new Rect(x1 * (screenWidth / 4), screenHeight- OFFSET -((4-y1)*(screenWidth/4)), (x1 + 1) * (screenWidth / 4), screenHeight - OFFSET - ((4 - (y1 + 1)) * (screenWidth / 4)));
-			gameCanvas.drawRect(tileRect, tileColor);
-			gameCanvas.drawText(value + "", tileRect.centerX(), tileRect.centerY(), textColor);
-			System.out.println("Animation: x: " + x1 + " y1: " + y1 + " y2: " + y2);
-			postInvalidate();
-			if(y1 < y2){
-				top--;
-			} else {
-				y1--;
-			}
-			//SystemClock.sleep(100);
+	@Override
+	protected void onDraw(Canvas canvas) {
+		super.onDraw(canvas);
+		if(currentState == null) {
+			throw new NullPointerException("No game state to display");
 		}
 
+		gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
+		for(int y = 0; y <= 3; y++) { //row
+			for(int x = 0; x <= 3;x++ ) { //column
+				if(currentState.getTileAtPos(x,y) != null) { // There is a tile at position(i,j) of the grid
+					if(currentState.getTileAtPos(x,y).getTilePath() != null){
+						System.out.println("Animation Frame: " + x + " " + y);
+						Rect tileRect;
+						double distance =  ((screenWidth - 2 * OFFSET) * 0.242);
+						double left =  (OFFSET + 0.03 * (screenWidth - 2 * OFFSET) + currentState.getTileAtPos(x, y).getTilePath().getX() * distance);
+						double top =  (screenHeight - OFFSET - 0.03 * (screenWidth - 2 * OFFSET) - ((4 - currentState.getTileAtPos(x, y).getTilePath().getY()) * distance) + 0.028 * (screenWidth - 2 * OFFSET));
+						double right =  (OFFSET + 0.03 * (screenWidth - 2 * OFFSET) + (currentState.getTileAtPos(x, y).getTilePath().getX() + 1) * distance - 0.028 * (screenWidth - 2 * OFFSET));
+						double bottom =  (screenHeight - OFFSET - 0.03 * (screenWidth - 2 * OFFSET) - (4 - (currentState.getTileAtPos(x, y).getTilePath().getY() + 1)) * distance);
+						double distanceToMove;
 
+						if (currentState.getTileAtPos(x, y).getTilePath().getX() == x) {
+							distanceToMove =  factor * distance * Math.abs(currentState.getTileAtPos(x, y).getTilePath().getY() - y);
+							//down
+							if (currentState.getTileAtPos(x, y).getTilePath().getY() > y) {
+								tileRect = new Rect((int) left, (int) (top - distanceToMove), (int)right, (int) (bottom - distanceToMove));
+								//up
+							} else {
+								tileRect = new Rect((int) left, (int) (top + distanceToMove), (int)right, (int) (bottom + distanceToMove));
+							}
+						} else if (currentState.getTileAtPos(x, y).getTilePath().getY() == y) {
+							distanceToMove =  factor * distance * Math.abs(currentState.getTileAtPos(x, y).getTilePath().getX() - x);
+							//left
+							if (currentState.getTileAtPos(x, y).getTilePath().getX() > x) {
+								tileRect = new Rect((int) (left- distanceToMove), (int) top, (int) (right -distanceToMove), (int) bottom);
+								//right
+							} else {
+								tileRect = new Rect((int) (left+ distanceToMove), (int) top, (int) (right +distanceToMove), (int) bottom);
+
+							}
+						} else {
+							throw new IllegalArgumentException("Tile was not moved");
+						}
+						if (currentState.getTileAtPos(x, y).getTilePath().getMerge()) {
+
+							Tile tempTile = new Tile(currentState.getTileAtPos(x, y).getExp() - 1, context);
+							tileBitmap = tempTile.getDisplay();
+						} else {
+
+							tileBitmap = currentState.getTileAtPos(x, y).getDisplay();
+						}
+						gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
+					} else {
+						if(y < 0 || y > currentState.getHEIGHT()){
+							throw new IllegalArgumentException("row not [0," + currentState.getHEIGHT() + "]");
+						}
+						if(x < 0 || x > currentState.getWIDTH()){
+							throw new IllegalArgumentException("column not [0," + currentState.getWIDTH() + "]");
+						}
+						Rect tileRect = new Rect((int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + x* (screenWidth-2*OFFSET)*0.242),
+								(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-y)*(screenWidth-2*OFFSET)*0.242)+0.028*(screenWidth-2*OFFSET)),
+								(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + (x+ 1)* (screenWidth-2*OFFSET)*0.242-0.028*(screenWidth-2*OFFSET)),
+								(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-(y+1))*(screenWidth-2*OFFSET)*0.242)));
+						tileBitmap = currentState.getTileAtPos(x,y).getDisplay();
+						gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
+					}
+				}
+			}
+		}
+		System.out.println("Factor: "+ factor);
+		if(factor < 1) {
+			factor += 0.5;
+			invalidate();
+		} else{
+			factor = 0;
+			drawGridOnCanvas();
+		}
+	}
+
+	/**
+	 * Setter for the currentState grid and the according tilepaths
+	 * @param currentState Current logical state of the grid
+	 */
+	public void setCurrentState(Grid currentState) {
+		
+		this.currentState = currentState;
 	}
 
 
