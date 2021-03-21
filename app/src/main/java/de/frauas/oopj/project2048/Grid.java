@@ -93,7 +93,6 @@ public class Grid {
             }
         }
 		//animation
-
 		checkSpawnNewTile();
 		sound.playWooshSound();
 
@@ -130,7 +129,6 @@ public class Grid {
             }
         }
         //animation
-
 		checkSpawnNewTile();
 		sound.playWooshSound();
 	}
@@ -165,7 +163,6 @@ public class Grid {
             }
         }
         //animation
-
 		checkSpawnNewTile();
 		sound.playWooshSound();
 	}
@@ -200,7 +197,6 @@ public class Grid {
 			}
 		}
 		//animation
-
 		checkSpawnNewTile();
 		sound.playWooshSound();
 	}
@@ -468,12 +464,18 @@ public class Grid {
 	 * method to clear TilePath from every Tile in Grid
 	 * prime it for new use
 	 */
-	public void deleteTilePaths(){
+	public void deleteTilePath(){
 		for(int i = 0; i < WIDTH; i++){
-			for(int j = 0; j < HEIGHT; j++)
-				if(matrix[i][j] != null) matrix[i][j].deletePath();
+			for(int j = 0; j < HEIGHT; j++){
+				if (matrix[i][j] != null) {
+					matrix[i][j].deletePath();
+					matrix[i][j].setNewSpawn(false);
+				}
+			}
 		}
 	}
+
+
 
 	/**
 	 * getter for HEIGHT

@@ -158,5 +158,9 @@ public class Tile {
 	public boolean getNewSpawn(){
 		return this.newSpawn;
 	}
+
+	public void setNewSpawn(boolean newSpawn){
+		this.newSpawn = newSpawn;
+	}
 }
 
