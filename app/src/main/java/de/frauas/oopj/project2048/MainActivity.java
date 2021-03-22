@@ -17,9 +17,8 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-        /*
-          Sets up an on-click-listener for each button, executing the respective code block assigned to the button-listener
-         */
+
+        //Sets up an on-click-listener for the button
 		final Button _test = findViewById(R.id.button4x4);
 		_test.setOnClickListener(v -> {
 			startGameActivity();
@@ -33,6 +32,4 @@ public class MainActivity extends AppCompatActivity {
 		Intent GameActivity = new Intent(this, GameActivity.class);
 		startActivity(GameActivity);
 	}
-
-
 }

@@ -24,15 +24,16 @@ public class Grid {
 	/**
 	 * Contructor for Grid object, the main playing field. The top-left corner of the grid is [0][0],
 	 * the one to the right of it [1][0]; the one below [0][1]
-	 * @param width width of game grid
-	 * @param height height of game grid
 	 * @param context of your current android activity
 	 */
-	public Grid(int width, int height, Context context) {
-		if(width < 4){
+	public Grid( Context context) {
+		Application2048 app = (Application2048) context.getApplicationContext();
+		this.WIDTH = app.getWidth();
+		this.HEIGHT = app.getHeight();
+		if(WIDTH < 4){
 			throw new IllegalArgumentException("Width too small");
 		}
-		if(height < 4){
+		if(HEIGHT < 4){
 			throw new IllegalArgumentException("Height too small");
 		}
 		if(context == null){
@@ -41,8 +42,6 @@ public class Grid {
 
 		this.context = context;
 		this.tileCount = 0;
-		this.WIDTH = width;
-		this.HEIGHT = height;
 		matrix = new Tile[WIDTH][HEIGHT];
 		initSpawn();
 	}
