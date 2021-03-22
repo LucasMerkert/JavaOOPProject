@@ -2,7 +2,6 @@ package de.frauas.oopj.project2048;
 
 import android.content.Context;
 
-import java.util.LinkedList;
 import java.util.Random;
 
 import static de.frauas.oopj.project2048.Direction.*;
@@ -21,9 +20,6 @@ public class Grid {
 	private static int pivotTile;
 	private boolean looseFlag = false;
 	public Context context;
-
-	//SOUND test
-	private final SoundPlayer sound;
 
 	/**
 	 * Contructor for Grid object, the main playing field. The top-left corner of the grid is [0][0],
@@ -49,9 +45,6 @@ public class Grid {
 		this.HEIGHT = height;
 		matrix = new Tile[WIDTH][HEIGHT];
 		initSpawn();
-
-		//sound test
-		sound = new SoundPlayer(context);
 	}
 
 	/**
@@ -65,8 +58,9 @@ public class Grid {
 
 	/**
 	 * swipeUp: Merges tiles if possible and moves Tiles to new position in swipe direction
+	 * @return whether the grid has changed with the swipe
 	 */
-	public void swipeUp() {
+	public boolean swipeUp() {
 		deleteTilePaths();
 		change = false;
         for(int column = 0; column< WIDTH; column++) {
@@ -94,15 +88,14 @@ public class Grid {
         }
 		//animation
 		checkSpawnNewTile();
-		sound.playWooshSound();
-
-
+		return change;
 	}
 
 	/**
 	 * swipeDown: Merges tiles if possible and moves Tiles to new position in swipe direction
+	 * @return whether the grid has changed with the swipe
 	 */
-	public void swipeDown() {
+	public boolean swipeDown() {
 		deleteTilePaths();
 		change = false;
         for(int column = 0; column< WIDTH; column++) {
@@ -130,13 +123,14 @@ public class Grid {
         }
         //animation
 		checkSpawnNewTile();
-		sound.playWooshSound();
+		return change;
 	}
 
 	/**
 	 * swipeLeft: Merges tiles if possible and moves Tiles to new position in swipe direction
+	 * @return whether the grid has changed with the swipe
 	 */
-	public void swipeLeft() {
+	public boolean swipeLeft() {
 		deleteTilePaths();
 		change = false;
         for(int row = 0; row< HEIGHT; row++) {
@@ -164,13 +158,14 @@ public class Grid {
         }
         //animation
 		checkSpawnNewTile();
-		sound.playWooshSound();
+		return change;
 	}
 
 	/**
 	 * swipeRight: Merges tiles if possible and moves Tiles to new position in swipe direction
+	 * @return whether the grid has changed with the swipe
 	 */
-	public void swipeRight() {
+	public boolean swipeRight() {
 		deleteTilePaths();
 		change = false;
 		for(int row = 0; row< HEIGHT; row++) {
@@ -198,7 +193,7 @@ public class Grid {
 		}
 		//animation
 		checkSpawnNewTile();
-		sound.playWooshSound();
+		return change;
 	}
 
 	/**
@@ -404,7 +399,6 @@ public class Grid {
 				if(matrix[column][row].getExp() == matrix[column+1][row].getExp()) return true;
 			}
 		}
-		sound.playGameoverSound();
 		return false;
 	}
 

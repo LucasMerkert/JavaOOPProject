@@ -120,7 +120,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	 * Detects the x and y coordinates at the start and at the end of the user touching the screen
 	 * and determines in which direction (UP, DOWN, LEFT, RIGHT) the swipe occured.
 	 * calls swipe____() functions in gameGrid and then updated canvas
-	 *
 	 * @param event The touch screen event being processed.
 	 * @return Returns true if a swipe was detected, fals if not
 	 */
@@ -147,12 +146,13 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 					if (x2 > x1) {
 						//Toast.makeText(this, "Swipe to the right", Toast.LENGTH_SHORT).show();
 						Log.d(LOGTAG, "Swipe to the right");
-						gameGrid.swipeRight();
-						//gameSoundManager.playWooshSound(0);
+						boolean change = gameGrid.swipeRight();
+						if(change) sound.playWooshSound();
 					} else {
 						//Toast.makeText(this, "Swipe to the left", Toast.LENGTH_SHORT).show();
 						Log.d(LOGTAG, "Swipe to the left");
-						gameGrid.swipeLeft();
+						boolean change = gameGrid.swipeLeft();
+						if(change) sound.playWooshSound();
 					}
 					updateCanvas();
 					return true;
@@ -161,11 +161,13 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 					if (y2 > y1) {
 						//Toast.makeText(this, "Swipe down", Toast.LENGTH_SHORT).show();
 						Log.d(LOGTAG, "Swipe down");
-						gameGrid.swipeDown();
+						boolean change = gameGrid.swipeDown();
+						if(change) sound.playWooshSound();
 					} else {
 						//Toast.makeText(this, "Swipe Up", Toast.LENGTH_SHORT).show();
 						Log.d(LOGTAG, "Swipe up");
-						gameGrid.swipeUp();
+						boolean change = gameGrid.swipeUp();
+						if(change) sound.playWooshSound();
 					}
 					updateCanvas();
 					return true;
