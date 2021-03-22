@@ -90,6 +90,7 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	 * @param currentScore the achieved score
 	 */
 	private void looseGame(int currentScore) {
+		sound.playGameoverSound();
 		SharedPreferences savefile = getPreferences(MODE_PRIVATE);
 		int highScore = savefile.getInt("High Score", 0);
 		if(highScore < currentScore){		//new High Score!
