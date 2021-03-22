@@ -21,8 +21,8 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
 	private Grid gameGrid;
 	private static final String LOGTAG = "Touch Event";
-	private static final int MIN_SWIPE_DISTANCE = 150;
-	private float x1, x2, y1, y2;
+	private static final int MIN_SWIPE_DISTANCE = 100;
+	private float x1, y1;	//Gesture Detector Coords
 	private GestureDetector gestureDetector;
 
 	//private SoundManager gameSoundManager;
@@ -135,8 +135,9 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 				break;
 			//end of motion coords
 			case MotionEvent.ACTION_UP:
-				x2 = event.getX();
-				y2 = event.getY();
+				//end of motion
+				float x2 = event.getX();
+				float y2 = event.getY();
 				//evaluating the swipe
 				float xDifference = x1 - x2;
 				float yDifference = y1 - y2;
