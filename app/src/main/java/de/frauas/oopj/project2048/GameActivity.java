@@ -9,23 +9,21 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * @author Tarik, Friedrich, Ana, Lucas
  * This is the activity where the game take place. It manages user input and passes them on to GameView and Grid classes.
  * It is responsible for starting, restarting and ending (loosing) the game.
+ * @author Tarik, Friedrich, Ana, Lucas
  */
 public class GameActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
-	private Grid gameGrid;
 	private static final String LOGTAG = "Touch Event";
 	private static final int MIN_SWIPE_DISTANCE = 100;
+
+	private Grid gameGrid;
 	private float x1, y1;	//Gesture Detector Coords
 	private GestureDetector gestureDetector;
-
-	//private SoundManager gameSoundManager;
 	private SoundPlayer sound;
 	private GameView gameView;
 	private TextView inGameScoreText;

@@ -24,6 +24,8 @@ import java.util.LinkedList;
 public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
 	private static final int OFFSET = 35;
+	private static final double ANIMATION_SPEED = 0.1;
+	private static final int ROUNDING_ERROR_OFFSET = 100;
 	private Paint backgroundColor;
 	private Paint textColor;
 	private Bitmap backgroundBitmap, gameBitmap,tileBitmap;
@@ -101,7 +103,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 						System.out.println("Animation Frame: " + i + " " + j);
 						animateTilePath(i,j); // Tile has to be animated
 					} else {
-						drawTileAtpos(i,j);
+						drawTileAtpos(i,j,currentState.getTileAtPos(i,j));
 					}
 				}
 			}
@@ -119,7 +121,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 		for(int j = 0; j <= 3; j++) { //row
 			for(int i = 0; i <= 3;i++ ) { //column
 				if(currentState.getTileAtPos(i,j) != null) { // There is a tile at position(i,j) of the grid
-						drawTileAtpos(i,j);
+						drawTileAtpos(i,j,currentState.getTileAtPos(i,j));
 				}
 			}
 		}
@@ -130,7 +132,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	 * @param x column coordinate of the tile
 	 * @param y row coordinate of the tile
 	 */
-	public void drawTileAtpos(int x, int y) {
+	public void drawTileAtpos(int x, int y, Tile currentTile) {
 		if(y < 0 || y > currentState.getHEIGHT()){
 			throw new IllegalArgumentException("row not [0," + currentState.getHEIGHT() + "]");
 		}
@@ -141,7 +143,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 				(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-y)*(screenWidth-2*OFFSET)*0.242)+0.028*(screenWidth-2*OFFSET)),
 				(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + (x+ 1)* (screenWidth-2*OFFSET)*0.242-0.028*(screenWidth-2*OFFSET)),
 				(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-(y+1))*(screenWidth-2*OFFSET)*0.242)));
-		tileBitmap = currentState.getTileAtPos(x,y).getDisplay();
+		tileBitmap = currentTile.getDisplay();
 		gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
 	}
 
@@ -197,8 +199,12 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
 
 	/**
-	 *
-	 * @param canvas
+	 *This method was our biggest problem, we know this is probably not the optimal solution, but the best we could come up with.
+	 * The problem here is that it is pretty difficult to animate a canvas, because all the provided animations from
+	 * Android Studio only work in Views not on the Canvas itself. Therefore we couldn't use e.g the Animator class.
+	 * Also we tried to outsource the calculations below as seen above but that didn't work for some reason which we
+	 * couldn't find. We tried to figure it out, but the explanations in the internet are very poorly in that regard.
+	 * @param canvas Canvas that will be shown on the screen
 	 */
 	@Override
 	protected void onDraw(Canvas canvas) {
@@ -207,13 +213,14 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 			throw new NullPointerException("No game state to display");
 		}
 
+
 		gameCanvas.drawBitmap(gameBitmap, null, gameBackgroundRect, null);
-		for(int y = 0; y <= 3; y++) { //row
-			for(int x = 0; x <= 3;x++ ) { //column
+		for(int y = 0; y < currentState.getHEIGHT(); y++) { //rows
+			for(int x = 0; x < currentState.getWIDTH();x++ ) { //columns
 				if(currentState.getTileAtPos(x,y) != null) { // There is a tile at position(i,j) of the grid
 					if(currentState.getTileAtPos(x,y).getTilePath() != null){
 
-
+						//Animation of the single Tiles Frame by frame
 						System.out.println("Animation Frame: " + x + " " + y);
 						Rect tileRect;
 						double distance =  ((screenWidth - 2 * OFFSET) * 0.242);
@@ -249,6 +256,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
 							Tile tempTile = new Tile(currentState.getTileAtPos(x, y).getExp() - 1, context);
 							tileBitmap = tempTile.getDisplay();
+							drawTileAtpos(x,y,tempTile);
 						} else {
 
 							tileBitmap = currentState.getTileAtPos(x, y).getDisplay();
@@ -256,15 +264,10 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 						gameCanvas.drawBitmap(tileBitmap, null, tileRect, null);
 
 
-					} else if(!currentState.getTileAtPos(x,y).getNewSpawn()) {
+					} else if(!currentState.getTileAtPos(x,y).getNewSpawn()) { // draws a tile to the canvas that didn't spawn during this swipe
 
 
-						if(y < 0 || y > currentState.getHEIGHT()){
-							throw new IllegalArgumentException("row not [0," + currentState.getHEIGHT() + "]");
-						}
-						if(x < 0 || x > currentState.getWIDTH()){
-							throw new IllegalArgumentException("column not [0," + currentState.getWIDTH() + "]");
-						}
+
 						Rect tileRect = new Rect((int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + x* (screenWidth-2*OFFSET)*0.242),
 								(int) (screenHeight- OFFSET -0.03*(screenWidth-2*OFFSET)- ((4-y)*(screenWidth-2*OFFSET)*0.242)+0.028*(screenWidth-2*OFFSET)),
 								(int) (OFFSET+ 0.03*(screenWidth-2*OFFSET) + (x+ 1)* (screenWidth-2*OFFSET)*0.242-0.028*(screenWidth-2*OFFSET)),
@@ -279,7 +282,8 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 		}
 		System.out.println("Factor: "+ factor);
 		if(factor < 1) {
-			factor += 0.5;
+			factor += ANIMATION_SPEED;
+			factor = (double) Math.round(factor*ROUNDING_ERROR_OFFSET)/ROUNDING_ERROR_OFFSET;
 			invalidate();
 		} else{
 			factor = 0;
