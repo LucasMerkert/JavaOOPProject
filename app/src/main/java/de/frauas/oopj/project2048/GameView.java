@@ -237,24 +237,13 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
 						//new position during animation
 						if (currentState.getTileAtPos(x, y).getTilePath().getX() == x) {
-							distanceToMove =  factor * distance * Math.abs(currentState.getTileAtPos(x, y).getTilePath().getY() - y);
-							//down
-							if (currentState.getTileAtPos(x, y).getTilePath().getY() > y) {
-								tileRect = new Rect((int) left, (int) (top - distanceToMove), (int)right, (int) (bottom - distanceToMove));
+							distanceToMove =  factor * distance * (currentState.getTileAtPos(x, y).getTilePath().getY() - y);
+							tileRect = new Rect((int) left, (int) (top - distanceToMove), (int)right, (int) (bottom - distanceToMove));
 
-							} else {//up
-								tileRect = new Rect((int) left, (int) (top + distanceToMove), (int)right, (int) (bottom + distanceToMove));
-							}
 						} else if (currentState.getTileAtPos(x, y).getTilePath().getY() == y) {
-							distanceToMove =  factor * distance * Math.abs(currentState.getTileAtPos(x, y).getTilePath().getX() - x);
-							//left
-							if (currentState.getTileAtPos(x, y).getTilePath().getX() > x) {
-								tileRect = new Rect((int) (left- distanceToMove), (int) top, (int) (right -distanceToMove), (int) bottom);
+							distanceToMove =  factor * distance * (currentState.getTileAtPos(x, y).getTilePath().getX() - x);
+							tileRect = new Rect((int) (left- distanceToMove), (int) top, (int) (right -distanceToMove), (int) bottom);
 
-							} else {//right
-								tileRect = new Rect((int) (left+ distanceToMove), (int) top, (int) (right +distanceToMove), (int) bottom);
-
-							}
 						} else {
 							throw new IllegalArgumentException("Tile was not moved");
 						}
