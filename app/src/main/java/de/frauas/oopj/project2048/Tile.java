@@ -8,8 +8,7 @@ import android.graphics.Canvas;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * class to construct, upgrade, getValue, getExp Tiles and to get the corresponding picture of each tile,
- *
+ * Tile class for use on Grid, Tiles are moved on the screen
  * @author Tarik, Friedrich, Ana, Lucas
  */
 public class Tile {
@@ -20,9 +19,9 @@ public class Tile {
 	private boolean newSpawn;
 
 	/**
-	 * Constructor for tile object,
-	 * @param exp = Exponent
-	 *        value = 2^exp
+	 * Constructor for tile object
+	 * @param exp Exponent
+	 * @param context activity context
 	 */
 	public Tile(int exp, Context context){
 		if(exp < 0 || exp >= 17 )
@@ -35,7 +34,7 @@ public class Tile {
 	}
 
 	/**
-	 * Assigns the according bitmap to the value of a tile
+	 * Sets the tile bitmap according to the tile exponent (exp)
 	 */
 	private void setDisplay() {
 		switch(exp) {
@@ -93,7 +92,7 @@ public class Tile {
 	}
 
 	/**
-	 * increments the exp of tile
+	 * increments the exp of tile and updates bitmap
 	 */
 	public void upgrade(){
 		exp++;
@@ -110,7 +109,7 @@ public class Tile {
 
 	/**
 	 * Getter for Tile exp
-	 * @return value of Tile
+	 * @return exponent of Tile
 	 */
 	public int getExp() {
 		return exp;
@@ -121,26 +120,30 @@ public class Tile {
 	 * @return Bitmap of the Tile
 	 */
 	public Bitmap getDisplay(){
-		return this.display;
+		return display;
 	}
 
 
 	/**
 	 * Getter to check if the tile is newly spawned
-	 * @return boolean if tile is newly spawned
+	 * @return boolean flag true if tile is newly spawned
 	 */
 	public boolean getNewSpawn(){
-		return this.newSpawn;
+		return newSpawn;
 	}
 
 	/**
-	 * Method to set the old location of a tile after a swipe
-	 * @param x old x coordinate or column
-	 * @param y old y coordinate or row
-	 * @param merge if the tile was merge = true or swiped = false
+	 * Method to set and remember the previous location of a tile after a swipe
+	 * @param x previous x coordinate or column
+	 * @param y previous y coordinate or row
+	 * @param merge true if the tile was merged, false if not
 	 */
 	public void setPath(int x, int y, boolean merge){
-		tilePath = new TilePath( x,  y,  merge, context);
+		if (x < 0 || x >= 4)
+			throw new IllegalArgumentException("Wenn das hier ploppt hatte Ana recht lolololol x: " + x);
+		else if (y < 0 || y >= 4)
+			throw new IllegalArgumentException("Wenn das hier ploppt hatte Ana recht lolololol y: " + y);
+		tilePath = new TilePath(x,  y,  merge, context);
 	}
 
 	/**
@@ -151,14 +154,17 @@ public class Tile {
 	}
 
 	/**
-	 * Getter for the Path of a tile
-	 * @return Path of a Tile
+	 * Getter for the tilePath
+	 * @return tilePath
 	 */
 	public TilePath getTilePath() {
-		return this.tilePath;
+		return tilePath;
 	}
 
-
+	/**
+	 * sets new spawn flag
+	 * @param newSpawn flag true if tile is newly spawned
+	 */
 	public void setNewSpawn(boolean newSpawn){
 		this.newSpawn = newSpawn;
 	}

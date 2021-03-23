@@ -6,6 +6,7 @@ import android.media.SoundPool;
 
 /**
  * class to load in sounds and the methods to play those sounds
+ * @author tarik, ana, lucas, friedrich
  */
 public class SoundPlayer {
 	private static SoundPool soundPool;
@@ -17,7 +18,6 @@ public class SoundPlayer {
 	 * @param context context of android activity
 	 */
 	public SoundPlayer(Context context) {
-		//public SoundPool (int maxStreams, int streamType, int srcQuality)
 		soundPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
 		wooshSound = soundPool.load(context, R.raw.woosh, 1);
 		gameoverSound = soundPool.load(context, R.raw.gameover, 1);

@@ -2,6 +2,7 @@ package de.frauas.oopj.project2048;
 
 /**
  * Direction enum for use in Grid class.
+ * @author ana, lucas, tarik, friedrich
  */
 enum Direction{
 	UP(1),

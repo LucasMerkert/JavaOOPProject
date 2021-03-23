@@ -23,10 +23,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	private static final int WIDTH = 4;
 	private static final int HEIGHT = 4;
 
+	private static SoundPlayer sound;
+	private static GestureDetector gestureDetector;
+
 	private Grid gameGrid;
 	private float x1, y1;	//Gesture Detector Coords
-	private GestureDetector gestureDetector;
-	private SoundPlayer sound;
 	private GameView gameView;
 	private TextView inGameScoreText;
 
@@ -62,15 +63,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		_restart.setOnClickListener(v -> {
 			restartGame();
 		});
-
-
-		/*
-		final Button temp_loose = findViewById(R.id.temp_loose);
-		temp_loose.setOnClickListener(v -> {
-			looseGame(gameGrid.getScore());
-		});
-
-		 */
 	}
 
 	/**
@@ -78,7 +70,6 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	 * Calls gameView to update the canvas, checks for loosing condition and updates the current score
 	 */
 	private void updateCanvas() {
-
 		gameView.setCurrentState(gameGrid);
 		Log.d("GameCanvas", "invalidate");
 		gameView.invalidate();

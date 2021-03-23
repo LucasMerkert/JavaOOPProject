@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * Loose Activity for GameOver screen
+ * @author friedrich, tarik, ana, lucas
+ */
 public class LooseActivity extends AppCompatActivity {
-
-	int score, highscore;
 
 	/**
 	 * onCreate for the loose activity
-	 * @param savedInstanceState
+	 * @param savedInstanceState passed on from android environment
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +23,8 @@ public class LooseActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_loose);
 		Intent _intent = getIntent();
 
-		this.score = _intent.getIntExtra("score", -1);
-		this.highscore = _intent.getIntExtra("high score", -1);
+		int score = _intent.getIntExtra("score", -1);
+		int highscore = _intent.getIntExtra("high score", -1);
 
 		TextView scoreTextField = findViewById(R.id.scoreText);
 		TextView highScoreTextField = findViewById(R.id.highScoreText);
