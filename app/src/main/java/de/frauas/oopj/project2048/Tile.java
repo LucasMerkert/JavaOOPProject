@@ -140,9 +140,9 @@ public class Tile {
 	 */
 	public void setPath(int x, int y, boolean merge){
 		if (x < 0 || x >= 4)
-			throw new IllegalArgumentException("Wenn das hier ploppt hatte Ana recht lolololol x: " + x);
+			throw new IllegalArgumentException("x coordinate out of bounds");
 		else if (y < 0 || y >= 4)
-			throw new IllegalArgumentException("Wenn das hier ploppt hatte Ana recht lolololol y: " + y);
+			throw new IllegalArgumentException("y coordinate out of bounds");
 		tilePath = new TilePath(x,  y,  merge, context);
 	}
 
