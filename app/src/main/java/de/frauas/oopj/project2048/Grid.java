@@ -4,13 +4,17 @@ import android.content.Context;
 
 import java.util.Random;
 
+import static android.icu.lang.UProperty.MATH;
 import static de.frauas.oopj.project2048.Direction.*;
 
 /**
- * The Grid class is where all the logical tings happen on the grid.
+ * The Grid maintains the logical functioning of the game
  * @author Tarik, Friedrich, Ana, Lucas
  */
 public class Grid {
+
+	private static final int MIN_SPAWN_FOUR_SCORE = 1000;
+
 	private final Tile[][] matrix;
 	private final int WIDTH;
 	private final int HEIGHT;
@@ -22,8 +26,8 @@ public class Grid {
 	public Context context;
 
 	/**
-	 * Contructor for Grid object, the main playing field. The top-left corner of the grid is [0][0],
-	 * the one to the right of it [1][0]; the one below [0][1]
+	 * Constructor for Grid object, the main playing field. The top-left corner of the grid is [0][0] ([column][row]),
+	 * bottom-right: [3][3],
 	 * @param context of your current android activity
 	 */
 	public Grid( Context context) {
@@ -64,9 +68,7 @@ public class Grid {
 		change = false;
         for(int column = 0; column< WIDTH; column++) {
             pivotTile = 0;
-            //System.out.print("Neue Zeile\n");
             for(int row = 1; row < HEIGHT; row++) {
-				//printPosition(row, column, pivotTile, UP);
                 //current tile is empty; nothing to do
                 if (matrix[column][row] != null) {
 					//pivotTile is empty; current tile is slid to pivotTile
@@ -85,7 +87,6 @@ public class Grid {
 				}
             }
         }
-		//animation
 		checkSpawnNewTile();
 		return change;
 	}
@@ -99,9 +100,7 @@ public class Grid {
 		change = false;
         for(int column = 0; column< WIDTH; column++) {
             pivotTile = HEIGHT - 1;
-            //System.out.print("Neue Zeile\n");
             for(int row = HEIGHT - 2; row > -1; row--) {
-				//printPosition(row, column, pivotTile, DOWN);
                 //current tile is empty; nothing to do
                 if (matrix[column][row] != null) {
 					//pivotTile is empty; current tile is slid to pivotTile
@@ -120,7 +119,6 @@ public class Grid {
 				}
             }
         }
-        //animation
 		checkSpawnNewTile();
 		return change;
 	}
@@ -134,9 +132,7 @@ public class Grid {
 		change = false;
         for(int row = 0; row< HEIGHT; row++) {
             pivotTile = 0;
-            //System.out.print("Neue Spalte\n");
             for(int column = 1; column < WIDTH; column++) {
-				//printPosition(row, column, pivotTile, LEFT);
                 //current tile is empty; nothing to do
                 if (matrix[column][row] != null) {
 					//pivotTile is empty; current tile is slid to pivotTile
@@ -155,7 +151,6 @@ public class Grid {
 				}
             }
         }
-        //animation
 		checkSpawnNewTile();
 		return change;
 	}
@@ -169,9 +164,7 @@ public class Grid {
 		change = false;
 		for(int row = 0; row< HEIGHT; row++) {
 			pivotTile = WIDTH - 1;
-            //System.out.print("Neue Spalte\n");
 			for(int column = WIDTH - 2; column > -1; column--) {
-				//printPosition(row, column, pivotTile, RIGHT);
 				//current tile is empty; nothing to do
 				if (matrix[column][row] != null) {
 					//pivotTile is empty; current tile is slid to pivotTile
@@ -190,7 +183,6 @@ public class Grid {
 				}
 			}
 		}
-		//animation
 		checkSpawnNewTile();
 		return change;
 	}
@@ -264,6 +256,7 @@ public class Grid {
 			throw new IllegalArgumentException("pivotTile not [0," + WIDTH + "]");
 		}
 
+		//determine swipe direction and move the Tile respectively
 		if(typ == DOWN || typ == UP){
 			if(matrix[column][pivotTile] == null){
 				System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile) + ")");
@@ -293,7 +286,7 @@ public class Grid {
 
 
 	/**
-	 * merges matrix[column][row] -> matrix[column][pivotTile], triggers animation
+	 * merges two Tile and upgrade exponent
 	 * @param column is the column of the merging tile
 	 * @param row is the row of the merging tile
 	 * @param pivotTile is the position of the new merged tile
@@ -312,6 +305,7 @@ public class Grid {
 			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
 		}
 
+		//determine swipe direction and merge tiles
 		if(typ == DOWN || typ == UP){
 			matrix[column][pivotTile].setPath(column, row, true);
 			System.out.println("Tile at (" + column +  "," + row + ") is merged with (" + column + "," + pivotTile + ")\n");
@@ -331,7 +325,7 @@ public class Grid {
 	}
 
 	/**
-	 * deletes matrix[column][row] tile and lowersTileCount if wanted
+	 * deletes matrix[column][row] tile and lowers TileCount if needed
 	 *
 	 * @param column is the column of Tile which should be deleted
 	 * @param row is the row of Tile which should be deleted
@@ -348,7 +342,6 @@ public class Grid {
 		if(lowerTileCount) tileCount--;
 	}
 
-//spawn new tiles with value = 4? when? how?
 	/**
 	 * Spawn 1 Tile with the value 2 or 4 and if tileCount == 16 checks if swipePossible
 	 *
@@ -357,7 +350,7 @@ public class Grid {
 	 * @return true if successfully spawned the tiles; false when no more sliding possible
 	 */
 	private boolean spawnNewTile() {
-		int r_randomSpace, i= 0;
+		int r_randomSpace, i= 0, exp = 1;
 		// generate dice in order to get random number
 		Random dice = new Random();
 		//select random value from range [0, 16 - tileCount++)
@@ -366,7 +359,16 @@ public class Grid {
 			for (int row = 0; row < HEIGHT; row++) {
 				if (matrix[column][row] == null) {
 					if (i == r_randomSpace) {
-						matrix[column][row] = new Tile(1, context);
+
+						//Spawns also Tiles with value 4 if Score is high enough
+						if(currentScore > MIN_SPAWN_FOUR_SCORE){
+							Random dice4 = new Random();
+							int r_randomSpaceFour = dice4.nextInt(100);
+							if(r_randomSpaceFour <= 20) {
+								exp = 2;
+							}
+						}
+						matrix[column][row] = new Tile(exp, context);
 						System.out.println("New tile spawned at (" + column + "," + row + ")");
 					}
 					i++;
@@ -388,13 +390,11 @@ public class Grid {
 	private boolean swipePossible() {
 		for(int column = 0; column < WIDTH; column++) {
 			for(int row = 0; row < HEIGHT-1; row++){
-				//System.out.print("AUSGABE NR 1 CurrentTile = (" + row + "/" + column + ") and otherTile = (" + (row+1) + "/" + column + ")\n");
 				if(matrix[column][row].getExp() == matrix[column][row+1].getExp()) return true;
 			}
 		}
 		for(int row = 0; row < HEIGHT; row++) {
 			for(int column = 0; column < WIDTH-1; column++){
-				//System.out.print("AUSGABE NR 2 CurrentTile = (" + row + "/" + column + ") and otherTile = (" + row + "/" + (column+1) + ")\n");
 				if(matrix[column][row].getExp() == matrix[column+1][row].getExp()) return true;
 			}
 		}
@@ -418,7 +418,7 @@ public class Grid {
 	}
 
 	/**
-	 *
+	 *Getter for the value of a tile at [x][y]
 	 * @param x column of a Value in the grid matrix
 	 * @param y row of a Value in the grid matrix
 	 * @return returns value of the tile in matrix [x][y] = [column][row]
@@ -427,7 +427,7 @@ public class Grid {
 		if(y < 0 || y > HEIGHT){
 			throw new IllegalArgumentException("row not [0," + HEIGHT + "]");
 		}
-		if(x < 0 || y > WIDTH){
+		if(x < 0 || x > WIDTH){
 			throw new IllegalArgumentException("row not [0," + WIDTH + "]");
 		}
 		if(matrix[x][y] == null) {
@@ -438,7 +438,7 @@ public class Grid {
 	}
 
 	/**
-	 *
+	 *Getter for the Tile at position [x][y]
 	 * @param x column of a tile in the grid matrix
 	 * @param y row of a tile in the grid matrix
 	 * @return tile of matrix[x][y]
@@ -455,7 +455,7 @@ public class Grid {
 
 	/**
 	 * method to clear TilePath from every Tile in Grid
-	 * prime it for new use
+	 * Gets called in the beginning of a swipe method
 	 */
 	public void deleteTilePaths(){
 		for(int i = 0; i < WIDTH; i++){
