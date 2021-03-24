@@ -1,7 +1,7 @@
 Locate/Build APK
 
 To build the APK, follow BUILD.txt instruction
-Otherwise, an already built APK is located in ~/app/release/app-release.apk
+Otherwise, an already built APK is located in ./app/release/app-release.apk
 
 1. Move APK to android environment
 	a. Connect your android device to your computer

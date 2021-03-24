@@ -1,5 +1,3 @@
-English:
-
 Requirements:
  - git (to clone from repository)
  - Android Studio
