@@ -1,6 +1,7 @@
 package de.frauas.oopj.project2048;
 
 import android.content.Context;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
@@ -12,13 +13,14 @@ public class SoundPlayer {
 	private static SoundPool soundPool;
 	private static int wooshSound;
 	private static int gameoverSound;
+	private static int maxStreams = 2;
 
 	/**
 	 * SoundPlayer class constructor
 	 * @param context context of android activity
 	 */
 	public SoundPlayer(Context context) {
-		soundPool = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
+		soundPool = new SoundPool.Builder().setMaxStreams(maxStreams).build();
 		wooshSound = soundPool.load(context, R.raw.woosh, 1);
 		gameoverSound = soundPool.load(context, R.raw.gameover, 1);
 	}
