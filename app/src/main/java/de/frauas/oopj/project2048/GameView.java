@@ -38,7 +38,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	private Grid currentState;
 
 	/**
-	 * Constructor foe custom View to display game
+	 * Constructor for custom View to display game
 	 * @param context application context
 	 * @param attributesSet passed on by android environment
 	 */
@@ -170,7 +170,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	/**
 	 * Draws grid on the canvas
 	 */
-	public void drawGridOnCanvas(){
+	private void drawGridOnCanvas(){
 		if(currentState == null) {
 			throw new NullPointerException("No game state to display");
 		}
@@ -189,7 +189,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	 * @param x column coordinate of the tile
 	 * @param y row coordinate of the tile
 	 */
-	public void drawTileAtpos(int x, int y, Tile currentTile) {
+	private void drawTileAtpos(int x, int y, Tile currentTile) {
 		if(y < 0 || y > currentState.getHEIGHT()){
 			throw new IllegalArgumentException("row not [0," + currentState.getHEIGHT() + "]");
 		}
