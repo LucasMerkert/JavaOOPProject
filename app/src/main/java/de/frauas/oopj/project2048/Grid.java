@@ -263,7 +263,6 @@ public class Grid {
 				matrix[column][pivotTile] = matrix[column][row];
 			}else{
 				System.out.println("Tile at (" + column +  "," + row + ") is moved to (" + column + "," + (pivotTile + typ.value()) + ")");
-
 				matrix[column][pivotTile + typ.value()] = matrix[column][row];
 				pivotTile += typ.value();
 			}
