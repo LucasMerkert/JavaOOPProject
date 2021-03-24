@@ -55,7 +55,8 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	private void setupPaint() {
 
 		backgroundColor = new Paint();
-		backgroundColor.setARGB(200, 175,246,200);	//Mint Green
+		//backgroundColor.setARGB(200, 175,246,200);	//Mint Green
+		backgroundColor.setColor(R.attr.colorPrimaryVariant);
 
 	}
 
