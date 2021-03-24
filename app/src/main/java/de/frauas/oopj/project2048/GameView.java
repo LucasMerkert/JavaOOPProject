@@ -242,7 +242,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 
 						} else if (currentState.getTileAtPos(x, y).getTilePath().getY() == y) {
 							distanceToMove =  factor * distance * (currentState.getTileAtPos(x, y).getTilePath().getX() - x);
-							tileRect = new Rect((int) (left- distanceToMove), (int) top, (int) (right -distanceToMove), (int) bottom);
+							tileRect = new Rect((int) (left - distanceToMove), (int) top, (int) (right - distanceToMove), (int) bottom);
 
 						} else {
 							throw new IllegalArgumentException("Tile was not moved");
