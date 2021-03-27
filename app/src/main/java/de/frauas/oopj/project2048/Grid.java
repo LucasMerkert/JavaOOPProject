@@ -23,7 +23,7 @@ public class Grid {
 	private boolean change = false;
 	private static int pivotTile;
 	private boolean looseFlag = false;
-	public Context context;
+	private Context context;
 
 	/**
 	 * Constructor for Grid object, the main playing field. The top-left corner of the grid is [0][0] ([column][row]),
