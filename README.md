@@ -65,3 +65,6 @@ You can either connect your android device to your computer or move the APK to a
 
 ## Known issues
 As we are not a verified developer team. You may recieve multiple warnings as you install the app on your android device. You can ignore all warnings without concern.
+
+## Outside Contributors
+Graphics (Textures): Niklas Kuntz, Zhimin Schenk
