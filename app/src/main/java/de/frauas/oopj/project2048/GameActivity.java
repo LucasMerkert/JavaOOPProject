@@ -51,7 +51,9 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 
 		sound = new SoundPlayer(this);
 
-		gameGrid = new Grid(this);
+		Intent temp = getIntent();
+
+		gameGrid = new Grid(this, temp.getBooleanExtra("useBaseThree", false));
 
 		//Initial State of the game displayed on screen
 		updateCanvas();
@@ -115,7 +117,8 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 	 */
 	private void restartGame() {
 		gameView.initCanvas();
-		gameGrid = new Grid( this);
+		Intent temp = getIntent();
+		gameGrid = new Grid( this,temp.getBooleanExtra("useBaseThree", false));
 		updateCanvas();
 	}
 
