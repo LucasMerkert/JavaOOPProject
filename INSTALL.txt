@@ -1,3 +1,6 @@
+Requirements:
+ - Android 5.0 or higher
+
 Locate/Build APK
 
 To build the APK, follow BUILD.txt instruction

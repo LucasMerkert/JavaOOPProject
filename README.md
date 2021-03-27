@@ -2,11 +2,15 @@
 Java OOP Project Ws20/21
 Made by Lucas Merkert, Ana Erlenkötter, Friedrich Just, and Tarik Hammad.
 
+## Introduction
+This is a small game to play on an android device. There are tiles on a grid, and as you slide the tiles around the grid, their value increases. Once you can no longer slide any tiles, the game is over. 
+
 ## How to Build
 
 ### Requirements:
  - git (to clone from repository)
  - Android Studio
+ - Android 5.0 or higher
 
 ### Step 1: Clone project and open in Android Studio
 
@@ -58,3 +62,6 @@ You can either connect your android device to your computer or move the APK to a
 3. Ingore security warning from Play Protect
 4. Do not upload app for security review by Play Protect
 5. The app is now installing. This may take a while.
+
+## Known issues
+As we are not a verified developer team. You may recieve multiple warnings as you install the app on your android device. You can ignore all warnings without concern.
