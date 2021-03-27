@@ -23,14 +23,15 @@ public class Grid {
 	private boolean change = false;
 	private static int pivotTile;
 	private boolean looseFlag = false;
-	public Context context;
+	private Context context;
+	private boolean useBaseThree;
 
 	/**
 	 * Constructor for Grid object, the main playing field. The top-left corner of the grid is [0][0] ([column][row]),
 	 * bottom-right: [3][3],
 	 * @param context of your current android activity
 	 */
-	public Grid( Context context) {
+	public Grid( Context context, boolean useBaseThree) {
 		Application2048 app = (Application2048) context.getApplicationContext();
 		this.WIDTH = app.getWidth();
 		this.HEIGHT = app.getHeight();
@@ -46,6 +47,7 @@ public class Grid {
 
 		this.context = context;
 		this.tileCount = 0;
+		this.useBaseThree = useBaseThree;
 		matrix = new Tile[WIDTH][HEIGHT];
 		initSpawn();
 	}
@@ -367,7 +369,7 @@ public class Grid {
 								exp = 2;
 							}
 						}
-						matrix[column][row] = new Tile(exp, context);
+						matrix[column][row] = new Tile(exp, context, useBaseThree);
 						System.out.println("New tile spawned at (" + column + "," + row + ")");
 					}
 					i++;
@@ -480,6 +482,12 @@ public class Grid {
 	 * @return int value of WIDTH
 	 */
 	public int getWIDTH() { return WIDTH;}
+
+	/**
+	 * getter for useBaseThree flag
+	 * @return boolean value indicating to use base three or base two
+	 */
+	public boolean getUseBaseThree() { return useBaseThree;}
 
 }
 

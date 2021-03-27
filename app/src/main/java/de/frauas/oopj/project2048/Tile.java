@@ -17,77 +17,135 @@ public class Tile {
 	private Context context;
 	private TilePath tilePath;
 	private boolean newSpawn;
+	private boolean useBaseThree;
 
 	/**
 	 * Constructor for tile object
 	 * @param exp Exponent
 	 * @param context activity context
+	 * @param useBaseThree indicates if base of exponent is three
 	 */
-	public Tile(int exp, Context context){
+	public Tile(int exp, Context context, boolean useBaseThree){
 		if(exp < 0 || exp >= 17 )
 			throw new IllegalArgumentException("Tile is a negative exponent or to big to to be displayed ");
 		this.context = context;
 		this.tilePath = null;
 		this.exp = exp;
-		setDisplay();
 		this.newSpawn = true;
+		this.useBaseThree = useBaseThree;
+		setDisplay();
 	}
 
 	/**
 	 * Sets the tile bitmap according to the tile exponent (exp)
 	 */
 	private void setDisplay() {
-		switch(exp) {
-			case 1:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_2);
-				break;
-			case 2:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_4);
-				break;
-			case 3:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_8);
-				break;
-			case 4:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_16);
-				break;
-			case 5:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_32);
-				break;
-			case 6:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_64);
-				break;
-			case 7:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_128);
-				break;
-			case 8:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_256);
-				break;
-			case 9:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_512);
-				break;
-			case 10:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_1024);
-				break;
-			case 11:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_2048);
-				break;
-			case 12:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_4096);
-				break;
-			case 13:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_8192);
-				break;
-			case 14:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_16384);
-				break;
-			case 15:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_32768);
-				break;
-			case 16:
-				display = BitmapFactory.decodeResource(context.getResources(),R.drawable.tile_65536);
-				break;
-			default:
-				throw new IllegalArgumentException("Exponent of Tile to high");
+		if(useBaseThree){
+			switch (exp) {
+				case 1:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_2);
+					break;
+				case 2:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_4);
+					break;
+				case 3:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_8);
+					break;
+				case 4:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_16);
+					break;
+				case 5:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_32);
+					break;
+				case 6:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_64);
+					break;
+				case 7:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_128);
+					break;
+				case 8:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_256);
+					break;
+				case 9:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_512);
+					break;
+				case 10:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_1024);
+					break;
+				case 11:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_2048);
+					break;
+				case 12:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_4096);
+					break;
+				case 13:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_8192);
+					break;
+				case 14:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_16384);
+					break;
+				case 15:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_32768);
+					break;
+				case 16:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_65536);
+					break;
+				default:
+					throw new IllegalArgumentException("Exponent of Tile to high");
+			}
+		} else {
+			switch (exp) {
+				case 1:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_2);
+					break;
+				case 2:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_4);
+					break;
+				case 3:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_8);
+					break;
+				case 4:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_16);
+					break;
+				case 5:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_32);
+					break;
+				case 6:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_64);
+					break;
+				case 7:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_128);
+					break;
+				case 8:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_256);
+					break;
+				case 9:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_512);
+					break;
+				case 10:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_1024);
+					break;
+				case 11:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_2048);
+					break;
+				case 12:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_4096);
+					break;
+				case 13:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_8192);
+					break;
+				case 14:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_16384);
+					break;
+				case 15:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_32768);
+					break;
+				case 16:
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_65536);
+					break;
+				default:
+					throw new IllegalArgumentException("Exponent of Tile to high");
+			}
 		}
 	}
 
@@ -100,11 +158,15 @@ public class Tile {
 	}
 
 	/**
-	 * Getter for Tile value
+	 * Getter for Tile value depending on it's base
 	 * @return value of Tile
 	 */
 	public int getValue() {
-		return (int) Math.pow(2, exp);
+		if(useBaseThree){
+			return (int) Math.pow(3, exp);
+		}else {
+			return (int) Math.pow(2, exp);
+		}
 	}
 
 	/**

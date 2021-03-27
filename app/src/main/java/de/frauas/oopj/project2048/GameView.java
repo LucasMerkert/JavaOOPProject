@@ -249,7 +249,7 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 						}
 						if (currentState.getTileAtPos(x, y).getTilePath().getMerge()) {
 
-							Tile tempTile = new Tile(currentState.getTileAtPos(x, y).getExp() - 1, context);
+							Tile tempTile = new Tile(currentState.getTileAtPos(x, y).getExp() - 1, context, currentState.getUseBaseThree());
 							tileBitmap = tempTile.getDisplay();
 							drawTileAtpos(x,y,tempTile);
 						} else {
