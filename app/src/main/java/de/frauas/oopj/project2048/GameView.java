@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import java.util.LinkedList;
 
 
@@ -44,19 +46,8 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	 */
 	public GameView(Context context, AttributeSet attributesSet) {
 		super(context, attributesSet);
-		setupPaint();
 		this.context = context;
 		factor = 0;
-	}
-
-	/**
-	 * initial definition for the background color
-	 */
-	private void setupPaint() {
-
-		backgroundColor = new Paint();
-		backgroundColor.setARGB(200, 175,246,200);	//Mint Green
-
 	}
 
 	/**
@@ -72,17 +63,12 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 		screenHeight = size.y;
 
 		Log.d("GameView", screenWidth + " " + screenHeight);
-		Log.d("GameView", "drawing Rect");
+
 
 		//associate bitmap with canvas with screen size
 		Bitmap backgroundBitmap = Bitmap.createBitmap(screenWidth, screenHeight, Bitmap.Config.ARGB_8888);
 		this.setImageBitmap(backgroundBitmap);
 		gameCanvas = new Canvas(backgroundBitmap);
-
-		//define rectangle to draw the background color on
-		Rect rectangle = new Rect(0,0, screenWidth,screenHeight);
-		gameCanvas.drawRect(rectangle, backgroundColor);
-		Log.d("GameView", "drew Rect");
 
 		//draw Game Background onto screen
 		gameBackgroundRect = new Rect(OFFSET,screenHeight-screenWidth+OFFSET,screenWidth - OFFSET,screenHeight- OFFSET);

@@ -10,7 +10,7 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="false"
 		android:theme="@style/Theme.JavaOOPProject">
-		<activity android:name=".LooseActivity"></activity>
+		<activity android:name=".LooseActivity" />
 		<activity android:name=".GameActivity" />
 		<activity android:name=".MainActivity">
 			<intent-filter>
