@@ -65,6 +65,11 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		_restart.setOnClickListener(v -> {
 			restartGame();
 		});
+
+		final Button _backToMenu = findViewById(R.id.backToMenuBtn);
+		_backToMenu.setOnClickListener(v -> {
+			startMainActivity();
+		});
 	}
 
 	/**
@@ -120,6 +125,15 @@ public class GameActivity extends AppCompatActivity implements GestureDetector.O
 		Intent temp = getIntent();
 		gameGrid = new Grid( this,temp.getBooleanExtra("useBaseThree", false));
 		updateCanvas();
+	}
+
+	/**
+	 * Called by Back to Menu Button
+	 * Redirect back to Main Menu
+	 */
+	private void startMainActivity() {
+		Intent MainActivity = new Intent(this, MainActivity.class);
+		startActivity(MainActivity);
 	}
 
 	/**

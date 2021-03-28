@@ -8,4 +8,5 @@
 	<string name="emptyString" />
 	<string name="start4x4base3game">Start 4x4 Base 3 Game</string>
 	<string name="start4x4Base2Game">Start 4x4 Base 2 Game</string>
+	<string name="BackToMenu">Back To Menu</string>
 </resources>
