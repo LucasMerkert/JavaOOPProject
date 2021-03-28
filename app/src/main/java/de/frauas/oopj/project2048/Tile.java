@@ -31,6 +31,7 @@ public class Tile {
 		this.context = context;
 		this.tilePath = null;
 		this.exp = exp;
+		setDisplay();
 		this.newSpawn = true;
 		this.useBaseThree = useBaseThree;
 		setDisplay();
@@ -43,52 +44,52 @@ public class Tile {
 		if(useBaseThree){
 			switch (exp) {
 				case 1:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_2);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_3_3x3);
 					break;
 				case 2:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_4);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_9_3x3);
 					break;
 				case 3:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_8);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_27_3x3);
 					break;
 				case 4:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_16);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_81_3x3);
 					break;
 				case 5:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_32);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_243_3x3);
 					break;
 				case 6:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_64);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_729_3x3);
 					break;
 				case 7:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_128);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_2187_3x3);
 					break;
 				case 8:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_256);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_6561_3x3);
 					break;
 				case 9:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_512);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_19683_3x3);
 					break;
 				case 10:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_1024);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_59049_3x3);
 					break;
 				case 11:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_2048);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_177147_3x33);
 					break;
 				case 12:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_4096);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_531441_3x3);
 					break;
 				case 13:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_8192);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_4782969_3x3);
 					break;
 				case 14:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_16384);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_14348907_3x3);
 					break;
 				case 15:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_32768);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_43046721_3x3);
 					break;
 				case 16:
-					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.tile_65536);
+					display = BitmapFactory.decodeResource(context.getResources(), R.drawable.atile_129140163_3x3);
 					break;
 				default:
 					throw new IllegalArgumentException("Exponent of Tile to high");
