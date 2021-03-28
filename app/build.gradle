@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "de.frauas.oopj.project2048"
-        minSdkVersion 21
+        minSdkVersion defaultMinSdkVersion
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"

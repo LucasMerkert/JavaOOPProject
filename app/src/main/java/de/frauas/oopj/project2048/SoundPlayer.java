@@ -1,8 +1,6 @@
 package de.frauas.oopj.project2048;
 
 import android.content.Context;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.SoundPool;
 
 /**

@@ -3,9 +3,6 @@ package de.frauas.oopj.project2048;
 import android.content.Context;
 import android.util.Log;
 
-import java.util.LinkedList;
-
-
 /**
  * class to manage the Tile
  * @author ana, friedrich, tarik, lucas

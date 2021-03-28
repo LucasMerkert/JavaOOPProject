@@ -3,9 +3,6 @@ package de.frauas.oopj.project2048;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.graphics.Canvas;
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Tile class for use on Grid, Tiles are moved on the screen

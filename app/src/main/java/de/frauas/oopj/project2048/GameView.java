@@ -4,20 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-import android.widget.Button;
-
-import androidx.core.content.res.ResourcesCompat;
-
-import java.util.LinkedList;
 
 
 /**
@@ -30,7 +22,6 @@ public class GameView extends androidx.appcompat.widget.AppCompatImageView {
 	private static final double ANIMATION_SPEED = 0.1;
 	private static final int ROUNDING_ERROR_OFFSET = 100;
 
-	private Paint backgroundColor;
 	private Bitmap gameBitmap,tileBitmap;
 	private Canvas gameCanvas;
 	private int screenWidth;

@@ -4,8 +4,10 @@ import android.content.Context;
 
 import java.util.Random;
 
-import static android.icu.lang.UProperty.MATH;
-import static de.frauas.oopj.project2048.Direction.*;
+import static de.frauas.oopj.project2048.Direction.DOWN;
+import static de.frauas.oopj.project2048.Direction.LEFT;
+import static de.frauas.oopj.project2048.Direction.RIGHT;
+import static de.frauas.oopj.project2048.Direction.UP;
 
 /**
  * The Grid maintains the logical functioning of the game
